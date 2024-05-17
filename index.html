@@ -5,14 +5,14 @@
 
 		<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/UNGA.ico">
 	<style>
- 		 body {
-		  /*  transition: background-color 1s ease; */
-			text-align: center;
-		    font-family: Arial, sans-serif;
-		    font-size: 24px;
-		    padding-top: 100px;
-		  }
-	</style>
+  body {
+  /*  transition: background-color 1s ease; */
+	text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    padding-top: 100px;
+  }
+</style>
 </head>
 <body>
   <div id="dayDisplay">Day : 0 </div>
@@ -20,6 +20,8 @@
   <div id="phaseDisplay">Phase : Midnight</div>
   
   <button onclick="toggleInterval()">Pause/Resume</button>
+  <button onclick="save()">Save!</button>
+  <button onclick="load()">Load!</button>
   
   <script>
 	let day = 0;
@@ -27,14 +29,19 @@
 	const brightestTime = 840; // Set the brightest time to 14:00 (840 minutes)
 	
 	let phase = 'Midnight';
-
+	let hours = Math.floor(time / 60);
+    let minutes = time % 60;
+    let formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+	
 function updateTime() {
     time += 1;
-    const hours = Math.floor(time / 60);
-    const minutes = time % 60;
-    const formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-    document.getElementById('timeDisplay').textContent = `Time: ${formattedTime}`;
+    
+	hours = Math.floor(time / 60);
+	minutes = time % 60;
+	formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
 	
+    document.getElementById('timeDisplay').textContent = `Time: ${formattedTime}`;
+	document.getElementById('dayDisplay').textContent = `Day: ${day}`;
     
     let brightness;
     if (time < brightestTime) {
@@ -95,6 +102,28 @@ function toggleInterval(){
 	}
 }
 
+function save(){
+	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time};
+	var stringed = JSON.stringify(currentSave);
+	localStorage.setItem("currentSaveStringed", stringed)
+	console.log("Saved. " + stringed)
+}
+
+function load() {
+    // Check if 'currentSaveStringed' exists in localStorage
+    if (localStorage.getItem('currentSaveStringed')) {
+        // Retrieve the value and set it to currentSave
+        var currentSave = JSON.parse(localStorage.getItem('currentSaveStringed'));
+		
+			day = currentSave.SavedDay;
+			hours = currentSave.SavedHour;
+			minutes = currentSave.SavedMinute;
+			time = currentSave.SavedTime;
+        console.log('currentSave set to:', currentSave);
+    } else {
+        console.log('No current save found in localStorage.');
+    }
+}
 
   </script>
 </body>
