@@ -1,12 +1,101 @@
 <html>
-	<head>
+	<!--> CURRENT PROJECT IS A TIME-BASED SYSTEM OR OTHER WISE A DAY/NIGHT CYCLE<-->
+<head>
 	<title>UNGA - Powered by Aztech</title>
 
 		<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/UNGA.ico">
-	</head>
-	<body>
-		<h1>Welcome to the UngaBunga Tribe archive. Soon to be updated</h1>
+	<style>
+ 		 body {
+		  /*  transition: background-color 1s ease; */
+			text-align: center;
+		    font-family: Arial, sans-serif;
+		    font-size: 24px;
+		    padding-top: 100px;
+		  }
+	</style>
+</head>
+<body>
+  <div id="dayDisplay">Day : 0 </div>
+  <div id="timeDisplay">Time: 00:00</div>
+  <div id="phaseDisplay">Phase : Midnight</div>
+  
+  <button onclick="toggleInterval()">Pause/Resume</button>
+  
+  <script>
+	let day = 0;
+	let time = 720; // Set initial time to 12:00 (720 minutes)
+	const brightestTime = 840; // Set the brightest time to 14:00 (840 minutes)
+	
+	let phase = 'Midnight';
 
-		<h2>Officially live as of 5/17/24 12:18PM</h2>
-	</body>
+function updateTime() {
+    time += 1;
+    const hours = Math.floor(time / 60);
+    const minutes = time % 60;
+    const formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+    document.getElementById('timeDisplay').textContent = `Time: ${formattedTime}`;
+	
+    
+    let brightness;
+    if (time < brightestTime) {
+        brightness = time / brightestTime; // Brightness increases until the brightest time
+    } else {
+        brightness = 1 - (time - brightestTime) / (1440 - brightestTime); // Brightness decreases after the brightest time
+    }
+    
+    const backgroundColor = `rgb(${brightness * 255 - 30}, ${brightness * 255 - 40}, ${brightness * 255 - 20})`;
+    document.body.style.backgroundColor = backgroundColor;
+	
+	 // Calculate inverse color for text
+    const inverseColor = `rgb(${255 - (brightness * 255 - 30)}, ${255 - (brightness * 255 - 40)}, ${255 - (brightness * 255 - 20)})`;
+    document.body.style.color = inverseColor;
+    
+    if (time > 1440) {
+        time = 0;
+		day++;
+		console.log("New Day! Day : " + day );
+		document.getElementById('dayDisplay').textContent = `Day: ${day}`;
+    }
+	
+	if(time < 119){							//00:00 -> 02:00
+		phase = "Midnight";
+	}else if(time > 119 && time < 359){		//02:00 -> 06:00
+		phase = "Early Morning";
+	}else if(time > 359 && time < 539){		//06:00 -> 09:00
+		phase = "Morning";
+	}else if(time > 539 && time < 719){		//09:00 -> 12:00
+		phase = "Late Morning";
+	}else if(time > 719 && time < 779){		//12:00 -> 13:00
+		phase = "High Noon";
+	}else if(time > 779 && time < 960){		//13:00 -> 16:00
+		phase = "Afternoon";
+	}else if(time > 960 && time < 1140){	//16:00 -> 19:00
+		phase = "Late Afternoon";
+	}else if(time > 1140 && time < 1320){ 	//19:00 -> 22:00
+		phase = "Evening";
+	}else if(time > 1320){					//22:00 -> 24:00
+		phase = "Night";
+	}
+	document.getElementById("phaseDisplay").textContent = `Phase : ${phase}`
+	
+	
+	
+}
+
+
+//Function to start and stop the interval
+let tickInterval = setInterval(updateTime, 100);
+
+function toggleInterval(){
+	if(!tickInterval){
+		tickInterval = setInterval(updateTime, 100);
+	}else {
+		clearInterval(tickInterval);
+		tickInterval = null;
+	}
+}
+
+
+  </script>
+</body>
 </html>
