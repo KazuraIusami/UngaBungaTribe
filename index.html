@@ -22,6 +22,10 @@
   <button onclick="toggleInterval()">Pause/Resume</button>
   <button onclick="save()">Save!</button>
   <button onclick="load()">Load!</button>
+  <button onclick="deleteSave()">Delete Save (ALL progress will be lost)</button>
+  <br>
+  <div id="hungerDiv">Hunger : 1000</div>
+  <button onclick="hunger=hunger+50">Eat (+50 Hunger)</button>
   
   <script>
 	let day = 0;
@@ -33,8 +37,13 @@
     let minutes = time % 60;
     let formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
 	
+	//SURVIVAL STUFF
+	let hunger = 1000;
+	
+	
 function updateTime() {
     time += 1;
+	
     
 	hours = Math.floor(time / 60);
 	minutes = time % 60;
@@ -83,9 +92,17 @@ function updateTime() {
 	}else if(time > 1320){					//22:00 -> 24:00
 		phase = "Night";
 	}
-	document.getElementById("phaseDisplay").textContent = `Phase : ${phase}`
+	document.getElementById("phaseDisplay").textContent = `Phase : ${phase}`;
 	
+	hunger--;
+	let roundedHunger = Math.round(hunger / 25) * 25; // Round to nearest 25
+	document.getElementById("hungerDiv").textContent = `Hunger : ${roundedHunger}`;
 	
+	if(hunger < 0){
+		console.log("DIED! Day : " + day + " ( " + formattedTime + " )");
+		console.log("Reloading to last save")
+		load();
+	}
 	
 }
 
@@ -103,7 +120,7 @@ function toggleInterval(){
 }
 
 function save(){
-	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time};
+	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time, SavedHunger: hunger};
 	var stringed = JSON.stringify(currentSave);
 	localStorage.setItem("currentSaveStringed", stringed)
 	console.log("Saved. " + stringed)
@@ -119,10 +136,15 @@ function load() {
 			hours = currentSave.SavedHour;
 			minutes = currentSave.SavedMinute;
 			time = currentSave.SavedTime;
+			hunger = currentSave.SavedHunger;
         console.log('currentSave set to:', currentSave);
     } else {
         console.log('No current save found in localStorage.');
     }
+}
+
+function deleteSave(){
+	localStorage.clear();
 }
 
   </script>
