@@ -91,11 +91,11 @@ function updateTime() {
 
 
 //Function to start and stop the interval
-let tickInterval = setInterval(updateTime, 300);
+let tickInterval = setInterval(updateTime, 500);
 
 function toggleInterval(){
 	if(!tickInterval){
-		tickInterval = setInterval(updateTime, 300);
+		tickInterval = setInterval(updateTime, 500);
 	}else {
 		clearInterval(tickInterval);
 		tickInterval = null;
