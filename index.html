@@ -2,10 +2,6 @@
 <html>
 
 	<head>
-
-		<title>UNGA - Powered by Aztech</title>
-
-		<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/UNGA.ico">
 	<style>
 	
 		body {
@@ -421,7 +417,7 @@
 			class Entity {
 				constructor(urlFolder, x, y, size, type, name, weapon = {name: "Bare Hands", tier: 1, type: 1}){
 				this.urlFolder = urlFolder;
-				this.url = "https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/" + this.urlFolder + "/Front.gif";
+				this.url = "https://github.com/KazuraIusami/UngaBungaTribe/blob/main/" + this.urlFolder + "/Front.gif";
 				
 					
 				this.size = size; //Resolution of the sprite, width = size; height = size;
@@ -1128,11 +1124,11 @@
 										EntityList[i+1].targetedPos = {x: this.EntitiesToSpawn[i].x, y: this.EntitiesToSpawn[i].y};
 									}; 
 								
-								//If facedDirection is specified, set it to that. Otherwise, set it to Front.
+								//If facedDirection is specified, set it to that. Otherwise, set it to front.
 									if(this.EntitiesToSpawn[i].facedDirection){
 										EntityList[i+1].facedDirection = this.EntitiesToSpawn[i].facedDirection;
 									}else {
-										EntityList[i+1].facedDirection = "Front";
+										EntityList[i+1].facedDirection = "front";
 									}
 									
 								//If there is a specified inventory, set it to that. Otherwise, set it to a few gold? For now?
@@ -1196,6 +1192,7 @@
 												for(let i = 0; i < this.doorsArray.length; i++){
 													clearInterval(this.doorsArray[i]);
 												}
+												linkDoors();
 											}
 										},FRAMERATE) );
 					}
@@ -1216,7 +1213,7 @@
 					
 					inventoryToSet: [{name: "The True Wendigo Tablet", quantity: 1, conversationTree: PreLoad}],
 					
-					facedDirection: "Right",
+					facedDirection: "right",
 					linkToConversationTree: BarTalk
 					},
 					{urlFolder: "Wendigoo",
@@ -1227,7 +1224,7 @@
 					
 					inventoryToSet: [{name: "Chain of Wendigo", quantity: 1, conversationTree: wendigosChainTree}, {name: "Letter from Mrs. Wendigo", quantity: 1, conversationTree: IronicLetter}],
 					
-					facedDirection: "Back",
+					facedDirection: "back",
 					linkToConversationTree: PreLoad,
 					weapon: {name: "Bone Gloves", tier: 3, type: 1}
 					},
@@ -1237,7 +1234,7 @@
 					type:"NPC",
 					name:"Beer",
 					
-					facedDirection: "Front",
+					facedDirection: "front",
 					linkToConversationTree: BeerTalk,
 					weapon: {name: "Damn this bottle got hands", tier: 1, type: 1}
 					},
@@ -1247,7 +1244,7 @@
 					type:"NPC",
 					name:"Whisky",
 					
-					facedDirection: "Front",
+					facedDirection: "front",
 					linkToConversationTree: WhiskyTalk
 					},
 					{urlFolder: "Wine",
@@ -1256,7 +1253,7 @@
 					type:"NPC",
 					name:"Wine",
 					
-					facedDirection: "Front",
+					facedDirection: "front",
 					linkToConversationTree: WineTalk
 					},
 					{urlFolder: "Rum",
@@ -1265,7 +1262,7 @@
 					type:"NPC",
 					name:"Rum",
 					
-					facedDirection: "Front",
+					facedDirection: "front",
 					linkToConversationTree: RumTalk
 					},
 			];
