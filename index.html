@@ -328,7 +328,7 @@
 		let AceOfSpades = {
 			name: "Ace of Spades",
 			start: {
-				text: "<img src='ACE SPADES.PNG' width='200px' height='300px'></img>",
+				text: "<img src='https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/ACE%20SPADES.PNG' width='200px' height='300px'></img>",
 				options: []
 			}
 		}
@@ -1274,7 +1274,7 @@
 			];
 										
 			let BarRoom = new room(
-										"THEBAR.png", 							//BACKGROUND IMAGE
+										"https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/THEBAR.png", 							//BACKGROUND IMAGE
 										{xMax: 1980, xMin: 0, yMax: 550, yMin:0 }, //MAP LIMITS
 										barEntities,								//ENEMY SET
 										{x:552, y:475},							//SPAWN POINT
@@ -1282,83 +1282,24 @@
 										"Bar Room")								//NAME OF ROOM
 										
 			let BarRoomDark = new room(
-										"THEBARDARK.png", 							//BACKGROUND IMAGE
+										"https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/THEBARDARK.png", 							//BACKGROUND IMAGE
 										{xMax: 1980, xMin: 0, yMax: 550, yMin:0 }, //MAP LIMITS
 										barEntities,								//ENEMY SET
 										{x:552, y:475},							//SPAWN POINT
 										barRoomCollision,						//STATIC COLLISIONS
 										"Bar Room Dark")								//NAME OF ROOM
 										
-			let AlleyWay = new room(
-										"ALLEYWAY.png", 							//BACKGROUND IMAGE
-										{xMax: 1980, xMin: 0, yMax: 550, yMin:0 }, //MAP LIMITS
-										EmptyEntitySet,								//ENEMY SET
-										{x:750, y:450},							//SPAWN POINT
-										EmptyCollisions,						//STATIC COLLISIONS
-										"Alley",								//NAME OF ROOM
-										[{xMin: 375, xMax: 500, yMin: 0, yMax: 259, room: BarRoom}])		//DOORS						
-										
-			let AlleyWaySide = new room(
-										"ALLEYSIDE.png", 							//BACKGROUND IMAGE
-										{xMax: 1980, xMin: 0, yMax: 550, yMin:0 }, //MAP LIMITS
-										EmptyEntitySet,								//ENEMY SET
-										{x:552, y:475},							//SPAWN POINT
-										EmptyCollisions,						//STATIC COLLISIONS
-										"Alley Side")								//NAME OF ROOM
-										
-			let AlleyWayLong = new room(
-										"AlleyWayLong.png", 							//BACKGROUND IMAGE
-										{xMax: 1980, xMin: 0, yMax: 550, yMin:0 }, //MAP LIMITS
-										EmptyEntitySet,								//ENEMY SET
-										{x:552, y:475},							//SPAWN POINT
-										EmptyCollisions,						//STATIC COLLISIONS
-										"Alley Long")								//NAME OF ROOM
-										
-			let BarExterior = new room(
-										"BarExterior.png", 							//BACKGROUND IMAGE
-										{xMax: 1980, xMin: 0, yMax: 550, yMin:0 }, //MAP LIMITS
-										EmptyEntitySet,								//ENEMY SET
-										{x:552, y:475},							//SPAWN POINT
-										EmptyCollisions,						//STATIC COLLISIONS
-										"Bar Exterior")								//NAME OF ROOM
-										
-			let BarExteriorFront = new room(
-										"BarExteriorFront.png", 							//BACKGROUND IMAGE
-										{xMax: 1980, xMin: 0, yMax: 550, yMin:0 }, //MAP LIMITS
-										EmptyEntitySet,								//ENEMY SET
-										{x:552, y:475},							//SPAWN POINT
-										EmptyCollisions,						//STATIC COLLISIONS
-										"Bar Exterior Front")								//NAME OF ROOM
-									
-			let MerchantRoom = new room(
-										"Merchant.png", 							//BACKGROUND IMAGE
-										{xMax: 1980, xMin: 0, yMax: 550, yMin:0 }, //MAP LIMITS
-										EmptyEntitySet,								//ENEMY SET
-										{x:552, y:475},							//SPAWN POINT
-										EmptyCollisions,						//STATIC COLLISIONS
-										"Merchant Room")								//NAME OF ROOM
-										
-			let HallwayRoom = new room(
-									"Hallway1.png",
-									{xMax: 950, xMin: 600, yMax: 550, yMin: 155},
-									EmptyEntitySet,
-									{x:843, y:215},
-									barRoomCollision,
-									"Hallway Start"
-									);
-			
+		
 				function linkDoors(){
 				
-					if(currentRoom === "Alley"){
-						AlleyWay.addDoor(400, 620, 0, 500, BarRoom);
-						AlleyWay.addDoor(1400, 2000, 0, 900, AlleyWaySide);
+					
+					if(currentRoom === "Bar Room"){
+						BarRoom.addDoor(550, 850, 545, 900, BarRoomDark);
 					}
-					if(currentRoom === "Bar Room" || currentRoom === "Bar Room Dark"){
-						BarRoom.addDoor(550, 850, 545, 900, AlleyWay);
+					if(currentRoom === "Bar Room Dark"){
+						BarRoom.addDoor(550, 850, 545, 900, BarRoom);
 					}
-					if(currentRoom === "Alley Side" ){
-						AlleyWaySide.addDoor(0, 300, 0, 900, AlleyWay);
-					}
+					
 					
 				}
 
@@ -1368,7 +1309,7 @@
 											
 			let DeathRoom = new room('DeathZone.png',  {xMax: screen.width, xMin: 0, yMax: screen.height, yMin: 0 }, EmptyEntitySet, {x: 750, y:320}, EmptyCollisions, "Death Zone");	//PLACE FOR DEATH				
 
-			let roomContainer = [BarRoom, BarRoomDark, AlleyWay, AlleyWayLong, BarExterior, BarExteriorFront, MerchantRoom, HallwayRoom];
+			let roomContainer = [BarRoom, BarRoomDark];
 			
 			let weaponContainer = [{name: "Bare Hands", tier: 1, type: 1},{name: "Kamehameha", tier: 3, type: 3}, {name: "Bone Gloves", tier: 3, type: 1} ]
 			
