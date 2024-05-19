@@ -2,8 +2,12 @@
 <html>
 
 	<head>
+
+		<title>UNGA - Powered by Aztech</title>
+
+		<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/UNGA.ico">
 	<style>
-	
+
 		body {
 			background-image: url('https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Background.png');
 			background-size: inherit;
@@ -34,7 +38,6 @@
         opacity: 0;
         transition: opacity 1s;
     }
-
     .sprite:hover .tooltip {
         visibility: visible;
         opacity: 1;
@@ -114,7 +117,6 @@
 	  cursor: pointer;
 	  transition: background-color 0.3s ease;
 	}
-
 	/* Hover effect */
 	.slot:hover {
 		background-color: #464646;
@@ -378,7 +380,6 @@
 				arr2.forEach(item2 => {
 					// Check if the item already exists in the first array
 					const existingItem = arr1.find(item1 => item1.name === item2.name);
-
 					if (existingItem) {
 						// If the item already exists, merge the quantities
 						existingItem.quantity += item2.quantity;
@@ -389,12 +390,10 @@
 						arr1.push({ name: item2.name, quantity: item2.quantity, conversationTree: item2.conversationTree});
 					}
 				});
-
 				return arr1;
 			}
 			
 	//CONTROLS
-
 		let WASDcontrols = {moveUp : "w",
 						moveDown: "s",
 						moveLeft: "a",
@@ -417,7 +416,7 @@
 			class Entity {
 				constructor(urlFolder, x, y, size, type, name, weapon = {name: "Bare Hands", tier: 1, type: 1}){
 				this.urlFolder = urlFolder;
-				this.url = "https://github.com/KazuraIusami/UngaBungaTribe/blob/main/" + this.urlFolder + "/Front.gif";
+				this.url = "https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/" + this.urlFolder + "/Front.gif";
 				
 					
 				this.size = size; //Resolution of the sprite, width = size; height = size;
@@ -478,7 +477,6 @@
 					
 					document.body.appendChild(newSprite);
 					newSprite.setAttribute("id", this.name);
-
 					
 					console.log("Spawned " + this.name)
 					
@@ -605,7 +603,6 @@
 								this.velocity.x = 0;
 								this.targetedPos.x = this.x;
 							}
-
 							if (this.y < this.targetedPos.y) {
 								this.velocity.y =  this.moveSpeed;
 							} else if (this.y > this.targetedPos.y) {
@@ -614,7 +611,6 @@
 								this.velocity.y = 0;
 								this.targetedPos.y = this.y;
 							}
-
 						// Change faced direction
 						if (Math.abs(this.distanceToTarget.x) > Math.abs(this.distanceToTarget.y)) {
 							if (this.targetedPos.x > this.x) {
@@ -660,13 +656,10 @@
 					const y1 = this.y;
 					const x2 = target.x;
 					const y2 = target.y;
-
 						// Calculate the distance using the distance formula
 				  const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-
 				  // Check if the distance is within the threshold
 				  return distance;
-
 				}
 				
 				startAttack(target){
@@ -766,29 +759,24 @@
 				
 				checkCollision(otherEntity) {
 					const hitboxReductionPercentage = 0.5; // Adjust this value to reduce the hitbox by a certain percentage
-
 					// Calculate hitbox size for the current entity
 					const hitboxWidthReduction = this.size * (1 - hitboxReductionPercentage);
 					const hitboxHeightReduction = this.size * (1 - hitboxReductionPercentage);
-
 					// Calculate hitbox size for the other entity
 					const otherHitboxWidthReduction = otherEntity.size * (1 - hitboxReductionPercentage);
 					const otherHitboxHeightReduction = otherEntity.size * (1 - hitboxReductionPercentage);
-
 					const rect1 = {
 						x: this.x + hitboxWidthReduction / 2,
 						y: this.y + hitboxHeightReduction / 2,
 						width: this.size - hitboxWidthReduction,
 						height: this.size - hitboxHeightReduction
 					};
-
 					const rect2 = {
 						x: otherEntity.x + otherHitboxWidthReduction / 2,
 						y: otherEntity.y + otherHitboxHeightReduction / 2,
 						width: otherEntity.size - otherHitboxWidthReduction,
 						height: otherEntity.size - otherHitboxHeightReduction
 					};
-
 					if (
 						rect1.x < rect2.x + rect2.width &&
 						rect1.x + rect1.width > rect2.x &&
@@ -832,20 +820,16 @@
 				moveButton.style.position = "absolute";
 				moveButton.style.top = 0 + "px";
 				moveButton.style.left = 0 + "px";
-
 				// Create the Prompt element
 				var prompt = document.createElement('span');
 				prompt.textContent = 'Prompt';
-
 				// Create the Options element
 				var optionsDisplay = document.createElement('span');
 				optionsDisplay.textContent = 'Options';
-
 				// Append the span elements to the conversationDisplay div
 				conversationDisplay.appendChild(moveButton);
 				conversationDisplay.appendChild(prompt);
 				conversationDisplay.appendChild(optionsDisplay);
-
 				// Append the conversationDisplay div to the body
 				document.body.appendChild(conversationDisplay);
 				
@@ -887,7 +871,6 @@
 					while(optionsDisplay.hasChildNodes()){
 							optionsDisplay.removeChild(optionsDisplay.firstChild);
 						};
-
 					//Create the new ones
 					for(let i = 0; i < conversationTree[conversationNode].options.length; i++){
 						const button = document.createElement("button");
@@ -1124,11 +1107,11 @@
 										EntityList[i+1].targetedPos = {x: this.EntitiesToSpawn[i].x, y: this.EntitiesToSpawn[i].y};
 									}; 
 								
-								//If facedDirection is specified, set it to that. Otherwise, set it to front.
+								//If facedDirection is specified, set it to that. Otherwise, set it to Front.
 									if(this.EntitiesToSpawn[i].facedDirection){
 										EntityList[i+1].facedDirection = this.EntitiesToSpawn[i].facedDirection;
 									}else {
-										EntityList[i+1].facedDirection = "front";
+										EntityList[i+1].facedDirection = "Front";
 									}
 									
 								//If there is a specified inventory, set it to that. Otherwise, set it to a few gold? For now?
@@ -1138,12 +1121,10 @@
 												name: this.EntitiesToSpawn[i].inventoryToSet[k].name,
 												quantity: this.EntitiesToSpawn[i].inventoryToSet[k].quantity,
 											};
-
 											// Set conversationTree for items in the inventory if it exists
 											if (this.EntitiesToSpawn[i].inventoryToSet[k].hasOwnProperty('conversationTree')) {
 												inventoryItem.conversationTree = this.EntitiesToSpawn[i].inventoryToSet[k].conversationTree;
 											}
-
 											EntityList[i + 1].inventory.push(inventoryItem);
 										}
 									} else {
@@ -1192,7 +1173,6 @@
 												for(let i = 0; i < this.doorsArray.length; i++){
 													clearInterval(this.doorsArray[i]);
 												}
-												linkDoors();
 											}
 										},FRAMERATE) );
 					}
@@ -1213,7 +1193,7 @@
 					
 					inventoryToSet: [{name: "The True Wendigo Tablet", quantity: 1, conversationTree: PreLoad}],
 					
-					facedDirection: "right",
+					facedDirection: "Right",
 					linkToConversationTree: BarTalk
 					},
 					{urlFolder: "Wendigoo",
@@ -1224,7 +1204,7 @@
 					
 					inventoryToSet: [{name: "Chain of Wendigo", quantity: 1, conversationTree: wendigosChainTree}, {name: "Letter from Mrs. Wendigo", quantity: 1, conversationTree: IronicLetter}],
 					
-					facedDirection: "back",
+					facedDirection: "Back",
 					linkToConversationTree: PreLoad,
 					weapon: {name: "Bone Gloves", tier: 3, type: 1}
 					},
@@ -1234,7 +1214,7 @@
 					type:"NPC",
 					name:"Beer",
 					
-					facedDirection: "front",
+					facedDirection: "Front",
 					linkToConversationTree: BeerTalk,
 					weapon: {name: "Damn this bottle got hands", tier: 1, type: 1}
 					},
@@ -1244,7 +1224,7 @@
 					type:"NPC",
 					name:"Whisky",
 					
-					facedDirection: "front",
+					facedDirection: "Front",
 					linkToConversationTree: WhiskyTalk
 					},
 					{urlFolder: "Wine",
@@ -1253,7 +1233,7 @@
 					type:"NPC",
 					name:"Wine",
 					
-					facedDirection: "front",
+					facedDirection: "Front",
 					linkToConversationTree: WineTalk
 					},
 					{urlFolder: "Rum",
@@ -1262,7 +1242,7 @@
 					type:"NPC",
 					name:"Rum",
 					
-					facedDirection: "front",
+					facedDirection: "Front",
 					linkToConversationTree: RumTalk
 					},
 			];
@@ -1303,13 +1283,11 @@
 					
 					
 				}
-
 						//TEMP VARIABLE for making wendigo appear after player drinks
 							let drunkMeter = 0;
 			
 											
 			let DeathRoom = new room('DeathZone.png',  {xMax: screen.width, xMin: 0, yMax: screen.height, yMin: 0 }, EmptyEntitySet, {x: 750, y:320}, EmptyCollisions, "Death Zone");	//PLACE FOR DEATH				
-
 			let roomContainer = [BarRoom, BarRoomDark];
 			
 			let weaponContainer = [{name: "Bare Hands", tier: 1, type: 1},{name: "Kamehameha", tier: 3, type: 3}, {name: "Bone Gloves", tier: 3, type: 1} ]
@@ -1348,7 +1326,6 @@
 				}else {
 					console.log("No beer in player inventory to place...")
 				}
-
 			}
 			
 				//Check and see if the player is drinking, then give them the effect
@@ -1436,20 +1413,17 @@
 				  optionsElement.value = i; // Use the index as the value
 				  this.roomSelector.appendChild(optionsElement);
 				}
-
 				this.roomSubmit = document.createElement("button");
 				this.roomSubmit.innerHTML = "SUBMIT";
 				this.roomSubmit.onclick = () => {
 				  const selectedIndex = this.roomSelector.value;
 				  const selectedRoom = roomContainer[selectedIndex];
-
 				  if (selectedRoom && typeof selectedRoom.generate === 'function') {
 					selectedRoom.generate();
 				  } else {
 					console.error("Invalid selection or generate method not found.");
 				  }
 				}
-
 				this.element.appendChild(this.roomSubmit);
 				this.element.appendChild(this.roomSelector);
 						
@@ -1473,7 +1447,6 @@
 					
 					// Declare DrunkEffectInterval outside of the onclick function
 						let DrunkEffectInterval;
-
 						this.DrunkEffectButton.onclick = () => {
 							if (!DrunkEffectInterval) {
 								let valueOfHue = 0;
@@ -1488,7 +1461,6 @@
 								DrunkEffectInterval = undefined; // Reset the variable when clearInterval is called
 							}
 						};
-
 						this.element.appendChild(this.DrunkEffectButton);
 				
 				//CLEAR ROOM
@@ -1516,14 +1488,12 @@
 							  optionsElement.value = i; // Use the index as the value
 							  this.weaponSelector.appendChild(optionsElement);
 							}
-
 							this.weaponSubmit = document.createElement("button");
 							this.weaponSubmit.innerHTML = "SUBMIT";
 							this.weaponSubmit.onclick = () => {
 								
 								EntityList[0].weapon = weaponContainer[document.getElementById("weaponSelector").value];
 							}
-
 					this.element.appendChild(this.weaponSubmit);
 					this.element.appendChild(this.weaponSelector);
 				
@@ -1622,6 +1592,4 @@
 			
 		</script>
 	</body>
-
 </html>
-
