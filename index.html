@@ -1124,11 +1124,11 @@
 										EntityList[i+1].targetedPos = {x: this.EntitiesToSpawn[i].x, y: this.EntitiesToSpawn[i].y};
 									}; 
 								
-								//If facedDirection is specified, set it to that. Otherwise, set it to front.
+								//If facedDirection is specified, set it to that. Otherwise, set it to Front.
 									if(this.EntitiesToSpawn[i].facedDirection){
 										EntityList[i+1].facedDirection = this.EntitiesToSpawn[i].facedDirection;
 									}else {
-										EntityList[i+1].facedDirection = "front";
+										EntityList[i+1].facedDirection = "Front";
 									}
 									
 								//If there is a specified inventory, set it to that. Otherwise, set it to a few gold? For now?
@@ -1233,7 +1233,7 @@
 					type:"NPC",
 					name:"Beer",
 					
-					facedDirection: "front",
+					facedDirection: "Front",
 					linkToConversationTree: BeerTalk,
 					weapon: {name: "Damn this bottle got hands", tier: 1, type: 1}
 					},
@@ -1243,7 +1243,7 @@
 					type:"NPC",
 					name:"Whisky",
 					
-					facedDirection: "front",
+					facedDirection: "Front",
 					linkToConversationTree: WhiskyTalk
 					},
 					{urlFolder: "Wine",
@@ -1252,7 +1252,7 @@
 					type:"NPC",
 					name:"Wine",
 					
-					facedDirection: "front",
+					facedDirection: "Front",
 					linkToConversationTree: WineTalk
 					},
 					{urlFolder: "Rum",
@@ -1261,7 +1261,7 @@
 					type:"NPC",
 					name:"Rum",
 					
-					facedDirection: "front",
+					facedDirection: "Front",
 					linkToConversationTree: RumTalk
 					},
 			];
