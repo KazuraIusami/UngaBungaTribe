@@ -10,7 +10,8 @@
 
 		body {
 			background-image: url('https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Background.png');
-			background-size: inherit;
+			background-size = `${window.innerWidth}px ${window.innerHeight}px`;
+			background-repeat = "no-repeat";
 		}
 		
 	.sprite {
@@ -392,6 +393,9 @@
 				});
 				return arr1;
 			}
+			
+			document.body.style.backgroundSize = `${window.innerWidth}px ${window.innerHeight}px`;
+			document.body.style.backgroundRepeat = "no-repeat";
 			
 	//CONTROLS
 		let WASDcontrols = {moveUp : "w",
@@ -1162,6 +1166,8 @@
 						
 						
 						document.body.style.backgroundImage = "url(" + this.imgUrl + ")";
+						document.body.style.backgroundSize = `${window.innerWidth}px ${window.innerHeight}px`;
+						document.body.style.backgroundRepeat = "no-repeat";
 						
 					}
 					addDoor(xMin, xMax, yMin, yMax, destination){
@@ -1271,6 +1277,15 @@
 										barRoomCollision,						//STATIC COLLISIONS
 										"Bar Room Dark")								//NAME OF ROOM
 										
+			let TestRoom = new room(
+										"https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Background.png",
+										{xMax: 1980, xMin: 0, yMax: 550, yMin:0 }, //MAP LIMITS
+										barEntities,
+										{x:552, y:475},							//SPAWN POINT
+										EmptyCollisions,
+										"Test Room"
+									)
+										
 		
 				function linkDoors(){
 				
@@ -1289,7 +1304,7 @@
 			
 											
 			let DeathRoom = new room('DeathZone.png',  {xMax: screen.width, xMin: 0, yMax: screen.height, yMin: 0 }, EmptyEntitySet, {x: 750, y:320}, EmptyCollisions, "Death Zone");	//PLACE FOR DEATH				
-			let roomContainer = [BarRoom, BarRoomDark];
+			let roomContainer = [BarRoom, BarRoomDark, TestRoom];
 			
 			let weaponContainer = [{name: "Bare Hands", tier: 1, type: 1},{name: "Kamehameha", tier: 3, type: 3}, {name: "Bone Gloves", tier: 3, type: 1} ]
 			
@@ -1526,7 +1541,7 @@
 					this.wireFrameButton.onclick = () => {
 						for(let i = 0; i < EntityList.length; i++){
 						//okay...so i am making it FALSE first because I am going to toggle it. That WILL be confusing and we WILL end up messing something up. Sucks to suck.
-							EntityList[i].wireFrameEnabled = false;
+							
 							EntityList[i].toggleHitBox();
 						}
 					}
