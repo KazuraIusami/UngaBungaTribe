@@ -16,7 +16,8 @@
 </style>
 </head>
 <body>
-	
+		
+		<input type="text" id="nameInput" placeholder="Enter a Name" style="text-align:center"><p id="name"></p> <button onclick="submitName()" id="submitButton">Submit</button>
 	  <div id="dayDisplay">Day : 0 </div>
 	  <div id="timeDisplay">Time: 00:00</div>
 	  <div id="phaseDisplay">Phase : Midnight</div>
@@ -32,6 +33,7 @@
 
   
   <script>
+	let name;
 	
 	let day = 0;
 	let time = 720; // Set initial time to 12:00 (720 minutes)
@@ -46,7 +48,7 @@
 	let hunger = 1000;
 	
 	
-function updateTime() {
+function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
     time += 1;
 	
     
@@ -109,6 +111,11 @@ function updateTime() {
 		load();
 	}
 	
+	if(hunger > 2000){
+		document.getElementById("hungerDiv").innerHTML += " (<.<) okay not judging but...";
+		console.log("Silently Judging...");
+	}
+	
 }
 
 
@@ -124,8 +131,15 @@ function toggleInterval(){ //TOGGLE TIME INTERVAL
 	}
 }
 
+function submitName(){
+	name = document.getElementById("nameInput").value;
+	document.getElementById("name").textContent = `${name}`;
+	document.getElementById("nameInput").style.display = "none";
+	document.getElementById("submitButton").style.display = "none";
+}
+
 function save(){
-	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time, SavedHunger: hunger}; //ALL STUFF SAVED DURING SAVE
+	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time, SavedHunger: hunger, SavedName: name}; //ALL STUFF SAVED DURING SAVE
 	var stringed = JSON.stringify(currentSave);
 	localStorage.setItem("currentSaveStringed", stringed)
 	console.log("Saved. " + stringed)
@@ -142,11 +156,15 @@ function load() {
 			minutes = currentSave.SavedMinute;
 			time = currentSave.SavedTime;
 			hunger = currentSave.SavedHunger;
+			name = currentSave.SavedName;
+				document.getElementById("name").textContent = `${name}`; //
         console.log('currentSave set to:', currentSave);
     } else {
         console.log('No current save found in localStorage.');
     }
 }
+
+load(); //we are talking, MEGA BRAIN 
 
 function deleteSave(){
 	localStorage.clear();
