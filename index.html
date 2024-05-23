@@ -16,7 +16,7 @@
 </style>
 </head>
 <body>
-	<div id="backend">
+	
 	  <div id="dayDisplay">Day : 0 </div>
 	  <div id="timeDisplay">Time: 00:00</div>
 	  <div id="phaseDisplay">Phase : Midnight</div>
@@ -29,27 +29,10 @@
 	  <div id="hungerDiv">Hunger : 1000</div>
 	  <button onclick="hunger=hunger+50">Eat (+50 Hunger)</button>
 	  
-	</div>
+
   
   <script>
-	let displayedTab = 'backendTab';
 	
-	function changeTab(){
-		switch(displayedTab){
-			case 'backendTab':
-				document.getElementById("backend").style.display = "block";
-				console.log("showing backend tab")
-				break;
-			case 'none':
-				document.getElementById("backend").style.display = "none";
-				console.log("showing none")
-				break;
-			default:
-				document.getElementById("backend").style.display = "none";
-				console.log("Showing default")
-		}
-	}
-  
 	let day = 0;
 	let time = 720; // Set initial time to 12:00 (720 minutes)
 	const brightestTime = 840; // Set the brightest time to 14:00 (840 minutes)
