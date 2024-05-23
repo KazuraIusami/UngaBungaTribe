@@ -35,6 +35,10 @@
   <script>
 	let name;
 	
+	let autosaveEnabled = false;
+	
+	
+	
 	let day = 0;
 	let time = 720; // Set initial time to 12:00 (720 minutes)
 	const brightestTime = 840; // Set the brightest time to 14:00 (840 minutes)
@@ -46,7 +50,7 @@
 	
 	//SURVIVAL STUFF
 	let hunger = 1000;
-	
+	let hungerRate = 0.5;
 	
 function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
     time += 1;
@@ -101,7 +105,7 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
 	}
 	document.getElementById("phaseDisplay").textContent = `Phase : ${phase}`;
 	
-	hunger--;
+	hunger = hunger - hungerRate;
 	let roundedHunger = Math.round(hunger / 25) * 25; // Round to nearest 25
 	document.getElementById("hungerDiv").textContent = `Hunger : ${roundedHunger}`;
 	
@@ -114,6 +118,10 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
 	if(hunger > 2000){
 		document.getElementById("hungerDiv").innerHTML += " (<.<) okay not judging but...";
 		console.log("Silently Judging...");
+	}
+	if(hunger > 5000){
+		document.getElementById("hungerDiv").innerHTML += " OKAY DAMN";
+		console.log("Hard judging");
 	}
 	
 }
@@ -139,7 +147,7 @@ function submitName(){
 }
 
 function save(){
-	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time, SavedHunger: hunger, SavedName: name}; //ALL STUFF SAVED DURING SAVE
+	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time, SavedHunger: hunger, SavedName: name, SavedAutosaveSetting: autosaveEnabled}; //ALL STUFF SAVED DURING SAVE
 	var stringed = JSON.stringify(currentSave);
 	localStorage.setItem("currentSaveStringed", stringed)
 	console.log("Saved. " + stringed)
@@ -157,7 +165,10 @@ function load() {
 			time = currentSave.SavedTime;
 			hunger = currentSave.SavedHunger;
 			name = currentSave.SavedName;
-				document.getElementById("name").textContent = `${name}`; //
+				document.getElementById("name").textContent = `${name}`; //Change html 
+				
+			//Check to see what the autosave settings were
+			autosaveEnabled = currentSave.SavedAutosaveSetting;	
         console.log('currentSave set to:', currentSave);
     } else {
         console.log('No current save found in localStorage.');
@@ -165,6 +176,18 @@ function load() {
 }
 
 load(); //we are talking, MEGA BRAIN 
+
+//Should I do autosaving? Hmmmmm...Well I don't think it'll do any harm. Not personally, at least. What's disk space? /s 
+
+
+let autosaveInterval = setInterval(() => {
+            if (autosaveEnabled) {
+                save();
+            }
+            console.log(autosaveEnabled ? "Autosave Enabled : True" : "Autosave Enabled : False");
+        }, 10000); // Autosave every 10 seconds
+
+
 
 function deleteSave(){
 	localStorage.clear();
