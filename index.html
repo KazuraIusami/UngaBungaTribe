@@ -45,6 +45,7 @@
 		<button onclick="toggleInterval()">Pause/Resume</button>
 		<button onclick="save()">Save!</button>
 		<button onclick="load()">Load!</button>
+		<button onclick="toggleAutosave();" id="toggleAutosaveButton">Toggle Autosave!</button>
 		<button onclick="deleteSave()">Delete Save (ALL progress will be lost)</button>
 		<br>
 </div>	  
@@ -148,6 +149,8 @@ function toggleInterval(){ //TOGGLE TIME INTERVAL
 	}
 }
 
+
+
 function toggleDisplay() {
     var timeDiv = document.getElementById("timeDiv");
     timeDiv.style.display = timeDiv.style.display === "none" ? "block" : "none";
@@ -201,7 +204,16 @@ let autosaveInterval = setInterval(() => {
         }, 10000); // Autosave every 10 seconds
 
 
+//Lets get fancy and make the button change color depending on the value
+const toggleAutosaveButton = document.getElementById("toggleAutosaveButton");
+autosaveEnabled ? toggleAutosaveButton.style.border = "2px solid green" : toggleAutosaveButton.style.border = "2px solid red";
 
+function toggleAutosave(){
+	autosaveEnabled ? autosaveEnabled = false : autosaveEnabled = true; //Flip-a-da variables as the great Mario used to say
+	autosaveEnabled ? toggleAutosaveButton.style.border = "2px solid green" : toggleAutosaveButton.style.border = "2px solid red";
+	
+	console.log(autosaveEnabled ? "Autosave Enabled : True" : "Autosave Enabled : False");
+}
 function deleteSave(){
 	localStorage.clear();
 }
