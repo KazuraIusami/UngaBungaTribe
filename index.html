@@ -4,33 +4,60 @@
 	<title>UNGA - Powered by Aztech</title>
 
 		<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/UNGA.ico">
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Lugrasimo&display=swap" rel="stylesheet">
 	<style>
+	
   body {
   /*  transition: background-color 1s ease; */
-	text-align: center;
-    font-family: Arial, sans-serif;
+	
+	font-family: "Lugrasimo", cursive;
     font-size: 24px;
     padding-top: 100px;
   }
-
+	#timeDiv{
+	text-align: center;
+	display: none;
+	}
+	#content {
+		text-align: center;
+		width: 80%;
+		height: 80%;
+		margin: auto;
+		background-color:black;
+		border-radius: 50px;
+		color: white;
+		padding:15px;
+	}
+	
 </style>
 </head>
 <body>
-		
+	
+<div id="timeDiv">	
 		<input type="text" id="nameInput" placeholder="Enter a Name" style="text-align:center"><p id="name"></p> <button onclick="submitName()" id="submitButton">Submit</button>
-	  <div id="dayDisplay">Day : 0 </div>
-	  <div id="timeDisplay">Time: 00:00</div>
-	  <div id="phaseDisplay">Phase : Midnight</div>
+		<div id="dayDisplay">Day : 0 </div>
+		<div id="timeDisplay">Time: 00:00</div>
+		<div id="phaseDisplay">Phase : Midnight</div>
 	  
-	  <button onclick="toggleInterval()">Pause/Resume</button>
-	  <button onclick="save()">Save!</button>
-	  <button onclick="load()">Load!</button>
-	  <button onclick="deleteSave()">Delete Save (ALL progress will be lost)</button>
-	  <br>
-	  <div id="hungerDiv">Hunger : 1000</div>
-	  <button onclick="hunger=hunger+50">Eat (+50 Hunger)</button>
-	  
-
+		<button onclick="toggleInterval()">Pause/Resume</button>
+		<button onclick="save()">Save!</button>
+		<button onclick="load()">Load!</button>
+		<button onclick="deleteSave()">Delete Save (ALL progress will be lost)</button>
+		<br>
+</div>	  
+	
+<div id="content">
+	<h1>UNGABUNGA TRIBE STUDIOS - UNGA</h1>
+	<br> <hr>
+	<p style="text-align:left">Thats right. UNGABUNGA TRIBE STUDIOS is now live and active. What now? Do we take over the world? Maybe. Might as well start referring to us as the (U)nited (N)ations of (G)reat (A)merica, if we keep up this pace.</p>
+	<br>
+	<p style="text-align:left">In all seriousness, this will be the place where I put all my current projects. No schedule, no planned future events as of now.</p> 
+	<br>
+	<p style="text-align:left">But in <span onclick="toggleDisplay()">time</span> things will start to appear here, so don't forget to come back. And who knows, maybe there are already some hidden goodies here ;)</p>
+</div>
   
   <script>
 	let name;
@@ -105,24 +132,6 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
 	}
 	document.getElementById("phaseDisplay").textContent = `Phase : ${phase}`;
 	
-	hunger = hunger - hungerRate;
-	let roundedHunger = Math.round(hunger / 25) * 25; // Round to nearest 25
-	document.getElementById("hungerDiv").textContent = `Hunger : ${roundedHunger}`;
-	
-	if(hunger < 0){
-		console.log("DIED! Day : " + day + " ( " + formattedTime + " )");
-		console.log("Reloading to last save")
-		load();
-	}
-	
-	if(hunger > 2000){
-		document.getElementById("hungerDiv").innerHTML += " (<.<) okay not judging but...";
-		console.log("Silently Judging...");
-	}
-	if(hunger > 5000){
-		document.getElementById("hungerDiv").innerHTML += " OKAY DAMN";
-		console.log("Hard judging");
-	}
 	
 }
 
@@ -139,6 +148,11 @@ function toggleInterval(){ //TOGGLE TIME INTERVAL
 	}
 }
 
+function toggleDisplay() {
+    var timeDiv = document.getElementById("timeDiv");
+    timeDiv.style.display = timeDiv.style.display === "none" ? "block" : "none";
+}
+
 function submitName(){
 	name = document.getElementById("nameInput").value;
 	document.getElementById("name").textContent = `${name}`;
@@ -147,7 +161,7 @@ function submitName(){
 }
 
 function save(){
-	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time, SavedHunger: hunger, SavedName: name, SavedAutosaveSetting: autosaveEnabled}; //ALL STUFF SAVED DURING SAVE
+	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time, SavedName: name, SavedAutosaveSetting: autosaveEnabled}; //ALL STUFF SAVED DURING SAVE
 	var stringed = JSON.stringify(currentSave);
 	localStorage.setItem("currentSaveStringed", stringed)
 	console.log("Saved. " + stringed)
@@ -163,7 +177,6 @@ function load() {
 			hours = currentSave.SavedHour;
 			minutes = currentSave.SavedMinute;
 			time = currentSave.SavedTime;
-			hunger = currentSave.SavedHunger;
 			name = currentSave.SavedName;
 				document.getElementById("name").textContent = `${name}`; //Change html 
 				
