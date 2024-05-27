@@ -51,13 +51,13 @@
 </div>	  
 	
 <div id="content">
-	<h1>UNGABUNGA TRIBE STUDIOS - UNGA</h1>
+	<h1>UNGABUNGA TRIBE STUDIOS - UNGA </h1>
 	<br> <hr>
 	<p style="text-align:left">That's right. UNGABUNGA TRIBE STUDIOS is now live and active. What now? Do we take over the world? Maybe. Might as well start referring to us as the <span id="easterEggU">(U)</span>nited <span id="easterEggN">(N)</span>ations of <span id="easterEggG">(G)</span>reat <span id="easterEggA">(A)</span>merica, if we keep up this pace.</p>
 	<br>
 	<p style="text-align:left">In all seriousness, this will be the place where I put all my current projects. No schedule, no planned future events as of now.</p> 
 	<br>
-	<p style="text-align:left">But in <span onclick="toggleDisplay()">time</span> things will start to appear here, so don't forget to come back. And who knows, maybe there are already some hidden goodies here ;)</p>
+	<p style="text-align:left">But in <span id="UNGA" onclick="toggleDisplay()">time</span> things will start to appear here, so don't forget to come back. And who knows, maybe there are already some hidden goodies here ;)</p>
 </div>
   
   <script>
@@ -243,10 +243,14 @@ function deleteSave(){
 					if(event.key === "a" || event.key === "A"){
 						document.getElementById("easterEggA").style.color = "Gold";
 					}
+					if(document.getElementById("easterEggU").style.color === "gold" && document.getElementById("easterEggN").style.color === "gold" && document.getElementById("easterEggG").style.color === "gold" && document.getElementById("easterEggA").style.color === "gold"){
+						document.getElementById("UNGA").style.color = "Gold";
+					}
+					
 					
 			});
 			
-			
+		
 			
 			let pressedKeys = [];
 			
