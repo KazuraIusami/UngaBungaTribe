@@ -22,6 +22,9 @@
 	display: none;
 	}
 	#content {
+		
+	}
+	.content {
 		text-align: center;
 		width: 80%;
 		height: 80%;
@@ -31,7 +34,9 @@
 		color: white;
 		padding:15px;
 	}
-	
+	#poemContainer {
+		display: none;
+	}
 </style>
 </head>
 <body>
@@ -50,7 +55,7 @@
 		<br>
 </div>	  
 	
-<div id="content">
+<div id="content" class="content">
 	<h1>UNGABUNGA TRIBE STUDIOS - UNGA </h1>
 	<br> <hr>
 	<p style="text-align:left">That's right. UNGABUNGA TRIBE STUDIOS is now live and active. What now? Do we take over the world? Maybe. Might as well start referring to us as the <span id="easterEggU">(U)</span>nited <span id="easterEggN">(N)</span>ations of <span id="easterEggG">(G)</span>reat <span id="easterEggA">(A)</span>merica, if we keep up this pace.</p>
@@ -58,6 +63,80 @@
 	<p style="text-align:left">In all seriousness, this will be the place where I put all my current projects. No schedule, no planned future events as of now.</p> 
 	<br>
 	<p style="text-align:left">But in <span id="UNGA" onclick="toggleDisplay()">time</span> things will start to appear here, so don't forget to come back. And who knows, maybe there are already some hidden goodies here ;)</p>
+</div>
+
+<div id="poemContainer" class="content">
+		<div id="poem1">Coming home is terrible
+		whether the dogs lick your face or not;
+		whether you have a wife
+		or just a wife-shaped loneliness waiting for you.
+		Coming home is terribly lonely,
+		so that you think
+		of the oppressive barometric pressure
+		back where you have just come from
+		with fondness,
+		because everything’s worse
+		once you’re home.</div>
+		<div id="poem2">You think of the vermin
+		clinging to the grass stalks,
+		long hours on the road,
+		roadside assistance and ice creams,
+		and the peculiar shapes of
+		certain clouds and silences
+		with longing because you did not want to return.
+		Coming home is
+		just awful.</div>
+		<div id="poem3">And the home-style silences and clouds
+		contribute to nothing
+		but the general malaise.
+		Clouds, such as they are,
+		are in fact suspect,
+		and made from a different material
+		than those you left behind.
+		You yourself were cut
+		from a different cloudy cloth,
+		returned,
+		remaindered,
+		ill-met by moonlight,
+		unhappy to be back,
+		slack in all the wrong spots,
+		seamy suit of clothes
+		dishrag-ratty, worn.</div>
+		<div id="poem4">You return home
+		moon-landed, foreign;
+		the Earth’s gravitational pull
+		an effort now redoubled,
+		dragging your shoelaces loose
+		and your shoulders
+		etching deeper the stanza
+		of worry on your forehead.
+		You return home deepened,
+		a parched well linked to tomorrow
+		by a frail strand of…</div>
+		<div id="poem5">Anyway…</div>
+		<div id="poem6">You sigh into the onslaught of identical days.
+		One might as well, at a time…</div>
+		<div id="poem7">Well…
+		Anyway…
+		You’re back.</div>
+		<div id="poem8">The sun goes up and down
+		like a tired whore,
+		the weather immobile
+		like a broken limb
+		while you just keep getting older.
+		Nothing moves but
+		the shifting tides of salt in your body.
+		Your vision blears.
+		You carry your weather with you,
+		the big blue whale,
+		a skeletal darkness.</div>
+		<div id="poem9">You come back
+		with X-ray vision.
+		Your eyes have become a hunger.
+		You come home with your mutant gifts
+		to a house of bone.
+		Everything you see now,
+		all of it: bone.</div>
 </div>
   
   <script>
@@ -227,6 +306,22 @@ function deleteSave(){
 	localStorage.clear();
 }
 
+
+// // // // // POEM STUFF // // // // //
+
+//So I really want to be able to have the poem Bonedog (from I'm Thinking of Ending Things) as a secret little compartment. Hidden, so if you are reading this, SHHHHH!
+
+const poemContainer = document.getElementById("poemContainer");
+
+	//Container that holds all seperate verses
+const poemVerse = [document.getElementById("poem1"), document.getElementById("poem2"), document.getElementById("poem3"),
+					document.getElementById("poem4"), document.getElementById("poem5"), document.getElementById("poem6"), document.getElementById("poem7"),
+					document.getElementById("poem8"), document.getElementById("poem9"),]
+					
+for(let i = 0; i < poemVerse.length; i++){ 
+	poemVerse[i].style.display = "none";
+}
+	
 //Add a keylog listener
 			
 			document.body.addEventListener("keydown", (event) => {
@@ -247,6 +342,72 @@ function deleteSave(){
 						document.getElementById("UNGA").style.color = "Gold";
 					}
 					
+					//Changing the slide of the poem (IN THE MOST UNGA WAY POSSBLE FFS)
+						if(event.key === "1"){
+							for(let i = 0; i < poemVerse.length; i++){ 
+								poemVerse[i].style.display = "none";
+							}
+							poemVerse[0].style.display = "block";
+						}
+						if(event.key === "2"){
+							for(let i = 0; i < poemVerse.length; i++){ 
+								poemVerse[i].style.display = "none";
+							}
+							poemVerse[1].style.display = "block";
+						}
+						if(event.key === "3"){
+							for(let i = 0; i < poemVerse.length; i++){ 
+								poemVerse[i].style.display = "none";
+							}
+							poemVerse[2].style.display = "block";
+						}
+						if(event.key === "4"){
+							for(let i = 0; i < poemVerse.length; i++){ 
+								poemVerse[i].style.display = "none";
+							}
+							poemVerse[3].style.display = "block";
+						}
+						if(event.key === "5"){
+							for(let i = 0; i < poemVerse.length; i++){ 
+								poemVerse[i].style.display = "none";
+							}
+							poemVerse[4].style.display = "block";
+						}
+						if(event.key === "6"){
+							for(let i = 0; i < poemVerse.length; i++){ 
+								poemVerse[i].style.display = "none";
+							}
+							poemVerse[5].style.display = "block";
+						}
+						if(event.key === "7"){
+							for(let i = 0; i < poemVerse.length; i++){ 
+								poemVerse[i].style.display = "none";
+							}
+							poemVerse[6].style.display = "block";
+						}
+						if(event.key === "8"){
+							for(let i = 0; i < poemVerse.length; i++){ 
+								poemVerse[i].style.display = "none";
+							}
+							poemVerse[7].style.display = "block";
+						}
+						if(event.key === "9"){
+							for(let i = 0; i < poemVerse.length; i++){ 
+								poemVerse[i].style.display = "none";
+							}
+							poemVerse[8].style.display = "block";
+						}
+					
+					
+					//CHANGE TABS
+						if(event.key === "["){
+							document.getElementById("content").style.display = "block";
+							document.getElementById("poemContainer").style.display = "none";
+						}
+						if(event.key === "]"){
+							document.getElementById("content").style.display = "none";
+							document.getElementById("poemContainer").style.display = "block";
+						}
 					
 			});
 			
@@ -266,7 +427,6 @@ function deleteSave(){
 				pressedKeys[event.key.toLowerCase()] = false;
 				
 			})
-
   </script>
 </body>
 </html>
