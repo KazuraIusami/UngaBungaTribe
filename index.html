@@ -10,39 +10,40 @@
 		<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Lugrasimo&display=swap" rel="stylesheet">
 	<style>
 	
-  body {
-  /*  transition: background-color 1s ease; */
-	
-	font-family: "Lugrasimo", cursive;
-    font-size: 24px;
-    padding-top: 100px;
-  }
-	#timeDiv{
-	text-align: center;
-	display: none;
-	}
-	#content {
-		
-	}
-	.content {
-		text-align: center;
-		width: 80%;
-		height: 80%;
-		margin: auto;
-		background-color:black;
-		border-radius: 50px;
-		color: white;
-		padding:15px;
-	}
-	
-	#InvUI {
-		border: 1px solid white;
-		display: none;
-	}
-	
-	#poemContainer {
-		display: none;
-	}
+body {
+font-family: "Lugrasimo", cursive;
+font-size: 24px;
+padding-top: 100px;
+}
+
+#timeDiv{
+text-align: center;
+display: none;
+}
+
+#content {
+
+}
+
+.content {
+text-align: center;
+width: 80%;
+height: 80%;
+margin: auto;
+background-color:black;
+border-radius: 50px;
+color: white;
+padding:15px;
+}
+
+#InvUI {
+border: 1px solid white;
+display: none;
+}
+
+#poemContainer {
+display: none;
+}
 </style>
 </head>
 <body>
@@ -252,7 +253,7 @@ function toggleInterval(){ //TOGGLE TIME INTERVAL
 
 function toggleDisplay() { //Toggles the TIME DISPLAY (the thing that happens when you click time)
     var timeDiv = document.getElementById("timeDiv");
-    timeDiv.style.display = timeDiv.style.display === "none" ? "block" : "none";
+	timeDiv.style.display == 'none' || timeDiv.style.display == '' ? timeDiv.style.display = 'block' : timeDiv.style.display = 'none';
 }
 
 function submitName(){
@@ -321,6 +322,7 @@ function toggleAutosave(){
 }
 function deleteSave(){
 	localStorage.clear();
+	location.reload();
 }
 
 // // // // // INVENTORY STUFF // // // // // 
