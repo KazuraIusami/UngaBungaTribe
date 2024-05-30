@@ -34,6 +34,12 @@
 		color: white;
 		padding:15px;
 	}
+	
+	#InvUI {
+		border: 1px solid white;
+		display: none;
+	}
+	
 	#poemContainer {
 		display: none;
 	}
@@ -65,7 +71,7 @@
 	<p style="text-align:left">But in <span id="UNGA" onclick="toggleDisplay()">time</span> things will start to appear here, so don't forget to come back. And who knows, maybe there are already some hidden goodies here ;)</p>
 </div>
 
-<div id="poemContainer" class="content">
+<div id="poemContainer" class="content"> <!-- START OF BONEDOG POEM -->
 		<div id="poem1">Coming home is terrible
 		whether the dogs lick your face or not;
 		whether you have a wife
@@ -122,7 +128,7 @@
 		<div id="poem8">The sun goes up and down
 		like a tired whore,
 		the weather immobile
-		like a broken limb
+		like a <span onclick="inventory.addItem(new Item('Broken Limb', 'Collectable', 1)); inventory.listItems()">broken limb</span>
 		while you just keep getting older.
 		Nothing moves but
 		the shifting tides of salt in your body.
@@ -136,9 +142,14 @@
 		You come home with your mutant gifts
 		to a house of bone.
 		Everything you see now,
-		all of it: bone.<br>(9/9)</div>
+		all of it: <span onclick="inventory.addItem(new Item('Bone', 'Collectable', 1)); inventory.listItems()">bone.</span><br>(9/9)</div>
 </div>
+										<!-- END OF BONEDOG POEM -->
   
+<div id="InvUI" class="content">
+
+        
+</div>  
   <script>
 	let name;
 	
@@ -182,7 +193,7 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
 	
 	 // Calculate inverse color for text
     const inverseColor = `rgb(${255 - (brightness * 255 - 40)}, ${255 - (brightness * 255 - 40)}, ${255 - (brightness * 255 - 20)})`;
-    document.body.style.color = inverseColor;
+    document.getElementById("timeDiv").style.color = inverseColor;
     
     if (time > 1440) {
         time = 0;
@@ -215,9 +226,15 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
 	
 }
 
-
+let tickTime = 100;
 //Function to start and stop the interval
-let tickInterval = setInterval(updateTime, 100);
+let tickInterval = setInterval(updateTime, tickTime); //tickTime = ms
+
+function changeTickTime(newTickTime){
+	clearInterval(tickInterval);
+	tickTime = newTickTime;
+	tickInterval = setInterval(updateTime, tickTime); //tickTime = ms
+}
 
 function toggleInterval(){ //TOGGLE TIME INTERVAL
 	const timeButton = document.getElementById("timeButton");
@@ -233,7 +250,7 @@ function toggleInterval(){ //TOGGLE TIME INTERVAL
 
 
 
-function toggleDisplay() {
+function toggleDisplay() { //Toggles the TIME DISPLAY (the thing that happens when you click time)
     var timeDiv = document.getElementById("timeDiv");
     timeDiv.style.display = timeDiv.style.display === "none" ? "block" : "none";
 }
@@ -306,6 +323,62 @@ function deleteSave(){
 	localStorage.clear();
 }
 
+// // // // // INVENTORY STUFF // // // // // 
+class Item {
+    constructor(name, type, quantity = 1) {
+        this.name = name;
+        this.type = type;
+        this.quantity = quantity;
+    }
+}
+
+class Inventory {
+    constructor() {
+        this.items = [];
+    }
+
+    addItem(newItem) {
+        const existingItemIndex = this.items.findIndex(item => 
+            item.name === newItem.name && item.type === newItem.type
+        );
+
+        if (existingItemIndex > -1) {
+            this.items[existingItemIndex].quantity += newItem.quantity;
+        } else {
+            this.items.push(newItem);
+        }
+    }
+
+    removeItem(name, type, quantity = 1) {
+        const itemIndex = this.items.findIndex(item => item.name === name && item.type === type);
+
+        if (itemIndex > -1) {
+            if (this.items[itemIndex].quantity > quantity) {
+                this.items[itemIndex].quantity -= quantity;
+            } else {
+                this.items.splice(itemIndex, 1);
+            }
+        } else {
+            console.log(`Item not found: ${name} (${type})`);
+        }
+    }
+
+    listItems() {
+	const InvUI = document.getElementById("InvUI");
+	InvUI.innerHTML = '';
+        for(let i = 0; i < this.items.length; i++){
+			InvUI.innerHTML += "Name : " + this.items[i].name + " / Type : " + this.items[i].type + " / Amt : " + this.items[i].quantity + "<br>";
+		}
+    }
+}
+
+const inventory = new Inventory();
+//EXAMPLE OF ADDING AN ITEM TO THE INVENTORY
+//inventory.addItem(new Item("Unga Card", "Collectable", 1));
+//inventory.listItems();
+
+
+// // // // // END OF INVENTORY // // // // //
 
 // // // // // POEM STUFF // // // // //
 
@@ -404,10 +477,17 @@ poemVerse[0].style.display = "block";
 						if(event.key === "["){
 							document.getElementById("content").style.display = "block";
 							document.getElementById("poemContainer").style.display = "none";
+							document.getElementById("InvUI").style.display = "none";
 						}
 						if(event.key === "]"){
 							document.getElementById("content").style.display = "none";
 							document.getElementById("poemContainer").style.display = "block";
+							document.getElementById("InvUI").style.display = "none";
+						}
+						if(event.key === "i"){
+							document.getElementById("content").style.display = "none";
+							document.getElementById("poemContainer").style.display = "none";
+							document.getElementById("InvUI").style.display = "block";
 						}
 					
 			});
