@@ -257,7 +257,7 @@ if(!inventory){console.log("No Inventory Found")}else {
 	
 if(!inventory){console.log("No Inventory Found")}else {
 	let roll = Math.floor(Math.random() * 100000)
-		if(roll > 99000){
+		if(roll > 99500){
 			inventory.addItem(new Item("Rising sun card", "Collectable", 1));
 		}
 		
@@ -267,7 +267,7 @@ if(!inventory){console.log("No Inventory Found")}else {
 										phase = "High Noon";
 if(!inventory){console.log("No Inventory Found")}else {
 	let roll = Math.floor(Math.random() * 100000)
-		if(roll > 99000){
+		if(roll > 99500){
 			inventory.addItem(new Item("Highest Point card", "Collectable", 1));
 		}
 		
@@ -495,7 +495,10 @@ function load() {
 			time = currentSave.SavedTime;
 			name = currentSave.SavedName;
 				document.getElementById("name").textContent = `${name}`; //Change html 
-			ungaCoin = currentSave.SavedUngaCoin;
+				if(currentSave.SavedUngaCoin){
+				ungaCoin = currentSave.SavedUngaCoin;
+				}
+			
 				
 			//Check to see what the autosave settings were
 			autosaveEnabled = currentSave.SavedAutosaveSetting;	
