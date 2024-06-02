@@ -24,6 +24,15 @@ display: none;
 #content {
 
 }
+.animate-fade {
+  opacity: 1;
+  transition: 0.1s;
+  float:left;
+  top:15%;
+  left: 5%;
+  position: absolute; 
+  color: green
+}
 
 .content {
 text-align: center;
@@ -49,11 +58,14 @@ display: none;
 <body>
 	
 <div id="timeDiv">	
+		<div style="float:left; position: absolute" id="ungaCoin"></div> <div class="animate-fade" id="addedCoins"></div>
+	  
 		<input type="text" id="nameInput" placeholder="Enter a Name" style="text-align:center"><p id="name"></p> <button onclick="submitName()" id="submitButton">Submit</button>
 		<div id="dayDisplay">Day : 0 </div>
 		<div id="timeDisplay">Time: 00:00</div>
 		<div id="phaseDisplay">Phase : Midnight</div>
 	  
+		
 		<button onclick="toggleInterval()" id="timeButton">Pause/Resume</button>
 		<button onclick="save()" id="saveButton">Save!</button>
 		<button onclick="load()">Load!</button>
@@ -149,14 +161,17 @@ display: none;
   
 <div id="InvUI" class="content">
 
-        
+        <select name="Discard">
+			<option value="options1">options1</option>
+			<option value="options2">options1</option>
+		</select>
 </div>  
   <script>
 	let name;
 	
 	let autosaveEnabled = false;
 	
-	
+	let ungaCoin = 0;
 	
 	let day = 0;
 	let time = 720; // Set initial time to 12:00 (720 minutes)
@@ -167,9 +182,7 @@ display: none;
     let minutes = time % 60;
     let formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
 	
-	//SURVIVAL STUFF
-	let hunger = 1000;
-	let hungerRate = 0.5;
+	
 	
 function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
     time += 1;
@@ -181,7 +194,8 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
 	
     document.getElementById('timeDisplay').textContent = `Time: ${formattedTime}`;
 	document.getElementById('dayDisplay').textContent = `Day: ${day}`;
-    
+	document.getElementById('ungaCoin').textContent = `UngaCoin(TM): ${ungaCoin}`;
+	
     let brightness;
     if (time < brightestTime) {
         brightness = time / brightestTime; // Brightness increases until the brightest time
@@ -203,25 +217,88 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
 		document.getElementById('dayDisplay').textContent = `Day: ${day}`;
     }
 	
-	if(time < 119){							//00:00 -> 02:00
-		phase = "Midnight";
-	}else if(time > 119 && time < 359){		//02:00 -> 06:00
-		phase = "Early Morning";
-	}else if(time > 359 && time < 539){		//06:00 -> 09:00
-		phase = "Morning";
-	}else if(time > 539 && time < 719){		//09:00 -> 12:00
-		phase = "Late Morning";
-	}else if(time > 719 && time < 779){		//12:00 -> 13:00
-		phase = "High Noon";
-	}else if(time > 779 && time < 960){		//13:00 -> 16:00
-		phase = "Afternoon";
-	}else if(time > 960 && time < 1140){	//16:00 -> 19:00
-		phase = "Late Afternoon";
-	}else if(time > 1140 && time < 1320){ 	//19:00 -> 22:00
-		phase = "Evening";
-	}else if(time > 1320){					//22:00 -> 24:00
-		phase = "Night";
+									if(time < 119){							//00:00 -> 02:00
+										phase = "Midnight";
+
+if(!inventory){console.log("No Inventory Found")}else {
+	let roll = Math.floor(Math.random() * 100000)
+		if(roll > 99000){
+			inventory.addItem(new Item("Sabotnik Blood", "Uncommon", 1));
+			console.log("Rolled a " + roll)
+		}
+		
 	}
+if(!inventory){console.log("No Inventory Found")}else {
+	let roll = Math.floor(Math.random() * 100000)
+		if(roll > 99900){
+			inventory.addItem(new Item("Vampiric Tooth", "Ultra Rare", 1));
+			console.log(roll)
+		}
+		
+}
+
+									}else if(time > 119 && time < 359){		//02:00 -> 06:00
+										phase = "Early Morning";
+										
+								
+										
+									}else if(time > 359 && time < 539){		//06:00 -> 09:00
+										phase = "Morning";
+										
+if(!inventory){console.log("No Inventory Found")}else {
+	let roll = Math.floor(Math.random() * 100000)
+		if(roll > 90000){
+			inventory.addItem(new Item("(S)Unga Coin", "Coin Supply", 1));
+		}
+		
+}
+									}else if(time > 539 && time < 719){		//09:00 -> 12:00
+										phase = "Late Morning";
+	
+if(!inventory){console.log("No Inventory Found")}else {
+	let roll = Math.floor(Math.random() * 100000)
+		if(roll > 99000){
+			inventory.addItem(new Item("Rising sun card", "Collectable", 1));
+		}
+		
+}
+
+									}else if(time > 719 && time < 779){		//12:00 -> 13:00
+										phase = "High Noon";
+if(!inventory){console.log("No Inventory Found")}else {
+	let roll = Math.floor(Math.random() * 100000)
+		if(roll > 99000){
+			inventory.addItem(new Item("Highest Point card", "Collectable", 1));
+		}
+		
+}
+if(!inventory){console.log("No Inventory Found")}else {
+	let roll = Math.floor(Math.random() * 100000)
+		if(roll > 95000){
+			inventory.addItem(new Item("(L)Unga Coin", "Coin Supply", 1));
+		}
+		
+}
+									}else if(time > 779 && time < 960){		//13:00 -> 16:00
+										phase = "Afternoon";
+
+									}else if(time > 960 && time < 1140){	//16:00 -> 19:00
+										phase = "Late Afternoon";
+
+if(!inventory){console.log("No Inventory Found")}else {
+	let roll = Math.floor(Math.random() * 100000)
+		if(roll > 99500){
+			inventory.addItem(new Item("Setting sun card", "Collectable", 1));
+		}
+		
+}
+
+									}else if(time > 1140 && time < 1320){ 	//19:00 -> 22:00
+										phase = "Evening";
+									}else if(time > 1320){					//22:00 -> 24:00
+										phase = "Night";
+									}
+											
 	document.getElementById("phaseDisplay").textContent = `Phase : ${phase}`;
 	
 	
@@ -262,9 +339,139 @@ function submitName(){
 	document.getElementById("nameInput").style.display = "none";
 	document.getElementById("submitButton").style.display = "none";
 }
+// // // // // INVENTORY STUFF // // // // // 
 
+
+
+
+class Item {
+    constructor(name, type, quantity = 1, rarity = Math.floor(Math.random() * 100)) {
+        this.name = name;
+        this.type = type;
+        this.quantity = quantity;
+		this.rarity = rarity;
+    }
+}
+
+class Inventory {
+    constructor() {
+        this.items = [];
+    }
+
+    addItem(newItem) {
+        const existingItemIndex = this.items.findIndex(item => 
+            item.name === newItem.name && item.type === newItem.type
+        );
+
+        if (existingItemIndex > -1) {
+            this.items[existingItemIndex].quantity += newItem.quantity;
+			this.items[existingItemIndex].rarity = Math.floor(((this.items[existingItemIndex].rarity*this.items[existingItemIndex].quantity) + newItem.rarity) / (this.items[existingItemIndex].quantity + 1));
+        } else {
+            this.items.push(newItem);
+        }
+		this.listItems();
+    }
+
+    removeItem(index, quantity = 1) {
+    if (index >= 0 && index < this.items.length) {
+        if (this.items[index].quantity > quantity) {
+            this.items[index].quantity -= quantity;
+        } else {
+            this.items.splice(index, 1);
+        }
+    } else {
+        console.log(`Invalid index: ${index}`);
+    }
+    this.listItems();
+}
+		
+    listItems() {
+	const InvUI = document.getElementById("InvUI");
+	InvUI.innerHTML = '';
+        for(let i = 0; i < this.items.length; i++){
+			InvUI.innerHTML += "<br><span onclick='inventory.useItem(" + i + ")'>Name : " + this.items[i].name + " / Type : " + this.items[i].type + " /  Amt  : " + this.items[i].quantity + " / Rarity : " + this.items[i].rarity + "</span><br>";
+			
+		
+		}
+	
+	InvUI.innerHTML += ' <h6 style="color: red; bottom: 5px;"> *WARNING:* Items here will NOT BE SAVED if you close the browser. </h6><br>';
+		
+    }
+	useItem(index){
+		console.log("Using " + inventory.items[index].name);
+		
+			if(inventory.items[index].name === "Rising sun card"){
+				console.log("The Warmth of the sun radiates from the card...");
+				document.getElementById("content").style.color = "#7A1313";
+					setTimeout(() => {
+					 document.getElementById("content").style.color = "white";
+					}, 30000);
+			}
+			if(inventory.items[index].name === "Setting sun card"){
+			console.log("A stillness radiates from the card...");
+				document.getElementById("content").style.color = "#6680B4";
+					setTimeout(() => {
+					 document.getElementById("content").style.color = "white";
+					}, 30000);
+			}
+			if(inventory.items[index].name === "Sabotnik Blood"){
+					if(inventory.items[index].name === "Sabotnik Blood" && phase === "Midnight"){
+						inventory.addItem(new Item("Vampiric Tooth", "Ultra Rare", 1));
+						console.log("From out of the blood, a vampiric tooth shifts into existence.");
+					}
+				console.log("The blood sizzles into the air, the scent hangs in the air.");
+			}
+			if(inventory.items[index].name === "Highest Point card"){
+				console.log("The edges of the card sizzle under your fingertips...");
+				document.getElementById("InvUI").style.border = "5px dotted #7A1313";
+					setTimeout(() => {
+					 document.getElementById("InvUI").style.borderColor = "black";
+					}, 10000);
+			}
+			if(inventory.items[index].name === "(S)Unga Coin"){
+				let addedValue = Math.floor(Math.random() * 200);
+				ungaCoin += addedValue + inventory.items[index].rarity;
+				console.log("Coin added : " + addedValue + " ( +" +  inventory.items[index].rarity + ")");
+				document.getElementById("addedCoins").innerHTML = "+" + addedValue + "(+ " + inventory.items[index].rarity + ")";
+				document.getElementById("addedCoins").style.transition = "opacity 0.5s";
+				document.getElementById("addedCoins").style.opacity = 1;
+				setTimeout(() => {
+					 document.getElementById("addedCoins").style.opacity = 0;
+					}, 2000);
+			}
+			if (inventory.items[index].name === "(L)Unga Coin") {
+				let addedValue = Math.floor(Math.random() * 200);
+				ungaCoin += addedValue + inventory.items[index].rarity;
+				console.log("Coin added : " + addedValue + " ( +" +  inventory.items[index].rarity + ")");
+				document.getElementById("addedCoins").innerHTML = "+" + addedValue + "(+ " + inventory.items[index].rarity + ")";
+				document.getElementById("addedCoins").style.transition = "opacity 0.5s";
+				document.getElementById("addedCoins").style.opacity = 1;
+				setTimeout(() => {
+					 document.getElementById("addedCoins").style.opacity = 0;
+					}, 2000);
+			}
+			
+		inventory.removeItem(index);
+	}
+}
+let inventory = new Inventory();
+
+inventory.listItems();
+
+
+// // // // // END OF INVENTORY // // // // //
+
+// // // // // SAVING AND LOADING // // // // //
 function save(){
-	var currentSave = {SavedDay: day, SavedHour: hours, SavedMinute: minutes, SavedTime: time, SavedName: name, SavedAutosaveSetting: autosaveEnabled}; //ALL STUFF SAVED DURING SAVE
+	var currentSave = 	{SavedDay: day, 
+						SavedHour: hours,
+						SavedMinute: minutes,
+						SavedTime: time,
+						SavedName: name,
+						SavedUngaCoin: ungaCoin,
+						SavedAutosaveSetting: autosaveEnabled}; //ALL STUFF SAVED DURING SAVE
+						
+						
 	var stringed = JSON.stringify(currentSave);
 	localStorage.setItem("currentSaveStringed", stringed)
 	console.log("Saved. " + stringed)
@@ -288,6 +495,7 @@ function load() {
 			time = currentSave.SavedTime;
 			name = currentSave.SavedName;
 				document.getElementById("name").textContent = `${name}`; //Change html 
+			ungaCoin = currentSave.SavedUngaCoin;
 				
 			//Check to see what the autosave settings were
 			autosaveEnabled = currentSave.SavedAutosaveSetting;	
@@ -296,7 +504,6 @@ function load() {
         console.log('No current save found in localStorage.');
     }
 }
-
 load(); //we are talking, MEGA BRAIN 
 
 //Should I do autosaving? Hmmmmm...Well I don't think it'll do any harm. Not personally, at least. What's disk space? /s 
@@ -305,7 +512,12 @@ load(); //we are talking, MEGA BRAIN
 let autosaveInterval = setInterval(() => {
             if (autosaveEnabled) {
                 save();
-            }
+            }else{
+				saveButton.style.border = '2px dotted red';
+				setTimeout(() => {
+					saveButton.style.border = '1px solid black';
+				}, 500);
+			}
             console.log(autosaveEnabled ? "Autosave Enabled : True" : "Autosave Enabled : False");
         }, 5000); // Autosave every 5 seconds
 
@@ -325,62 +537,7 @@ function deleteSave(){
 	location.reload();
 }
 
-// // // // // INVENTORY STUFF // // // // // 
-class Item {
-    constructor(name, type, quantity = 1) {
-        this.name = name;
-        this.type = type;
-        this.quantity = quantity;
-    }
-}
-
-class Inventory {
-    constructor() {
-        this.items = [];
-    }
-
-    addItem(newItem) {
-        const existingItemIndex = this.items.findIndex(item => 
-            item.name === newItem.name && item.type === newItem.type
-        );
-
-        if (existingItemIndex > -1) {
-            this.items[existingItemIndex].quantity += newItem.quantity;
-        } else {
-            this.items.push(newItem);
-        }
-    }
-
-    removeItem(name, type, quantity = 1) {
-        const itemIndex = this.items.findIndex(item => item.name === name && item.type === type);
-
-        if (itemIndex > -1) {
-            if (this.items[itemIndex].quantity > quantity) {
-                this.items[itemIndex].quantity -= quantity;
-            } else {
-                this.items.splice(itemIndex, 1);
-            }
-        } else {
-            console.log(`Item not found: ${name} (${type})`);
-        }
-    }
-
-    listItems() {
-	const InvUI = document.getElementById("InvUI");
-	InvUI.innerHTML = '';
-        for(let i = 0; i < this.items.length; i++){
-			InvUI.innerHTML += "Name : " + this.items[i].name + " / Type : " + this.items[i].type + " / Amt : " + this.items[i].quantity + "<br>";
-		}
-    }
-}
-
-const inventory = new Inventory();
-//EXAMPLE OF ADDING AN ITEM TO THE INVENTORY
-//inventory.addItem(new Item("Unga Card", "Collectable", 1));
-//inventory.listItems();
-
-
-// // // // // END OF INVENTORY // // // // //
+// // // // // END OF SAVING AND LOADING // // // // //
 
 // // // // // POEM STUFF // // // // //
 
