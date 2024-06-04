@@ -61,6 +61,7 @@ display: none;
 		<div style="float:left; position: absolute" id="ungaCoin"></div> <div class="animate-fade" id="addedCoins"></div>
 	  
 		<input type="text" id="nameInput" placeholder="Enter a Name" style="text-align:center"><p id="name"></p> <button onclick="submitName()" id="submitButton">Submit</button>
+		<div id="locationUI"></div>
 		<div id="dayDisplay">Day : 0 </div>
 		<div id="timeDisplay">Time: 00:00</div>
 		<div id="phaseDisplay">Phase : Midnight</div>
@@ -74,6 +75,7 @@ display: none;
 		<button onclick="changeTickTime(20)">Fast Speed</button>
 		<button onclick="changeTickTime(100)">Normal Speed</button>
 		<button onclick="changeTickTime(600)">Slow Speed</button>
+		<button onclick="changeTickTime(1500)">FRENCH DELAY Speed</button>
 		<br>
 </div>	  
 	
@@ -195,6 +197,10 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
 	minutes = time % 60;
 	formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
 	
+	if(currentLocation.name){
+	document.getElementById('locationUI').textContent = `Location : ${currentLocation.name}`;
+	}
+	
     document.getElementById('timeDisplay').textContent = `Time: ${formattedTime}`;
 	document.getElementById('dayDisplay').textContent = `Day: ${day}`;
 	document.getElementById('ungaCoin').textContent = `UngaCoin(TM): ${ungaCoin}`;
@@ -281,14 +287,22 @@ function submitName(){
 	document.getElementById("nameInput").style.display = "none";
 	document.getElementById("submitButton").style.display = "none";
 }
-// // // // // INVENTORY STUFF // // // // // 
+
+// // // // // LOCATION STUFF // // // // //
+
+function changeLocation(newLocation){
+currentLocation = newLocation;
+currentDrops = currentLocation.drops
+}
 
 	//Vampire easter egg//
 		let vampireTeethUsed = 0;
-
-	// // // // // // CURRENT DROPS START // // // // //
-let cemetaryDrops = [
-    { 	name: "(L)Unga Coin", 
+		
+	//Card states
+		let cardStates = [false, false, false, false]
+let cemetary = {
+	name: "Cemetary",
+	drops:  [	{name: "(L)Unga Coin", 
         type: "Coin Supply", 
         quantity: 1, 
         dropRate: 0.08, 
@@ -328,7 +342,13 @@ let cemetaryDrops = [
         dropRate: 0.09, 
         phase: "Midnight",
         use: function() {
-            console.log("You throw the whole lot of cards to the ground, wasting them.")
+            cardStates[0] = true;
+			console.log("Added a spades set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
         }
     },
 	{ 	name: "Diamonds set", 
@@ -337,7 +357,13 @@ let cemetaryDrops = [
         dropRate: 0.045, 
         phase: "Early Morning",
         use: function() {
-            console.log("You throw the whole lot of cards to the ground, wasting them.")
+            cardStates[1] = true;
+			console.log("Added a diamonds set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
         }
     },
 	{ 	name: "Clubs set", 
@@ -346,7 +372,13 @@ let cemetaryDrops = [
         dropRate: 0.06, 
         phase: "Late Morning",
         use: function() {
-            console.log("You throw the whole lot of cards to the ground, wasting them.")
+            cardStates[2] = true;
+			console.log("Added a clubs set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
         }
     },
 	{ 	name: "Hearts set", 
@@ -355,7 +387,13 @@ let cemetaryDrops = [
         dropRate: 0.045, 
         phase: "Evening",
         use: function() {
-            console.log("You throw the whole lot of cards to the ground, wasting them.")
+            cardStates[3] = true;
+			console.log("Added a hearts set to your deck");
+				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
         }
     },
 	{ 	name: "Sabotnik Blood", //MIDNIGHT 
@@ -415,50 +453,98 @@ let cemetaryDrops = [
 			
         }
     },
-
-	
-	// Define other items similarly
-];
-
-let barDrops = [
-	{ 	name: "Beer", //MORNING
-        type: "Alcohol", 
+	{ 	name: "Full Deck of Cards", 
+        type: "Card set (Complete)", 
         quantity: 1, 
-        dropRate: 0.2, 
-        phase: "Morning",
+        dropRate: 0, 
+        phase: "Evening",
         use: function() {
-            console.log("getting fucking HAMMERED")
+           console.log("What a waste");
         }
-    },
-	{ 	name: "Beer", //LATE MORNING
-        type: "Alcohol", 
+    }]
+}
+
+let casino = { 
+	name: "Evade Casino",
+	drops:  [{ 	name: "Spades set", 
+        type: "Card set", 
         quantity: 1, 
-        dropRate: 0.2, 
+        dropRate: 0.06, 
         phase: "Late Morning",
         use: function() {
-            console.log("getting fucking HAMMERED")
+            cardStates[0] = true;
+			console.log("Added a spades set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
         }
     },
-	{ 	name: "Beer", //HIGH NOON
-        type: "Alcohol", 
+	{ 	name: "Diamonds set", 
+        type: "Card set", 
         quantity: 1, 
-        dropRate: 0.2, 
-        phase: "High Noon",
+        dropRate: 0.06, 
+        phase: "Late Morning",
         use: function() {
-            console.log("getting fucking HAMMERED")
+            cardStates[1] = true;
+			console.log("Added a diamonds set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
         }
     },
-	{ 	name: "Beer", //AFTERNOON
-        type: "Alcohol", 
+	{ 	name: "Clubs set", 
+        type: "Card set", 
         quantity: 1, 
-        dropRate: 0.2, 
-        phase: "Afternoon",
+        dropRate: 0.06, 
+        phase: "Late Morning",
         use: function() {
-            console.log("getting fucking HAMMERED")
+            cardStates[2] = true;
+			console.log("Added a clubs set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
         }
     },
-];
-let currentDrops = cemetaryDrops;
+	{ 	name: "Hearts set", 
+        type: "Card set", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Late Morning",
+        use: function() {
+            cardStates[3] = true;
+			console.log("Added a hearts set to your deck");
+				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
+        }
+    },
+	{ 	name: "Full Deck of Cards", 
+        type: "Card set (Complete)", 
+        quantity: 1, 
+        dropRate: 0, 
+        phase: "Evening",
+        use: function() {
+           console.log("What a waste");
+        }
+    }]
+}
+
+let currentLocation = cemetary;
+
+
+// // // // // INVENTORY STUFF // // // // // 
+
+
+	// // // // // // CURRENT DROPS START // // // // //
+let currentDrops = currentLocation.drops;
 	// // // // // // CURRENT DROPS END // // // // //
 
 const dropRateInterval = 1000; // Interval in milliseconds
@@ -467,19 +553,31 @@ function addToInventory(item) {
     inventory.addItem(new Item(item.name, item.type, item.quantity, Math.floor(Math.random() * 100), item.phase, item.use));
 }
 let dropInterval;
-function startDropInterval(){
-	 dropInterval = setInterval(() => {
-						currentDrops.forEach(item => {
-							// Logic to determine if the item should be dropped
-							const dropRoll = Math.random();
-							if (dropRoll < item.dropRate && phase === item.phase) {
-								// Add item to inventory
-								addToInventory(item);
-							}
-						});
-	}, dropRateInterval);
+function startDropInterval() {
+    dropInterval = setInterval(() => {
+        for (let index = 0; index < currentDrops.length; index++) {
+            const item = currentDrops[index];
+            // Logic to determine if the item should be dropped
+            const dropRoll = Math.random();
+            if (dropRoll < item.dropRate && phase === item.phase) {
+                // Add item to inventory
+                addToInventory(item);
+
+                setTimeout((itemName) => {
+                    // Find the index of the item by name
+                    let itemIndex = inventory.items.findIndex(invItem => invItem.name === itemName);
+                    // Check if the item exists in the inventory
+                    if (itemIndex !== -1) {
+                        // Remove the item from the inventory
+                        inventory.removeItem(itemIndex);
+                    }
+                }, 5000, item.name);
+            }
+        }
+    }, dropRateInterval);
 }
 startDropInterval(); // default start with on
+
 class Item {
     constructor(name, type, quantity = 1, rarity = Math.floor(Math.random() * 100), phase, use) {
         this.name = name;
