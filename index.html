@@ -19,6 +19,7 @@ padding-top: 100px;
 #timeDiv{
 text-align: center;
 display: none;
+overflow: auto;
 }
 
 #content {
@@ -49,9 +50,23 @@ padding:15px;
 border: 1px solid white;
 display: none;
 }
+#vampireTeethCounter {
+	top:30%;
+}
+#deckCounter {
+	top:20%;
+}
 
 #poemContainer {
 display: none;
+}
+#cardsDiv {
+	inline: block;
+	display: none;
+}
+.hoverable:hover {
+	transition: color 2s;
+	color: #C10633;
 }
 </style>
 </head>
@@ -59,6 +74,12 @@ display: none;
 	
 <div id="timeDiv">	
 		<div style="float:left; position: absolute" id="ungaCoin"></div> <div class="animate-fade" id="addedCoins"></div>
+		<div style="float:left; position: absolute" id="deckCounter" class="hoverable"></div>
+		<div style="float:left; position: absolute" id="vampireTeethCounter"></div>
+		<div id="locationSelector" style="position: absolute; right: 5%;">
+			<p onclick="changeLocation(cemetary)" class="hoverable">Cemetary</p>
+			<p onclick="changeLocation(casino)" class="hoverable">Casino</p>									
+		</div>
 	  
 		<input type="text" id="nameInput" placeholder="Enter a Name" style="text-align:center"><p id="name"></p> <button onclick="submitName()" id="submitButton">Submit</button>
 		<div id="locationUI"></div>
@@ -76,6 +97,8 @@ display: none;
 		<button onclick="changeTickTime(100)">Normal Speed</button>
 		<button onclick="changeTickTime(600)">Slow Speed</button>
 		<button onclick="changeTickTime(1500)">FRENCH DELAY Speed</button>
+		
+		
 		<br>
 </div>	  
 	
@@ -146,7 +169,7 @@ display: none;
 		<div id="poem8">The sun goes up and down
 		like a tired whore,
 		the weather immobile
-		like a <span onclick="inventory.addItem(new Item('Broken Limb', 'Collectable', 1)); inventory.listItems()">broken limb</span>
+		like a broken limb
 		while you just keep getting older.
 		Nothing moves but
 		the shifting tides of salt in your body.
@@ -160,17 +183,15 @@ display: none;
 		You come home with your mutant gifts
 		to a house of bone.
 		Everything you see now,
-		all of it: <span onclick="inventory.addItem(new Item('Bone', 'Collectable', 1)); inventory.listItems()">bone.</span><br>(9/9)</div>
+		all of it: bone.<br>(9/9)</div>
 </div>
 										<!-- END OF BONEDOG POEM -->
   
-<div id="InvUI" class="content">
+<div id="InvUI" class="content"></div>  
 
-        <select name="Discard">
-			<option value="options1">options1</option>
-			<option value="options2">options1</option>
-		</select>
-</div>  
+<div id="cardsDiv" class="content"> <img id="cardOneElement" src="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/ACE%20SPADES.PNG" style="width: 400px; height: 600px">
+									<img id="cardTwoElement" src="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/ACE%20SPADES.PNG" style="width: 400px; height: 600px">
+</div>
   <script>
 	let name;
 	
@@ -204,6 +225,13 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
     document.getElementById('timeDisplay').textContent = `Time: ${formattedTime}`;
 	document.getElementById('dayDisplay').textContent = `Day: ${day}`;
 	document.getElementById('ungaCoin').textContent = `UngaCoin(TM): ${ungaCoin}`;
+		if(cardStates){
+			document.getElementById("deckCounter").textContent = `♠ ${cardStates[0]} / ♥ ${cardStates[1]} / ♣ ${cardStates[2]} / ♦ ${cardStates[3]}`;
+		}
+		if(vampireTeethUsed){
+			document.getElementById("vampireTeethCounter").textContent = `Vampire Teeth used: ${vampireTeethUsed}`;
+		}
+		
 	
     let brightness;
     if (time < brightestTime) {
@@ -295,6 +323,7 @@ currentLocation = newLocation;
 currentDrops = currentLocation.drops
 }
 
+
 	//Vampire easter egg//
 		let vampireTeethUsed = 0;
 		
@@ -351,15 +380,15 @@ let cemetary = {
 				}
         }
     },
-	{ 	name: "Diamonds set", 
+	{ 	name: "Hearts set", 
         type: "Card set", 
         quantity: 1, 
         dropRate: 0.045, 
-        phase: "Early Morning",
+        phase: "Evening",
         use: function() {
             cardStates[1] = true;
-			console.log("Added a diamonds set to your deck");
-			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+			console.log("Added a hearts set to your deck");
+				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
 						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
 						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
 						cardStates = [false, false, false, false];
@@ -381,21 +410,23 @@ let cemetary = {
 				}
         }
     },
-	{ 	name: "Hearts set", 
+	{ 	name: "Diamonds set", 
         type: "Card set", 
         quantity: 1, 
         dropRate: 0.045, 
-        phase: "Evening",
+        phase: "Early Morning",
         use: function() {
-            cardStates[3] = true;
-			console.log("Added a hearts set to your deck");
-				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+            cardStates[1] = true;
+			console.log("Added a diamonds set to your deck");
+			if(cardStates[3] && cardStates[1] && cardStates[2] && cardStates[3]){
 						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
 						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
 						cardStates = [false, false, false, false];
 				}
         }
     },
+	
+	
 	{ 	name: "Sabotnik Blood", //MIDNIGHT 
         type: "Cryptid Item", 
         quantity: 1, 
@@ -406,6 +437,7 @@ let cemetary = {
 				let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
 				
 				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("A vampire tooth materializes from the blood...");
 			}
             console.log("The blood sizzles, leaving a taste of iron in your lungs.")
         }
@@ -420,6 +452,7 @@ let cemetary = {
 				let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
 				
 				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("A vampire tooth materializes from the blood...");
 			}
             console.log("The blood sizzles, leaving a taste of iron in your lungs.")
         }
@@ -469,7 +502,7 @@ let casino = {
 	drops:  [{ 	name: "Spades set", 
         type: "Card set", 
         quantity: 1, 
-        dropRate: 0.06, 
+        dropRate: 0.09, 
         phase: "Late Morning",
         use: function() {
             cardStates[0] = true;
@@ -481,15 +514,15 @@ let casino = {
 				}
         }
     },
-	{ 	name: "Diamonds set", 
+	{ 	name: "Hearts set", 
         type: "Card set", 
         quantity: 1, 
-        dropRate: 0.06, 
+        dropRate: 0.045, 
         phase: "Late Morning",
         use: function() {
             cardStates[1] = true;
-			console.log("Added a diamonds set to your deck");
-			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+			console.log("Added a hearts set to your deck");
+				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
 						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
 						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
 						cardStates = [false, false, false, false];
@@ -511,15 +544,75 @@ let casino = {
 				}
         }
     },
-	{ 	name: "Hearts set", 
+	{ 	name: "Diamonds set", 
         type: "Card set", 
         quantity: 1, 
-        dropRate: 0.06, 
+        dropRate: 0.045, 
         phase: "Late Morning",
         use: function() {
             cardStates[3] = true;
+			console.log("Added a diamonds set to your deck");
+			if(cardStates[3] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
+        }
+    },
+	{ 	name: "Spades set", //EVENING
+        type: "Card set", 
+        quantity: 1, 
+        dropRate: 0.09, 
+        phase: "Evening",
+        use: function() {
+            cardStates[0] = true;
+			console.log("Added a spades set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
+        }
+    },
+	{ 	name: "Hearts set", 
+        type: "Card set", 
+        quantity: 1, 
+        dropRate: 0.045, 
+        phase: "Evening",
+        use: function() {
+            cardStates[1] = true;
 			console.log("Added a hearts set to your deck");
 				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
+        }
+    },
+	{ 	name: "Clubs set", 
+        type: "Card set", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Evening",
+        use: function() {
+            cardStates[2] = true;
+			console.log("Added a clubs set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
+        }
+    },
+	{ 	name: "Diamonds set", 
+        type: "Card set", 
+        quantity: 1, 
+        dropRate: 0.045, 
+        phase: "Evening",
+        use: function() {
+            cardStates[3] = true;
+			console.log("Added a diamonds set to your deck");
+			if(cardStates[3] && cardStates[1] && cardStates[2] && cardStates[3]){
 						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
 						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
 						cardStates = [false, false, false, false];
@@ -646,6 +739,31 @@ inventory.listItems();
 
 // // // // // END OF INVENTORY // // // // //
 
+// // // // // CARDS // // // // //
+
+// Array of card names
+const cards = [
+  "ACE SPADES", "2 SPADES", "3 SPADES", "4 SPADES", "5 SPADES", "6 SPADES", "7 SPADES", "8 SPADES", "9 SPADES", "10 SPADES", "JACK SPADES", "QUEEN SPADES", "KING SPADES",
+  "ACE HEARTS", "2 HEARTS", "3 HEARTS", "4 HEARTS", "5 HEARTS", "6 HEARTS", "7 HEARTS", "8 HEARTS", "9 HEARTS", "10 HEARTS", "JACK HEARTS", "QUEEN HEARTS", "KING HEARTS",
+  "ACE DIAMONDS", "2 DIAMONDS", "3 DIAMONDS", "4 DIAMONDS", "5 DIAMONDS", "6 DIAMONDS", "7 DIAMONDS", "8 DIAMONDS", "9 DIAMONDS", "10 DIAMONDS", "JACK DIAMONDS", "QUEEN DIAMONDS", "KING DIAMONDS",
+  "ACE CLUBS", "2 CLUBS", "3 CLUBS", "4 CLUBS", "5 CLUBS", "6 CLUBS", "7 CLUBS", "8 CLUBS", "9 CLUBS", "10 CLUBS", "JACK CLUBS", "QUEEN CLUBS", "KING CLUBS"
+];
+
+// Function to generate the URL
+const pathTo = (card) => {
+  const baseUrl = "https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/";
+  return baseUrl + encodeURIComponent(card) + ".PNG";
+};
+
+<!-- // Example usage -->
+<!-- cards.forEach(card => { -->
+  <!-- console.log(pathTo(card)); -->
+<!-- }); -->
+document.getElementById("cardOneElement").src = pathTo(cards[ Math.floor(Math.random() * 100) % 52 ]);
+document.getElementById("cardTwoElement").src = pathTo(cards[ Math.floor(Math.random() * 100) % 52 ]);
+
+// // // // // END OF CARDS // // // // //
+
 // // // // // SAVING AND LOADING // // // // //
 function save(){
 	var currentSave = 	{SavedDay: day, 
@@ -654,6 +772,7 @@ function save(){
 						SavedTime: time,
 						SavedName: name,
 						SavedUngaCoin: ungaCoin,
+						SavedVampireTeeth: vampireTeethUsed,
 						SavedAutosaveSetting: autosaveEnabled}; //ALL STUFF SAVED DURING SAVE
 						
 						
@@ -682,6 +801,9 @@ function load() {
 				document.getElementById("name").textContent = `${name}`; //Change html 
 				if(currentSave.SavedUngaCoin){
 				ungaCoin = currentSave.SavedUngaCoin;
+				};
+				if(currentSave.SavedVampireTeeth){
+				vampireTeethUsed = currentSave.SavedVampireTeeth;
 				}
 			
 				
@@ -839,6 +961,13 @@ poemVerse[0].style.display = "block";
 							document.getElementById("content").style.display = "none";
 							document.getElementById("poemContainer").style.display = "none";
 							document.getElementById("InvUI").style.display = "block";
+						}
+						if(event.key === "c"){
+							if(document.getElementById("cardsDiv").style.display === "block"){
+								document.getElementById("cardsDiv").style.display = "none";
+							}else{
+								document.getElementById("cardsDiv").style.display = "block";
+							}
 						}
 						if(event.key === "t"){
 							toggleDisplay();
