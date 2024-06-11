@@ -37,14 +37,17 @@ overflow: auto;
 
 .content {
 text-align: center;
-width: 80%;
+width: 90%;
 height: 80%;
 margin: auto;
 background-color:black;
-border-radius: 50px;
 color: white;
-padding:15px;
+padding:20px;
 }
+
+.easterEgg {
+	color: black;
+}	
 
 #InvUI {
 border: 1px solid white;
@@ -68,6 +71,8 @@ display: none;
 	transition: color 2s;
 	color: #C10633;
 }
+
+
 </style>
 </head>
 <body>
@@ -77,8 +82,8 @@ display: none;
 		<div style="float:left; position: absolute" id="deckCounter" class="hoverable"></div>
 		<div style="float:left; position: absolute" id="vampireTeethCounter"></div>
 		<div id="locationSelector" style="position: absolute; right: 5%;">
-			<p onclick="changeLocation(cemetary)" class="hoverable">Cemetary</p>
-			<p onclick="changeLocation(casino)" class="hoverable">Casino</p>									
+			<p onclick="changeLocation(cemetary)" class="hoverable" id="cemetaryButton">Cemetary</p>
+			<p onclick="changeLocation(casino); toggleDisplay('card')" class="hoverable" id="casinoButton">Casino</p>									
 		</div>
 	  
 		<input type="text" id="nameInput" placeholder="Enter a Name" style="text-align:center"><p id="name"></p> <button onclick="submitName()" id="submitButton">Submit</button>
@@ -94,25 +99,43 @@ display: none;
 		<button onclick="toggleAutosave();" id="toggleAutosaveButton">Toggle Autosave!</button>
 		<button onclick="deleteSave()">Delete Save (ALL progress will be lost)</button>
 		<button onclick="changeTickTime(20)">Fast Speed</button>
-		<button onclick="changeTickTime(100)">Normal Speed</button>
-		<button onclick="changeTickTime(600)">Slow Speed</button>
-		<button onclick="changeTickTime(1500)">FRENCH DELAY Speed</button>
-		
+		<button onclick="changeTickTime(100)">Slow Speed</button>
+		<button onclick="changeTickTime(5000)">FRENCH DELAY Speed</button>
 		
 		<br>
 </div>	  
 	
 <div id="content" class="content">
-	<h1>UNGABUNGA TRIBE STUDIOS - UNGA </h1>
-	<br> <hr>
-	<p style="text-align:left">That's right. UNGABUNGA TRIBE STUDIOS is now live and active. What now? Do we take over the world? Maybe. Might as well start referring to us as the <span id="easterEggU">(U)</span>nited <span id="easterEggN">(N)</span>ations of <span id="easterEggG">(G)</span>reat <span id="easterEggA">(A)</span>merica, if we keep up this pace.</p>
-	<br>
-	<p style="text-align:left">In all seriousness, this will be the place where I put all my current projects. No schedule, no planned future events as of now.</p> 
-	<br>
-	<p style="text-align:left">But in <span id="UNGA" onclick="toggleDisplay()">time</span> things will start to appear here, so don't forget to come back. And who knows, maybe there are already some <span onclick='document.getElementById("content").style.display = "none"; document.getElementById("poemContainer").style.display = "none"; document.getElementById("InvUI").style.display = "block";'> hidden goodies here ;) </span></p>
+	<h2 style="float: left">U N G A </h2> <br><br><br>
+		<div id="navBar" style="text-align: right"> [ <span onclick="toggleDisplay('welcome')">Welcome!</span> ][ <span onclick="toggleDisplay('ant')">Ant in a Computer</span> ][ <span onclick="toggleDisplay('cave')">Cave Allegory</span> ]
+		</div>
+		<div id="welcomeTab" class="tabContent">
+			<p style="text-align:left">Welcome! As the official site of the <span id="easterEggU" class='easterEgg'>(U)nited</span> <span id="easterEggN" class='easterEgg'>(N)ations of</span> <span id="easterEggG" class='easterEgg'>(G)reat</span> <span id="easterEggA" class='easterEgg'>(A)merica</span> </p>
+			<br>
+			<p style="text-align:left">Expect consistent updates in due <span id="UNGA" onclick="toggleDisplay('time')">time</span> so please be sure to visit often. And who knows, maybe there are already some <span onclick="toggleDisplay('inventory')"> hidden goodies here ;) </span></p>
+		</div>
+		
+		<div id="antTab" class="tabContent" style="display: none; float: left; text-align: left"> 
+			<a href="https://www.tumblr.com/bogleech/657082822630211584/themunofprovidence-bogleech-bramblesand">Ant in a Computer</a> <br><!-- START OF ANT IN A COMPUTER -->
+				<span>"People, especially games, get eldritch madness wrong a lot and it’s really such a shame. <br> <!-- END OF ANT IN A COMPUTER -->
+				An ant doesn’t start babbling when they see a circuit board. They find it strange, to them it is a landscape of strange angles and humming monoliths. They may be scared, but that is not madness. <br>
+				Madness comes when the ant, for a moment, can see as a human does. <br>
+				It understands those markings are words, symbols with meaning, like a pheromone but infinitely more complex. It can travel unimaginable distances, to lands unlike anything it has seen before. It knows of mirth, embarrassment, love, concepts unimaginable before this moment, and then…
+				It’s an ant again. <br>
+				Echoes of things it cannot comprehend swirl around its mind. It cannot make use of this knowledge, but it still remembers. How is it supposed to return to its life? The more the ant saw the harder it is for it to forget. It needs to see it again, understand again.
+				It will do anything to show others, to show itself, nothing else in this tiny world matters. This is madness."</span>
+		</div>			
+
+		<div id="caveTab" class="tabContent" style="display: none; float: left; text-align: left">
+			<a href="https://en.wikipedia.org/wiki/Allegory_of_the_cave">Allegory of the Cave</a> <br>
+			<span> Plato's Allegory of the Cave, found in "The Republic." Prisoners are chained in a cave, facing a wall, only able to see shadows cast by objects behind them, believing these shadows are the entirety of reality. 
+			One prisoner escapes, experiencing the outside world and realizing the shadows are mere illusions, only a fraction of the truth. He returns to enlighten the others, but they resist, as the shadows are all they have known.
+			The allegory highlights the journey from ignorance to enlightenment, the challenges of intellectual awakening, and the philosopher's role in society. It emphasizes that true knowledge comes from understanding deeper realities beyond mere appearances. </span>
+		</div>
 </div>
 
 <div id="poemContainer" class="content"> <!-- START OF BONEDOG POEM -->
+<h2 style="float: left">B O N E D O G</h2> <br><br><br>
 		<div id="poem1">Coming home is terrible
 		whether the dogs lick your face or not;
 		whether you have a wife
@@ -304,12 +327,64 @@ function toggleInterval(){ //TOGGLE TIME INTERVAL
 }
 
 
-function toggleDisplay() { //Toggles the TIME DISPLAY (the thing that happens when you click time)
-    var timeDiv = document.getElementById("timeDiv");
-	timeDiv.style.display == 'none' || timeDiv.style.display == '' ? timeDiv.style.display = 'block' : timeDiv.style.display = 'none';
+function toggleDisplay(SelDisplay) { //Toggles the TIME DISPLAY (the thing that happens when you click time)
+var timeDiv = document.getElementById("timeDiv");
+var contentDiv = document.getElementById("content");
+var poemDiv = document.getElementById("poemContainer");
+var inventoryDiv = document.getElementById("InvUI");
+var cardDiv = document.getElementById("cardsDiv");
+var welcomeTab = document.getElementById("welcomeTab");
+var antTab = document.getElementById("antTab");
+var caveTab = document.getElementById("caveTab")
+	switch(SelDisplay){
+		case 'time':
+			timeDiv.style.display == 'none' || timeDiv.style.display == '' ? timeDiv.style.display = 'block' : timeDiv.style.display = 'none';
+			break;
+		case 'content':
+			contentDiv.style.display == 'none' || contentDiv.style.display == '' ? contentDiv.style.display = 'block' : contentDiv.style.display = 'none';
+			poemDiv.style.display = 'none';
+			inventoryDiv.style.display = 'none';
+			break;
+		
+		case 'poem':
+			poemDiv.style.display == 'none' || poemDiv.style.display == '' ? poemDiv.style.display = 'block' : poemDiv.style.display = 'none';
+			contentDiv.style.display = 'none';
+			inventoryDiv.style.display = 'none';
+			break;
+			
+		case 'inventory':
+			inventoryDiv.style.display == 'none' || inventoryDiv.style.display == '' ? inventoryDiv.style.display = 'block' : inventoryDiv.style.display = 'none';
+			contentDiv.style.display = 'none';
+			poemDiv.style.display = 'none';
+			break;
+			
+		case 'card':
+			cardDiv.style.display == 'none' || cardDiv.style.display == '' ? cardDiv.style.display = 'block' : cardDiv.style.display = 'none';
+			break;
+			
+		case 'welcome':
+			welcomeTab.style.display = "block";
+			antTab.style.display = "none";
+			caveTab.style.display = "none";
+			break;
+			
+		case 'ant':
+			antTab.style.display = "block";
+			welcomeTab.style.display = "none";
+			caveTab.style.display = "none";
+			break;
+			
+		case 'cave':
+			caveTab.style.display = "block";
+			antTab.style.display = "none";
+			welcomeTab.style.display = "none";
+		
+	}
+    
+	
 }
 
-function submitName(){
+function submitName(){ //Name submit
 	name = document.getElementById("nameInput").value;
 	document.getElementById("name").textContent = `${name}`;
 	document.getElementById("nameInput").style.display = "none";
@@ -320,7 +395,8 @@ function submitName(){
 
 function changeLocation(newLocation){
 currentLocation = newLocation;
-currentDrops = currentLocation.drops
+currentDrops = currentLocation.drops;
+
 }
 
 
@@ -365,67 +441,89 @@ let cemetary = {
             }, 2000);
         }
     },
-	{ 	name: "Spades set", 
-        type: "Card set", 
+	{ 	name: "Cemetary Dew", //EARLY MORNING
+        type: "Environmental Item", 
         quantity: 1, 
-        dropRate: 0.09, 
-        phase: "Midnight",
-        use: function() {
-            cardStates[0] = true;
-			console.log("Added a spades set to your deck");
-			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Hearts set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.045, 
-        phase: "Evening",
-        use: function() {
-            cardStates[1] = true;
-			console.log("Added a hearts set to your deck");
-				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Clubs set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Late Morning",
-        use: function() {
-            cardStates[2] = true;
-			console.log("Added a clubs set to your deck");
-			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Diamonds set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.045, 
+        dropRate: 0.08, 
         phase: "Early Morning",
         use: function() {
-            cardStates[1] = true;
-			console.log("Added a diamonds set to your deck");
-			if(cardStates[3] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
+			
+			console.log("Used Cemetary Dew");
+        }
+    },
+	{ 	name: "Cemetary Dew", //MORNING
+        type: "Environmental Item", 
+        quantity: 1, 
+        dropRate: 0.0045, 
+        phase: "Morning",
+        use: function() {
+			
+			console.log("Used Cemetary Dew");
         }
     },
 	
+	{ 	name: "Cemetary Fog", //MORNING
+        type: "Environmental Item", 
+        quantity: 1, 
+        dropRate: 0.08, 
+        phase: "Morning",
+        use: function() {
+			
+			console.log("Used Cemetary Fog");
+        }
+    },
+	{ 	name: "Cemetary Fog", //EVENING
+        type: "Environmental Item", 
+        quantity: 1, 
+        dropRate: 0.08, 
+        phase: "Evening",
+        use: function() {
+			
+			console.log("Used Cemetary Fog");
+        }
+    },
+	
+	{ 	name: "Cemetary Dirt", //LATE MORNING
+        type: "Environmental Item", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Early Morning",
+        use: function() {
+			
+			console.log("Used Cemetary Dirt");
+        }
+    },
+	{ 	name: "Cemetary Dirt", //AFTERNOON
+        type: "Environmental Item", 
+        quantity: 1, 
+        dropRate: 0.08, 
+        phase: "Afternoon",
+        use: function() {
+			
+			console.log("Used Cemetary Dirt");
+        }
+    },
+	{ 	name: "Cemetary Dirt", //LATE AFTERNOON
+        type: "Environmental Item", 
+        quantity: 1, 
+        dropRate: 0.08, 
+        phase: "Late Afternoon",
+        use: function() {
+			
+			console.log("Used Cemetary Dirt");
+        }
+    },
+	
+	{ 	name: "Ghastly Wisps", //MIDNIGHT
+        type: "Environmental Item", 
+        quantity: 1, 
+        dropRate: 0.04, 
+        phase: "Midnight",
+        use: function() {
+			
+			console.log("Used Ghastly Wisps");
+        }
+    },
 	
 	{ 	name: "Sabotnik Blood", //MIDNIGHT 
         type: "Cryptid Item", 
@@ -486,15 +584,7 @@ let cemetary = {
 			
         }
     },
-	{ 	name: "Full Deck of Cards", 
-        type: "Card set (Complete)", 
-        quantity: 1, 
-        dropRate: 0, 
-        phase: "Evening",
-        use: function() {
-           console.log("What a waste");
-        }
-    }]
+	]
 }
 
 let casino = { 
@@ -625,7 +715,7 @@ let casino = {
         dropRate: 0, 
         phase: "Evening",
         use: function() {
-           console.log("What a waste");
+           playerInventory.addItem(new Item( "Full Deck of Cards", "Card set (Complete)", 1, 99, "Any Phase", function(){ console.log("Full Deck of Cards used")}));
         }
     }]
 }
@@ -671,7 +761,7 @@ function startDropInterval() {
 }
 startDropInterval(); // default start with on
 
-class Item {
+class Item { // // // // // NAME - QUANTITY - RARITY - PHASE - USE // // // // //
     constructor(name, type, quantity = 1, rarity = Math.floor(Math.random() * 100), phase, use) {
         this.name = name;
         this.type = type;
@@ -732,35 +822,59 @@ class Inventory {
     }
 }
 
-let inventory = new Inventory();
+let inventory = new Inventory(); //Local Inventory
 inventory.listItems();
-
 
 
 // // // // // END OF INVENTORY // // // // //
 
 // // // // // CARDS // // // // //
 
-// Array of card names
-const cards = [
-  "ACE SPADES", "2 SPADES", "3 SPADES", "4 SPADES", "5 SPADES", "6 SPADES", "7 SPADES", "8 SPADES", "9 SPADES", "10 SPADES", "JACK SPADES", "QUEEN SPADES", "KING SPADES",
-  "ACE HEARTS", "2 HEARTS", "3 HEARTS", "4 HEARTS", "5 HEARTS", "6 HEARTS", "7 HEARTS", "8 HEARTS", "9 HEARTS", "10 HEARTS", "JACK HEARTS", "QUEEN HEARTS", "KING HEARTS",
-  "ACE DIAMONDS", "2 DIAMONDS", "3 DIAMONDS", "4 DIAMONDS", "5 DIAMONDS", "6 DIAMONDS", "7 DIAMONDS", "8 DIAMONDS", "9 DIAMONDS", "10 DIAMONDS", "JACK DIAMONDS", "QUEEN DIAMONDS", "KING DIAMONDS",
-  "ACE CLUBS", "2 CLUBS", "3 CLUBS", "4 CLUBS", "5 CLUBS", "6 CLUBS", "7 CLUBS", "8 CLUBS", "9 CLUBS", "10 CLUBS", "JACK CLUBS", "QUEEN CLUBS", "KING CLUBS"
-];
-
 // Function to generate the URL
 const pathTo = (card) => {
   const baseUrl = "https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/";
-  return baseUrl + encodeURIComponent(card) + ".PNG";
+  return baseUrl + encodeURIComponent(card.value.toUpperCase() + ' ' + card.suit.toUpperCase()) + ".PNG";
 };
 
-<!-- // Example usage -->
-<!-- cards.forEach(card => { -->
-  <!-- console.log(pathTo(card)); -->
-<!-- }); -->
-document.getElementById("cardOneElement").src = pathTo(cards[ Math.floor(Math.random() * 100) % 52 ]);
-document.getElementById("cardTwoElement").src = pathTo(cards[ Math.floor(Math.random() * 100) % 52 ]);
+// Build a deck of cards
+const suits = ["Spades", "Hearts", "Clubs", "Diamonds"]; // Suits
+const values = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]; // Values
+
+class Card { // Class that holds card values
+  constructor(suit, value) {
+    this.suit = suit;
+    this.value = value;
+    this.path = pathTo(this);
+  }
+}
+
+const deck = []; // Array to hold the cards
+
+for (let i = 0; i < suits.length; i++) { // Suits for loop
+  for (let j = 0; j < values.length; j++) { // Values for loop
+    deck.push(new Card(suits[i], values[j])); // For every suit, push a card for every value (4 suits * 13 values)
+  }
+}
+
+// Function to get a random card from the deck
+const getRandomCard = () => deck[Math.floor(Math.random() * deck.length)];
+var cardOne = getRandomCard();
+var cardTwo = getRandomCard();
+
+if(cardOne == cardTwo){
+	var cardTwo = getRandomCard();
+}
+
+// Example usage to assign random card images to elements
+document.getElementById("cardOneElement").src = 'https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/back.png';
+document.getElementById("cardOneElement").onclick = () => {
+	document.getElementById("cardOneElement").src = cardOne.path;
+}
+
+document.getElementById("cardTwoElement").src = 'https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/back.png';
+document.getElementById("cardTwoElement").onclick = () => {
+	document.getElementById("cardTwoElement").src = cardTwo.path;
+}
 
 // // // // // END OF CARDS // // // // //
 
@@ -805,6 +919,7 @@ function load() {
 				if(currentSave.SavedVampireTeeth){
 				vampireTeethUsed = currentSave.SavedVampireTeeth;
 				}
+			
 			
 				
 			//Check to see what the autosave settings were
@@ -947,30 +1062,21 @@ poemVerse[0].style.display = "block";
 					
 					
 					//CHANGE TABS
-						if(event.key === "["){
-							document.getElementById("content").style.display = "block";
-							document.getElementById("poemContainer").style.display = "none";
-							document.getElementById("InvUI").style.display = "none";
+						//CAN ONLY BE DONE AFTER INPUTTING A NAME. MUST FIRST CLICK THE TIME EASTER EGG
+						if(event.key === "[" && name != null){
+							toggleDisplay('content');
 						}
-						if(event.key === "]"){
-							document.getElementById("content").style.display = "none";
-							document.getElementById("poemContainer").style.display = "block";
-							document.getElementById("InvUI").style.display = "none";
+						if(event.key === "]" && name != null){
+							toggleDisplay('poem');
 						}
-						if(event.key === "i"){
-							document.getElementById("content").style.display = "none";
-							document.getElementById("poemContainer").style.display = "none";
-							document.getElementById("InvUI").style.display = "block";
+						if(event.key === "i" && name != null){
+							toggleDisplay('inventory');
 						}
-						if(event.key === "c"){
-							if(document.getElementById("cardsDiv").style.display === "block"){
-								document.getElementById("cardsDiv").style.display = "none";
-							}else{
-								document.getElementById("cardsDiv").style.display = "block";
-							}
+						if(event.key === "c" && name != null){
+							toggleDisplay('card');
 						}
-						if(event.key === "t"){
-							toggleDisplay();
+						if(event.key === "t" && name != null){
+							toggleDisplay('time');
 						}
 					
 			});
