@@ -536,12 +536,24 @@ let cemetary = {
         quantity: 1, 
         dropRate: 0.25, 
         phase: "Midnight",
-        use: function() {
+         use: function() {
 			if(phase === "Midnight"){
-				let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
+				let index = inventory.items.findIndex(item => item.name === "Empty Bottle");
 				
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("A vampire tooth materializes from the blood...");
+					if(index > -1){
+						inventory.removeItem(index, 1);
+							let indexedBottle = currentDrops.findIndex(item => item.name === "Bottled Sabotnik Blood");
+				
+							inventory.addItem( new Item( currentDrops[indexedBottle].name, currentDrops[indexedBottle].type, 1, Math.floor(Math.random() * 100), currentDrops[indexedBottle].phase, currentDrops[indexedBottle].use) );
+							console.log("You bottle the blood. Gross.");
+						
+					}else {
+							let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
+						
+							inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+							console.log("A vampire tooth materializes from the blood...");
+					}
+				
 			}
             console.log("The blood sizzles, leaving a taste of iron in your lungs.")
         }
@@ -553,10 +565,22 @@ let cemetary = {
         phase: "Night",
         use: function() {
 			if(phase === "Midnight"){
-				let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
+				let index = inventory.items.findIndex(item => item.name === "Empty Bottle");
 				
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("A vampire tooth materializes from the blood...");
+					if(index > -1){
+						inventory.removeItem(index, 1);
+							let indexedBottle = currentDrops.findIndex(item => item.name === "Bottled Sabotnik Blood");
+				
+							inventory.addItem( new Item( currentDrops[indexedBottle].name, currentDrops[indexedBottle].type, 1, Math.floor(Math.random() * 100), currentDrops[indexedBottle].phase, currentDrops[indexedBottle].use) );
+							console.log("You bottle the blood. Gross.");
+						
+					}else {
+							let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
+						
+							inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+							console.log("A vampire tooth materializes from the blood...");
+					}
+				
 			}
             console.log("The blood sizzles, leaving a taste of iron in your lungs.")
         }
@@ -588,6 +612,16 @@ let cemetary = {
 			
 			console.log("Vampiric Doll Used");
 			
+        }
+    },
+	{ 	name: "Bottled Sabotnik Blood", 
+        type: "Mythic Item", 
+        quantity: 1, 
+        dropRate: 0, 
+        phase: "Midnight",
+        use: function() {
+			
+			console.log("Used Bottled Sabotnik Blood");
         }
     },
 	]
@@ -722,6 +756,10 @@ let casino = {
         phase: "Late Afternoon",
         use: function() {
             console.log("Getting hammered, ye daft kahnt");
+				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
+					
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("The last drop leaves the bottle empty.");
 			BAC += 270;
         }
     },
@@ -732,6 +770,10 @@ let casino = {
         phase: "Late Afternoon",
         use: function() {
             console.log("Getting hammered, ye daft kahnt");
+				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
+					
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("The last drop leaves the bottle empty.");
 			BAC += 480;
         }
     },
@@ -742,6 +784,10 @@ let casino = {
         phase: "Late Afternoon",
         use: function() {
             console.log("Getting hammered, ye daft kahnt");
+				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
+					
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("The last drop leaves the bottle empty.");
 			BAC += 180;
         }
     },
@@ -752,6 +798,10 @@ let casino = {
         phase: "Late Afternoon",
         use: function() {
             console.log("Getting hammered, ye daft kahnt");
+				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
+					
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("The last drop leaves the bottle empty.");
 			BAC += 480;
         }
     },
@@ -762,6 +812,10 @@ let casino = {
         phase: "Evening",
         use: function() {
             console.log("Getting hammered, ye daft kahnt");
+				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
+					
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("The last drop leaves the bottle empty.");
 			BAC += 270;
         }
     },
@@ -772,6 +826,10 @@ let casino = {
         phase: "Evening",
         use: function() {
             console.log("Getting hammered, ye daft kahnt");
+				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
+					
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("The last drop leaves the bottle empty.");
 			BAC += 480;
         }
     },
@@ -782,6 +840,10 @@ let casino = {
         phase: "Evening",
         use: function() {
             console.log("Getting hammered, ye daft kahnt");
+				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
+					
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("The last drop leaves the bottle empty.");
 			BAC += 180;
         }
     },
@@ -792,7 +854,21 @@ let casino = {
         phase: "Evening",
         use: function() {
             console.log("Getting hammered, ye daft kahnt");
+			
+				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
+					
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("The last drop leaves the bottle empty.");
 			BAC += 480;
+        }
+    },
+	{ 	name: "Empty Bottle", 
+        type: "Collection Device", 
+        quantity: 1, 
+        dropRate: 0, 
+        phase: "Evening",
+        use: function() {
+            console.log("You throw the bottle on the ground. Fuck them turtles, right?")
         }
     },
 	{ 	name: "Full Deck of Cards", 
