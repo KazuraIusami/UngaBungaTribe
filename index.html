@@ -91,6 +91,7 @@ display: none;
 		<div id="dayDisplay">Day : 0 </div>
 		<div id="timeDisplay">Time: 00:00</div>
 		<div id="phaseDisplay">Phase : Midnight</div>
+		<div id="BACcounter"></div>
 	  
 		
 		<button onclick="toggleInterval()" id="timeButton">Pause/Resume</button>
@@ -110,7 +111,7 @@ display: none;
 		<div id="navBar" style="text-align: right"> [ <span onclick="toggleDisplay('welcome')">Welcome!</span> ][ <span onclick="toggleDisplay('ant')">Ant in a Computer</span> ][ <span onclick="toggleDisplay('cave')">Cave Allegory</span> ]
 		</div>
 		<div id="welcomeTab" class="tabContent">
-			<p style="text-align:left">Welcome! As the official site of the <span id="easterEggU" class='easterEgg'>(U)nited</span> <span id="easterEggN" class='easterEgg'>(N)ations of</span> <span id="easterEggG" class='easterEgg'>(G)reat</span> <span id="easterEggA" class='easterEgg'>(A)merica</span> </p>
+			<p style="text-align:left">Welcome to the official site of the <span id="easterEggU" class='easterEgg'>(U)nited</span> <span id="easterEggN" class='easterEgg'>(N)ations of</span> <span id="easterEggG" class='easterEgg'>(G)reat</span> <span id="easterEggA" class='easterEgg'>(A)merica</span> </p>
 			<br>
 			<p style="text-align:left">Expect consistent updates in due <span id="UNGA" onclick="toggleDisplay('time')">time</span> so please be sure to visit often. And who knows, maybe there are already some <span onclick="toggleDisplay('inventory')"> hidden goodies here ;) </span></p>
 		</div>
@@ -221,6 +222,8 @@ display: none;
 	let autosaveEnabled = false;
 	
 	let ungaCoin = 0;
+	//Blood Alcohol content
+		let BAC = 0;
 	
 	let day = 0;
 	let time = 720; // Set initial time to 12:00 (720 minutes)
@@ -254,7 +257,8 @@ function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
 		if(vampireTeethUsed){
 			document.getElementById("vampireTeethCounter").textContent = `Vampire Teeth used: ${vampireTeethUsed}`;
 		}
-		
+		let BACpercentage = (BAC / 10800).toFixed(3);
+		if(BAC > 0){ BAC--; document.getElementById("BACcounter").textContent = `BAC: ${BACpercentage}` }else { document.getElementById("BACcounter").textContent = ` `};
 	
     let brightness;
     if (time < brightestTime) {
@@ -402,6 +406,8 @@ currentDrops = currentLocation.drops;
 
 	//Vampire easter egg//
 		let vampireTeethUsed = 0;
+		
+	
 		
 	//Card states
 		let cardStates = [false, false, false, false]
@@ -589,7 +595,7 @@ let cemetary = {
 
 let casino = { 
 	name: "Evade Casino",
-	drops:  [{ 	name: "Spades set", 
+	drops:  [{ 	name: "Spades set",  //LATE MORNING
         type: "Card set", 
         quantity: 1, 
         dropRate: 0.09, 
@@ -707,6 +713,86 @@ let casino = {
 						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
 						cardStates = [false, false, false, false];
 				}
+        }
+    },
+	{ 	name: "Wine",  //LATE AFTERNOON
+        type: "Alcohol", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Late Afternoon",
+        use: function() {
+            console.log("Getting hammered, ye daft kahnt");
+			BAC += 270;
+        }
+    },
+	{ 	name: "Rum", 
+        type: "Alcohol", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Late Afternoon",
+        use: function() {
+            console.log("Getting hammered, ye daft kahnt");
+			BAC += 480;
+        }
+    },
+	{ 	name: "Beer", 
+        type: "Alcohol", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Late Afternoon",
+        use: function() {
+            console.log("Getting hammered, ye daft kahnt");
+			BAC += 180;
+        }
+    },
+	{ 	name: "Whiskey", 
+        type: "Alcohol", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Late Afternoon",
+        use: function() {
+            console.log("Getting hammered, ye daft kahnt");
+			BAC += 480;
+        }
+    },
+	{ 	name: "Wine", 	//EVENING
+        type: "Alcohol", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Evening",
+        use: function() {
+            console.log("Getting hammered, ye daft kahnt");
+			BAC += 270;
+        }
+    },
+	{ 	name: "Rum", 
+        type: "Alcohol", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Evening",
+        use: function() {
+            console.log("Getting hammered, ye daft kahnt");
+			BAC += 480;
+        }
+    },
+	{ 	name: "Beer", 
+        type: "Alcohol", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Evening",
+        use: function() {
+            console.log("Getting hammered, ye daft kahnt");
+			BAC += 180;
+        }
+    },
+	{ 	name: "Whiskey", 
+        type: "Alcohol", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Evening",
+        use: function() {
+            console.log("Getting hammered, ye daft kahnt");
+			BAC += 480;
         }
     },
 	{ 	name: "Full Deck of Cards", 
