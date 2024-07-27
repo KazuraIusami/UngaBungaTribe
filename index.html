@@ -2,7 +2,6 @@
 	<!-- Current project is a time based day/night cycle with day phase implimentation-->
 <head>
 	<title>UNGA - Powered by Aztech</title>
-
 		<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/UNGA.ico">
 		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +14,6 @@ font-family: "Lugrasimo", cursive;
 font-size: 24px;
 padding-top: 100px;
 }
-
 #timeDiv{
 text-align: center;
 display: none;
@@ -23,7 +21,6 @@ overflow: auto;
 }
 
 #content {
-
 }
 .animate-fade {
   opacity: 1;
@@ -34,21 +31,16 @@ overflow: auto;
   position: absolute; 
   color: green
 }
-
 .content {
 text-align: center;
-width: 90%;
+width: 80%;
 height: 80%;
 margin: auto;
 background-color:black;
+border-radius: 50px;
 color: white;
-padding:20px;
+padding:15px;
 }
-
-.easterEgg {
-	color: black;
-}	
-
 #InvUI {
 border: 1px solid white;
 display: none;
@@ -71,39 +63,24 @@ display: none;
 	transition: color 2s;
 	color: #C10633;
 }
-.contextWindow {
-	position: absolute;
-	width: 80%;
-	height: 35%;
-	border: 1px solid red;
-	bottom: 50px;
-	left: 50%;
-    transform: translateX(-50%);
-	text-align: center;
-	display: none;
-	background-color: black;
-	color: white;
-}
-
 </style>
 </head>
 <body>
-	<div id="contextWindow" class="contextWindow"></div>
+
 <div id="timeDiv">	
 		<div style="float:left; position: absolute" id="ungaCoin"></div> <div class="animate-fade" id="addedCoins"></div>
 		<div style="float:left; position: absolute" id="deckCounter" class="hoverable"></div>
 		<div style="float:left; position: absolute" id="vampireTeethCounter"></div>
 		<div id="locationSelector" style="position: absolute; right: 5%;">
-			<p onclick="changeLocation(cemetary)" class="hoverable" id="cemetaryButton">Cemetary</p>
-			<p onclick="changeLocation(casino); toggleDisplay('card')" class="hoverable" id="casinoButton">Casino</p>									
+			<p onclick="changeLocation(cemetary)" class="hoverable">Cemetary</p>
+			<p onclick="changeLocation(casino)" class="hoverable">Casino</p>									
 		</div>
-	  
+
 		<input type="text" id="nameInput" placeholder="Enter a Name" style="text-align:center"><p id="name"></p> <button onclick="submitName()" id="submitButton">Submit</button>
 		<div id="locationUI"></div>
 		<div id="dayDisplay">Day : 0 </div>
 		<div id="timeDisplay">Time: 00:00</div>
 		<div id="phaseDisplay">Phase : Midnight</div>
-		<div id="BACcounter"></div>
 	  
 		
 		<button onclick="toggleInterval()" id="timeButton">Pause/Resume</button>
@@ -112,86 +89,24 @@ display: none;
 		<button onclick="toggleAutosave();" id="toggleAutosaveButton">Toggle Autosave!</button>
 		<button onclick="deleteSave()">Delete Save (ALL progress will be lost)</button>
 		<button onclick="changeTickTime(20)">Fast Speed</button>
-		<button onclick="changeTickTime(100)">Slow Speed</button>
-		<button onclick="changeTickTime(5000)">FRENCH DELAY Speed</button>
-		
+		<button onclick="changeTickTime(100)">Normal Speed</button>
+		<button onclick="changeTickTime(600)">Slow Speed</button>
+		<button onclick="changeTickTime(1500)">FRENCH DELAY Speed</button>
+
+
 		<br>
 </div>	  
-	
+
 <div id="content" class="content">
-	<h2 style="float: left">U N G A </h2> <br><br><br>
-		<div id="navBar" style="text-align: right"> [ <span onclick="toggleDisplay('welcome')">Welcome!</span> ][ <span onclick="toggleDisplay('ant')">Ant in a Computer</span> ][ <span onclick="toggleDisplay('cave')">Cave Allegory</span> ][ <span onclick="toggleDisplay('sabotnik')">Sabotnik</span> ][ <span onclick="toggleDisplay('newton')">Newtons Laws</span> ][ <span onclick="toggleDisplay('thermo')">Thermodynamic Laws</span> ][ <span onclick="toggleDisplay('cole')">Cole's Law</span> ]
-		</div>
-		<div id="welcomeTab" class="tabContent">
-			<p style="text-align:left">Welcome to the official site of the <span id="easterEggU" class='easterEgg'>(U)nited</span> <span id="easterEggN" class='easterEgg'>(N)ations of</span> <span id="easterEggG" class='easterEgg'>(G)reat</span> <span id="easterEggA" class='easterEgg'>(A)merica</span> </p>
-			<br>
-			<p style="text-align:left">Expect consistent updates in due <span id="UNGA" onclick="toggleDisplay('time')">time</span> so please be sure to visit often. And who knows, maybe there are already some <span onclick="toggleDisplay('inventory')"> hidden goodies here ;) </span></p>
-		</div>
-		
-		<div id="antTab" class="tabContent" style="display: none; float: left; text-align: left"> 
-			<a href="https://www.tumblr.com/bogleech/657082822630211584/themunofprovidence-bogleech-bramblesand">Ant in a Computer</a> <br><!-- START OF ANT IN A COMPUTER -->
-				<span>"People, especially games, get eldritch madness wrong a lot and it’s really such a shame. <br> <!-- END OF ANT IN A COMPUTER -->
-				An ant doesn’t start babbling when they see a circuit board. They find it strange, to them it is a landscape of strange angles and humming monoliths. They may be scared, but that is not madness. <br>
-				Madness comes when the ant, for a moment, can see as a human does. <br>
-				It understands those markings are words, symbols with meaning, like a pheromone but infinitely more complex. It can travel unimaginable distances, to lands unlike anything it has seen before. It knows of mirth, embarrassment, love, concepts unimaginable before this moment, and then…
-				It’s an ant again. <br>
-				Echoes of things it cannot comprehend swirl around its mind. It cannot make use of this knowledge, but it still remembers. How is it supposed to return to its life? The more the ant saw the harder it is for it to forget. It needs to see it again, understand again.
-				It will do anything to show others, to show itself, nothing else in this tiny world matters. This is madness."</span>
-		</div>			
-
-		<div id="caveTab" class="tabContent" style="display: none; float: left; text-align: left">
-			<a href="https://en.wikipedia.org/wiki/Allegory_of_the_cave">Allegory of the Cave</a> <br>
-			<span> Plato's Allegory of the Cave, found in "The Republic." Prisoners are chained in a cave, facing a wall, only able to see shadows cast by objects behind them, believing these shadows are the entirety of reality. 
-			One prisoner escapes, experiencing the outside world and realizing the shadows are mere illusions, only a fraction of the truth. He returns to enlighten the others, but they resist, as the shadows are all they have known.
-			The allegory highlights the journey from ignorance to enlightenment, the challenges of intellectual awakening, and the philosopher's role in society. It emphasizes that true knowledge comes from understanding deeper realities beyond mere appearances. </span>
-		</div>
-		
-		<div id="sabotnikTab" class="tabContent" style="display: none; float: left; text-align: left;">
-			<a href="https://teresawilde.wordpress.com/">Sabotnik</a> <br>
-			<span> A Sabotnik (pluralized as Sabotnici) is a term that refers to someone born on "Unclean days." These Unclean Days could be any day between December 25th and January 6th, or any Saturday which is much more likely. 
-			
-			<br> These individuals are said to have the unique ability to be able to spot Vampires, and because they can spot them, they can kill them.</span>
-		</div>
-		
-		<div id="newtonTab" class="tabContent" style="display: none; float: left; text-align: left;">
-			<a href="https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion">Newton's Laws of Physics</a> <br>
-			<span> 
-				Sir Isaac Newton formulated three fundamental laws of motion that form the foundation of classical mechanics:
-
-				<br><br>1. <b>First Law (Law of Inertia)</b>: An object will remain at rest or move in a straight line at a constant speed unless acted upon by an external force. This means that things don’t start moving, stop moving, or change direction all by themselves.
-
-				<br><br>2. <b>Second Law (Law of Acceleration)</b>: The force acting on an object is equal to the mass of that object times its acceleration (F = ma). This law quantifies the effect of forces on motion, meaning heavier objects need more force to move the same amount as lighter ones.
-
-				<br><br>3. <b>Third Law (Action and Reaction)</b>: For every action, there is an equal and opposite reaction. This explains why, for instance, when you push against a wall, the wall pushes back with equal force even though it doesn’t move.
-
-			</span>
-		</div>
-
-		<div id="thermoTab" class="tabContent" style="display: none; float: left; text-align: left;">
-			<a href="https://en.wikipedia.org/wiki/Laws_of_thermodynamics">Laws of Thermodynamics</a> <br>
-			<span>
-				The laws of thermodynamics describe the principles of energy and heat transfer:
-
-				<br><br>1. <b>First Law (Conservation of Energy)</b>: Energy cannot be created or destroyed, only transformed from one form to another. This is why the total energy in a closed system remains constant.
-
-				<br><br>2. <b>Second Law (Entropy)</b>: In any energy transfer, some energy will disperse as heat, increasing the overall disorder or entropy of a system. This law explains why processes like the cooling of coffee or melting of ice are irreversible.
-
-				<br><br>3. <b>Third Law (Absolute Zero)</b>: As temperature approaches absolute zero, the entropy of a system approaches a constant minimum. This implies that it is impossible to reach absolute zero in a finite number of steps.
-
-			</span>
-		</div>
-
-		<div id="colesTab" class="tabContent" style="display: none; float: left; text-align: left;">
-			<a href="https://en.wikipedia.org/wiki/Cole_slaw">Cole's Law</a> <br>
-			<span>
-				<br><br> A side dish consisting primarily of finely shredded raw cabbage with a salad dressing or condiment, commonly either vinaigrette or mayonnaise.
-
-			</span>
-		</div>
+	<h1>UNGABUNGA TRIBE STUDIOS - UNGA </h1>
+	<br> <hr>
+	<p style="text-align:left">That's right. UNGABUNGA TRIBE STUDIOS is now live and active. What now? Do we take over the world? Maybe. Might as well start referring to us as the <span id="easterEggU">(U)</span>nited <span id="easterEggN">(N)</span>ations of <span id="easterEggG">(G)</span>reat <span id="easterEggA">(A)</span>merica, if we keep up this pace.</p>
+	<br>
+	<p style="text-align:left">In all seriousness, this will be the place where I put all my current projects. No schedule, no planned future events as of now.</p> 
+	<br>
+	<p style="text-align:left">But in <span id="UNGA" onclick="toggleDisplay()">time</span> things will start to appear here, so don't forget to come back. And who knows, maybe there are already some <span onclick='document.getElementById("content").style.display = "none"; document.getElementById("poemContainer").style.display = "none"; document.getElementById("InvUI").style.display = "block";'> hidden goodies here ;) </span></p>
 </div>
-
 <div id="poemContainer" class="content"> <!-- START OF BONEDOG POEM -->
-<h2 style="float: left">B O N E D O G</h2> <br><br><br>
 		<div id="poem1">Coming home is terrible
 		whether the dogs lick your face or not;
 		whether you have a wife
@@ -248,6 +163,7 @@ display: none;
 		<div id="poem8">The sun goes up and down
 		like a tired whore,
 		the weather immobile
+		like a <span onclick="inventory.addItem(new Item('Broken Limb', 'Collectable', 1)); inventory.listItems()">broken limb</span>
 		like a broken limb
 		while you just keep getting older.
 		Nothing moves but
@@ -262,30 +178,32 @@ display: none;
 		You come home with your mutant gifts
 		to a house of bone.
 		Everything you see now,
+		all of it: <span onclick="inventory.addItem(new Item('Bone', 'Collectable', 1)); inventory.listItems()">bone.</span><br>(9/9)</div>
 		all of it: bone.<br>(9/9)</div>
 </div>
 										<!-- END OF BONEDOG POEM -->
-  
-<div id="InvUI" class="content"></div>  <!-- Inventory Display Window -->
 
+<div id="InvUI" class="content">
+<div id="InvUI" class="content"></div>  
 
-
-<div id="cardsDiv" class="content">
-	<img id="cardOneElement" src="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/ACE%20SPADES.PNG" style="width: 400px; height: 600px">
-	<img id="cardTwoElement" src="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/ACE%20SPADES.PNG" style="width: 400px; height: 600px">
+        <select name="Discard">
+			<option value="options1">options1</option>
+			<option value="options2">options1</option>
+		</select>
+</div>  
+<div id="cardsDiv" class="content"> <img id="cardOneElement" src="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/ACE%20SPADES.PNG" style="width: 400px; height: 600px">
+									<img id="cardTwoElement" src="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/ACE%20SPADES.PNG" style="width: 400px; height: 600px">
 </div>
   <script>
 	let name;
-	
+
 	let autosaveEnabled = false;
 	
 	let ungaCoin = 0;
-	//Blood Alcohol content
-		let BAC = 0;
 	
 	let day = 0;
 	let time = 720; // Set initial time to 12:00 (720 minutes)
-	let brightestTime = 840; // Set the brightest time to 14:00 (840 minutes)
+	const brightestTime = 840; // Set the brightest time to 14:00 (840 minutes)
 	
 	let phase = 'Midnight';
 	let hours = Math.floor(time / 60);
@@ -293,8 +211,20 @@ display: none;
     let formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
 	
 	
-function updateUI(){			//THIS IS THE FUNCTION TO SHOW CHANGES ON UI (Was previously part of the updateTime function)
-	document.getElementById('timeDisplay').textContent = `Time: ${formattedTime}`;
+	
+function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
+    time += 1;
+	
+    
+	hours = Math.floor(time / 60);
+	minutes = time % 60;
+	formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+	
+	if(currentLocation.name){
+	document.getElementById('locationUI').textContent = `Location : ${currentLocation.name}`;
+	}
+	
+    document.getElementById('timeDisplay').textContent = `Time: ${formattedTime}`;
 	document.getElementById('dayDisplay').textContent = `Day: ${day}`;
 	document.getElementById('ungaCoin').textContent = `UngaCoin(TM): ${ungaCoin}`;
 		if(cardStates){
@@ -303,26 +233,8 @@ function updateUI(){			//THIS IS THE FUNCTION TO SHOW CHANGES ON UI (Was previou
 		if(vampireTeethUsed){
 			document.getElementById("vampireTeethCounter").textContent = `Vampire Teeth used: ${vampireTeethUsed}`;
 		}
-		let BACpercentage = (BAC / 10800).toFixed(3);
-		
-		if(BAC > 0){document.getElementById("BACcounter").textContent = `BAC: ${BACpercentage}` }else { document.getElementById("BACcounter").textContent = ` `};
-		
-		document.getElementById("phaseDisplay").textContent = `Phase : ${phase}`;
-	if(currentLocation.name){
-	document.getElementById('locationUI').textContent = `Location : ${currentLocation.name}`;
-	}
-}
 
-function updateTime() {			//THIS IS THE SINGLE TICK TIME FUNCTION
-    time += 1;
-	
-    hours = Math.floor(time / 60);
-	minutes = time % 60;
-	formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-	
-	if(BAC > 0){ BAC--;};
-  
-	
+
     let brightness;
     if (time < brightestTime) {
         brightness = time / brightestTime; // Brightness increases until the brightest time
@@ -341,6 +253,7 @@ function updateTime() {			//THIS IS THE SINGLE TICK TIME FUNCTION
         time = 0;
 		day++;
 		console.log("New Day! Day : " + day );
+		document.getElementById('dayDisplay').textContent = `Day: ${day}`;
     }
 	
 									if(time < 119){							//00:00 -> 02:00
@@ -362,25 +275,19 @@ function updateTime() {			//THIS IS THE SINGLE TICK TIME FUNCTION
 									}else if(time > 1320){					//22:00 -> 24:00
 										phase = "Night";
 									}
+											
+	document.getElementById("phaseDisplay").textContent = `Phase : ${phase}`;
+	
 	
 }
-
-
-
 let tickTime = 100;
-
-	let tickInterval = setInterval(updateTime, tickTime); //tickTime = ms
-	//(^) Time Interval (v) UI interval
-	let InterfaceInterval = setInterval(updateUI, 10);
-	
-function changeTickTime(newTickTime){ //CHANGE TICK INTERVAL / SPEED OF TIME
+//Function to start and stop the interval
+let tickInterval = setInterval(updateTime, tickTime); //tickTime = ms
+function changeTickTime(newTickTime){
 	clearInterval(tickInterval);
 	tickTime = newTickTime;
 	tickInterval = setInterval(updateTime, tickTime); //tickTime = ms
 }
-
-	
-
 function toggleInterval(){ //TOGGLE TIME INTERVAL
 	const timeButton = document.getElementById("timeButton");
 	if(!tickInterval){
@@ -394,148 +301,31 @@ function toggleInterval(){ //TOGGLE TIME INTERVAL
 		tickInterval = null;
 	}
 }
-
-//HTML STRUCTURE DIVS
-var timeDiv = document.getElementById("timeDiv");
-var contentDiv = document.getElementById("content"); // CONTENT DIV - ANY TAB MARKED CD IS A CHILD OF THE CONTENT DIV
-var poemDiv = document.getElementById("poemContainer");
-var inventoryDiv = document.getElementById("InvUI");
-var cardDiv = document.getElementById("cardsDiv");
-var welcomeTab = document.getElementById("welcomeTab"); 									//CD
-var antTab = document.getElementById("antTab");												//CD
-var caveTab = document.getElementById("caveTab");											//CD
-var sabotnikTab = document.getElementById("sabotnikTab");									//CD
-var newtonTab = document.getElementById("newtonTab");										//CD
-var thermoTab = document.getElementById("thermoTab");										//CD
-var colesTab = document.getElementById("colesTab");											//CD
-
-var contextWindow = document.getElementById("contextWindow");
-
-function toggleDisplay(SelDisplay) { //This function is responsible for toggling html displays
-	switch(SelDisplay){
-		case 'time':
-			timeDiv.style.display == 'none' || timeDiv.style.display == '' ? timeDiv.style.display = 'block' : timeDiv.style.display = 'none';
-			break;
-		case 'content':
-			contentDiv.style.display == 'none' || contentDiv.style.display == '' ? contentDiv.style.display = 'block' : contentDiv.style.display = 'none';
-			poemDiv.style.display = 'none';
-			inventoryDiv.style.display = 'none';
-			break;
-		
-		case 'poem':
-			poemDiv.style.display == 'none' || poemDiv.style.display == '' ? poemDiv.style.display = 'block' : poemDiv.style.display = 'none';
-			contentDiv.style.display = 'none';
-			inventoryDiv.style.display = 'none';
-			break;
-			
-		case 'inventory':
-			inventoryDiv.style.display == 'none' || inventoryDiv.style.display == '' ? inventoryDiv.style.display = 'block' : inventoryDiv.style.display = 'none';
-			contentDiv.style.display = 'none';
-			poemDiv.style.display = 'none';
-			break;
-			
-		case 'card':
-			cardDiv.style.display == 'none' || cardDiv.style.display == '' ? cardDiv.style.display = 'block' : cardDiv.style.display = 'none';
-			break;
-			
-		case 'welcome': //CD
-			welcomeTab.style.display = "block";
-			antTab.style.display = "none";
-			caveTab.style.display = "none";
-			sabotnikTab.style.display = "none";
-			newtonTab.style.display = "none";
-			thermoTab.style.display = "none";
-			colesTab.style.display = "none";
-			break;
-			
-		case 'ant': //CD
-			antTab.style.display = "block";
-			welcomeTab.style.display = "none";
-			caveTab.style.display = "none";
-			sabotnikTab.style.display = "none";
-			newtonTab.style.display = "none";
-			thermoTab.style.display = "none";
-			colesTab.style.display = "none";
-			break;
-			
-		case 'cave': //CD
-			caveTab.style.display = "block";
-			antTab.style.display = "none";
-			welcomeTab.style.display = "none";
-			sabotnikTab.style.display = "none";
-			newtonTab.style.display = "none";
-			thermoTab.style.display = "none";
-			colesTab.style.display = "none";
-			break;
-			
-		case 'sabotnik': //CD
-			sabotnikTab.style.display = "block";
-			caveTab.style.display = "none";
-			antTab.style.display = "none";
-			welcomeTab.style.display = "none";
-			newtonTab.style.display = "none";
-			thermoTab.style.display = "none";
-			colesTab.style.display = "none";
-			break;
-		
-		case 'newton': //CD
-			sabotnikTab.style.display = "none";
-			caveTab.style.display = "none";
-			antTab.style.display = "none";
-			welcomeTab.style.display = "none";
-			newtonTab.style.display = "block";
-			thermoTab.style.display = "none";
-			colesTab.style.display = "none";
-			break;
-		case 'thermo': //CD
-			sabotnikTab.style.display = "none";
-			caveTab.style.display = "none";
-			antTab.style.display = "none";
-			welcomeTab.style.display = "none";
-			newtonTab.style.display = "none";
-			thermoTab.style.display = "block";
-			colesTab.style.display = "none";
-			break;
-		case 'cole': //CD
-			sabotnikTab.style.display = "none";
-			caveTab.style.display = "none";
-			antTab.style.display = "none";
-			welcomeTab.style.display = "none";
-			newtonTab.style.display = "none";
-			thermoTab.style.display = "none";
-			colesTab.style.display = "block";
-			break;	
-	
-	}
-    
-	
+function toggleDisplay() { //Toggles the TIME DISPLAY (the thing that happens when you click time)
+    var timeDiv = document.getElementById("timeDiv");
+	timeDiv.style.display == 'none' || timeDiv.style.display == '' ? timeDiv.style.display = 'block' : timeDiv.style.display = 'none';
 }
-
-function submitName(){ //Name submit
+function submitName(){
 	name = document.getElementById("nameInput").value;
 	document.getElementById("name").textContent = `${name}`;
 	document.getElementById("nameInput").style.display = "none";
 	document.getElementById("submitButton").style.display = "none";
 }
-
 // // // // // LOCATION STUFF // // // // //
-
 function changeLocation(newLocation){
 currentLocation = newLocation;
-currentDrops = currentLocation.drops;
-
+currentDrops = currentLocation.drops
 }
 
 
 	//Vampire easter egg//
 		let vampireTeethUsed = 0;
-		
+
 	//Card states
 		let cardStates = [false, false, false, false]
 let cemetary = {
 	name: "Cemetary",
-	drops:  
-	[	{name: "(L)Unga Coin", 
+	drops:  [	{name: "(L)Unga Coin", 
         type: "Coin Supply", 
         quantity: 1, 
         dropRate: 0.08, 
@@ -569,211 +359,11 @@ let cemetary = {
             }, 2000);
         }
     },
-	{ 	name: "Cemetary Dew", //EARLY MORNING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Early Morning",
-        use: function() {
-			
-			console.log("Used Cemetary Dew");
-        }
-    },
-	{ 	name: "Cemetary Dew", //MORNING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.0045, 
-        phase: "Morning",
-        use: function() {
-			
-			console.log("Used Cemetary Dew");
-        }
-    },
-	
-	{ 	name: "Cemetary Fog", //MORNING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Morning",
-        use: function() {
-			contextWindow.innerHTML = "<h2>Cemetary Fog</h2><br> <p>Its hard to see more than a few feet in front of you...</p>";
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-			console.log("Used Cemetary Fog");
-        }
-    },
-	{ 	name: "Cemetary Fog", //EVENING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Evening",
-        use: function() {
-			contextWindow.innerHTML = "<h2>Cemetary Fog</h2><br> <p>Its hard to see more than a few feet in front of you...</p>";
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-			console.log("Used Cemetary Fog");
-        }
-    },
-	
-	{ 	name: "Cemetary Dirt", //LATE MORNING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Early Morning",
-        use: function() {
-			contextWindow.innerHTML = "<h2>Cemetary Dirt</h2><br> <p>The dirt is coarse, and as it falls to the ground, an eerie chill surrounds you.</p>";
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-			console.log("Used Cemetary Dirt");
-        }
-    },
-	{ 	name: "Cemetary Dirt", //AFTERNOON
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Afternoon",
-        use: function() {
-			contextWindow.innerHTML = "<h2>Cemetary Dirt</h2><br> <p>The dirt is coarse, and as it falls to the ground, an eerie chill surrounds you.</p>";
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-			console.log("Used Cemetary Dirt");
-        }
-    },
-	{ 	name: "Cemetary Dirt", //LATE AFTERNOON
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Late Afternoon",
-        use: function() {
-			contextWindow.innerHTML = "<h2>Cemetary Dirt</h2><br> <p>The dirt is coarse, and as it falls to the ground, an eerie chill surrounds you.</p>";
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-			console.log("Used Cemetary Dirt");
-        }
-    },
-	
-	{ 	name: "Ghastly Wisps", //MIDNIGHT
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.04, 
-        phase: "Midnight",
-        use: function() {
-			contextWindow.innerHTML = "<h2>Ghastly Wisps</h2><br> <p>The ghastly wisps seemed to be trying to speak to you from beyond...</p>";
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-			console.log("Used Ghastly Wisps");
-			
-        }
-    },
-	
-	{ 	name: "Sabotnik Blood", //MIDNIGHT 
-        type: "Cryptid Item", 
-        quantity: 1, 
-        dropRate: 0.25, 
-        phase: "Midnight",
-         use: function() {
-			if(phase === "Midnight"){
-				let index = inventory.items.findIndex(item => item.name === "Empty Bottle");
-				
-					if(index > -1){
-						inventory.removeItem(index, 1);
-							let indexedBottle = currentDrops.findIndex(item => item.name === "Bottled Sabotnik Blood");
-				
-							inventory.addItem( new Item( currentDrops[indexedBottle].name, currentDrops[indexedBottle].type, 1, Math.floor(Math.random() * 100), currentDrops[indexedBottle].phase, currentDrops[indexedBottle].use) );
-							console.log("You bottle the blood. Gross.");
-						
-					}else {
-							let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
-						
-							inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-							console.log("A vampire tooth materializes from the blood...");
-					}
-				
-			}
-            console.log("The blood sizzles, leaving a taste of iron in your lungs.")
-        }
-    },
-	{ 	name: "Sabotnik Blood", //NIGHT
-        type: "Cryptid Item", 
-        quantity: 1, 
-        dropRate: 0.15, 
-        phase: "Night",
-        use: function() {
-			if(phase === "Night"){
-				let index = inventory.items.findIndex(item => item.name === "Empty Bottle");
-				
-				if(index > -1){
-						inventory.removeItem(index, 1);
-							let indexedBottle = currentDrops.findIndex(item => item.name === "Bottled Sabotnik Blood");
-				
-							inventory.addItem( new Item( currentDrops[indexedBottle].name, currentDrops[indexedBottle].type, 1, Math.floor(Math.random() * 100), currentDrops[indexedBottle].phase, currentDrops[indexedBottle].use) );
-							console.log("You bottle the blood. Gross.");
-						
-					}else {
-							console.log("Must be midnight for a vampiric tooth");
-					}
-				
-			}
-            console.log("The blood sizzles, leaving a taste of iron in your lungs.")
-        }
-    },
-	{ 	name: "Vampiric Tooth", 
-        type: "Cryptid Item", 
-        quantity: 1, 
-        dropRate: 0.025, 
-        phase: "Midnight",
-        use: function() {
-			
-			vampireTeethUsed++;
-			console.log("You must combine 8 Vampire teeth. Total used so far: " + vampireTeethUsed);
-			
-				if(vampireTeethUsed > 7){
-					vampireTeethUsed = 0;
-					let index = currentDrops.findIndex(item => item.name === "Vampiric Doll");
-					inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-					document.getElementById("vampireTeethCounter").textContent = `Vampire Teeth used: ${vampireTeethUsed}`;
-				}
-			
-        }
-    },
-	{ 	name: "Vampiric Doll", 
-        type: "Crafted Cryptid Item", 
-        quantity: 1, 
-        dropRate: 0.0, 
-        phase: "Midnight",
-        use: function() {
-			contextWindow.innerHTML = "<h2>The Vampiric Doll...</h2><br> <p>A devastating hiss squeels from the doll toward the sky...When the dust clears, the night has turned to day</p>";
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-			console.log("Used Ghastly Wisps");
-			console.log("Turning Day to Night and Night to Day....");
-			
-			brightestTime = 30;
-			
-        }
-    },
-	{ 	name: "Bottled Sabotnik Blood", 
-        type: "Crafted Cryptid Item", 
-        quantity: 1, 
-        dropRate: 0, 
-        phase: "Midnight",
-        use: function() {
-			contextWindow.innerHTML = "<h2>Bottled Sabotnik Blood</h2><br> <p>The liquid seems almost a solid color inside the bottle.</p>";
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-			console.log("Used Bottled Sabotnik Blood");
-        }
-    },
-	]
-}
-
-let casino = { 
-	name: "Evade Casino",
-	drops:  [{ 	name: "Spades set",  //LATE MORNING
+	{ 	name: "Spades set", 
         type: "Card set", 
         quantity: 1, 
         dropRate: 0.09, 
-        phase: "Late Morning",
+        phase: "Midnight",
         use: function() {
             cardStates[0] = true;
 			console.log("Added a spades set to your deck");
@@ -784,13 +374,17 @@ let casino = {
 				}
         }
     },
+	{ 	name: "Diamonds set", 
 	{ 	name: "Hearts set", 
         type: "Card set", 
         quantity: 1, 
         dropRate: 0.045, 
-        phase: "Late Morning",
+        phase: "Early Morning",
+        phase: "Evening",
         use: function() {
             cardStates[1] = true;
+			console.log("Added a diamonds set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
 			console.log("Added a hearts set to your deck");
 				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
 						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
@@ -814,9 +408,154 @@ let casino = {
 				}
         }
     },
+	{ 	name: "Hearts set", 
 	{ 	name: "Diamonds set", 
         type: "Card set", 
         quantity: 1, 
+        dropRate: 0.045, 
+        phase: "Evening",
+        phase: "Early Morning",
+        use: function() {
+            cardStates[3] = true;
+			console.log("Added a hearts set to your deck");
+				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+            cardStates[1] = true;
+			console.log("Added a diamonds set to your deck");
+			if(cardStates[3] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
+        }
+    },
+
+
+	{ 	name: "Sabotnik Blood", //MIDNIGHT 
+        type: "Cryptid Item", 
+        quantity: 1, 
+        dropRate: 0.25, 
+        phase: "Midnight",
+        use: function() {
+			if(phase === "Midnight"){
+				let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
+
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("A vampire tooth materializes from the blood...");
+			}
+            console.log("The blood sizzles, leaving a taste of iron in your lungs.")
+        }
+    },
+	{ 	name: "Sabotnik Blood", //NIGHT
+        type: "Cryptid Item", 
+        quantity: 1, 
+        dropRate: 0.15, 
+        phase: "Night",
+        use: function() {
+			if(phase === "Midnight"){
+				let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
+
+				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+				console.log("A vampire tooth materializes from the blood...");
+			}
+            console.log("The blood sizzles, leaving a taste of iron in your lungs.")
+        }
+    },
+	{ 	name: "Vampiric Tooth", 
+        type: "Cryptid Item", 
+        quantity: 1, 
+        dropRate: 0.025, 
+        phase: "Midnight",
+        use: function() {
+			
+			vampireTeethUsed++;
+			console.log("You must combine 8 Vampire teeth. Total used so far: " + vampireTeethUsed);
+			
+				if(vampireTeethUsed > 7){
+					let index = currentDrops.findIndex(item => item.name === "Vampiric Doll");
+					inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+					vampireTeethUsed = 0;
+				}
+			
+        }
+    },
+	{ 	name: "Vampiric Doll", 
+        type: "Crafted Cryptid Item", 
+        quantity: 1, 
+        dropRate: 0.0, 
+        phase: "Midnight",
+        use: function() {
+			
+			console.log("Vampiric Doll Used");
+			
+        }
+    },
+	{ 	name: "Full Deck of Cards", 
+        type: "Card set (Complete)", 
+        quantity: 1, 
+        dropRate: 0, 
+        phase: "Evening",
+        use: function() {
+           console.log("What a waste");
+        }
+    }]
+}
+let casino = { 
+	name: "Evade Casino",
+	drops:  [{ 	name: "Spades set", 
+        type: "Card set", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        dropRate: 0.09, 
+        phase: "Late Morning",
+        use: function() {
+            cardStates[0] = true;
+			console.log("Added a spades set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
+        }
+    },
+	{ 	name: "Diamonds set", 
+	{ 	name: "Hearts set", 
+        type: "Card set", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        dropRate: 0.045, 
+        phase: "Late Morning",
+        use: function() {
+            cardStates[1] = true;
+			console.log("Added a diamonds set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+			console.log("Added a hearts set to your deck");
+				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
+        }
+    },
+	{ 	name: "Clubs set", 
+        type: "Card set", 
+        quantity: 1, 
+        dropRate: 0.06, 
+        phase: "Late Morning",
+        use: function() {
+            cardStates[2] = true;
+			console.log("Added a clubs set to your deck");
+			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
+						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
+						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
+						cardStates = [false, false, false, false];
+				}
+        }
+    },
+	{ 	name: "Hearts set", 
+	{ 	name: "Diamonds set", 
+        type: "Card set", 
+        quantity: 1, 
+        dropRate: 0.06, 
         dropRate: 0.045, 
         phase: "Late Morning",
         use: function() {
@@ -889,259 +628,22 @@ let casino = {
 				}
         }
     },
-	{ 	name: "Wine",  //LATE AFTERNOON
-        type: "Alcohol", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Late Afternoon",
-        use: function() {
-			if(BAC < 810){
-			contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take a swig of the bottle. Very smooth</p>";
-			}else if(BAC > 810 && BAC < 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take..sth...swig of the b-b-*hiccup*-bottle</p>";
-			}
-			else if(BAC > 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>Swi..gg. Swigg de- *Hic* Swig the Bottle *Hiccup*</p>";
-			}
-			
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-		
-            console.log("Getting hammered, ye daft kahnt");
-				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
-					
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("The last drop leaves the bottle empty.");
-			BAC += 270;
-        }
-    },
-	{ 	name: "Rum", 
-        type: "Alcohol", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Late Afternoon",
-        use: function() {
-		if(BAC < 810){
-			contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take a swig of the bottle. Very smooth</p>";
-			}else if(BAC > 810 && BAC < 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take..sth...swig of the b-b-*hiccup*-bottle</p>";
-			}
-			else if(BAC > 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>Swi..gg. Swigg de- *Hic* Swig the Bottle *Hiccup*</p>";
-			}
-			
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-		
-            console.log("Getting hammered, ye daft kahnt");
-				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
-					
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("The last drop leaves the bottle empty.");
-			BAC += 480;
-        }
-    },
-	{ 	name: "Beer", 
-        type: "Alcohol", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Late Afternoon",
-        use: function() {
-		if(BAC < 810){
-			contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take a swig of the bottle. Very smooth</p>";
-			}else if(BAC > 810 && BAC < 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take..sth...swig of the b-b-*hiccup*-bottle</p>";
-			}
-			else if(BAC > 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>Swi..gg. Swigg de- *Hic* Swig the Bottle *Hiccup*</p>";
-			}
-			
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-		
-            console.log("Getting hammered, ye daft kahnt");
-				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
-					
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("The last drop leaves the bottle empty.");
-			BAC += 180;
-        }
-    },
-	{ 	name: "Whiskey", 
-        type: "Alcohol", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Late Afternoon",
-        use: function() {
-		if(BAC < 810){
-			contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take a swig of the bottle. Very smooth</p>";
-			}else if(BAC > 810 && BAC < 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take..sth...swig of the b-b-*hiccup*-bottle</p>";
-			}
-			else if(BAC > 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>Swi..gg. Swigg de- *Hic* Swig the Bottle *Hiccup*</p>";
-			}
-			
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-		
-            console.log("Getting hammered, ye daft kahnt");
-				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
-					
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("The last drop leaves the bottle empty.");
-			BAC += 480;
-        }
-    },
-	{ 	name: "Wine", 	//EVENING
-        type: "Alcohol", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Evening",
-        use: function() {
-		if(BAC < 810){
-			contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take a swig of the bottle. Very smooth</p>";
-			}else if(BAC > 810 && BAC < 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take..sth...swig of the b-b-*hiccup*-bottle</p>";
-			}
-			else if(BAC > 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>Swi..gg. Swigg de- *Hic* Swig the Bottle *Hiccup*</p>";
-			}
-			
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-		
-            console.log("Getting hammered, ye daft kahnt");
-				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
-					
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("The last drop leaves the bottle empty.");
-			BAC += 270;
-        }
-    },
-	{ 	name: "Rum", 
-        type: "Alcohol", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Evening",
-        use: function() {
-		if(BAC < 810){
-			contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take a swig of the bottle. Very smooth</p>";
-			}else if(BAC > 810 && BAC < 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take..sth...swig of the b-b-*hiccup*-bottle</p>";
-			}
-			else if(BAC > 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>Swi..gg. Swigg de- *Hic* Swig the Bottle *Hiccup*</p>";
-			}
-			
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-		
-            console.log("Getting hammered, ye daft kahnt");
-				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
-					
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("The last drop leaves the bottle empty.");
-			BAC += 480;
-        }
-    },
-	{ 	name: "Beer", 
-        type: "Alcohol", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Evening",
-        use: function() {
-		if(BAC < 810){
-			contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take a swig of the bottle. Very smooth</p>";
-			}else if(BAC > 810 && BAC < 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take..sth...swig of the b-b-*hiccup*-bottle</p>";
-			}
-			else if(BAC > 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>Swi..gg. Swigg de- *Hic* Swig the Bottle *Hiccup*</p>";
-			}
-			
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-		
-            console.log("Getting hammered, ye daft kahnt");
-				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
-					
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("The last drop leaves the bottle empty.");
-			BAC += 180;
-        }
-    },
-	{ 	name: "Whiskey", 
-        type: "Alcohol", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Evening",
-        use: function() {
-		if(BAC < 810){
-			contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take a swig of the bottle. Very smooth</p>";
-			}else if(BAC > 810 && BAC < 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>You take..sth...swig of the b-b-*hiccup*-bottle</p>";
-			}
-			else if(BAC > 1620){
-				contextWindow.innerHTML = "<h2>Alcohol</h2><br> <p>Swi..gg. Swigg de- *Hic* Swig the Bottle *Hiccup*</p>";
-			}
-			
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-		
-            console.log("Getting hammered, ye daft kahnt");
-			
-				let index = currentDrops.findIndex(item => item.name === "Empty Bottle");
-					
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("The last drop leaves the bottle empty.");
-			BAC += 480;
-        }
-    },
-	{ 	name: "Empty Bottle", 
-        type: "Collection Device", 
-        quantity: 1, 
-        dropRate: 0, 
-        phase: "Evening",
-        use: function() {
-            console.log("You throw the bottle on the ground. Fuck them turtles, right?")
-        }
-    },
 	{ 	name: "Full Deck of Cards", 
         type: "Card set (Complete)", 
         quantity: 1, 
         dropRate: 0, 
         phase: "Evening",
         use: function() {
-           playerInventory.addItem(new Item( "Full Deck of Cards", "Card set (Complete)", 1, 99, "Any Phase", function(){ console.log("Full Deck of Cards used")}));
+           console.log("What a waste");
         }
-    },
-	{ 	name: "Incapacitated Drunk", 
-        type: "Person", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Early Morning",
-        use: function() {
-			contextWindow.innerHTML = "<h2>An Incapacitated Drunk guy... I could probably wake him up...or take his money.</h2> <br> <p onclick='ungaCoin += 150'>Take his money</p>";
-		
-			contextWindow.style.display = "block";
-				setTimeout(() => { contextWindow.style.display = "none" }, 5000);
-		
-            console.log("You should probably wash your hands after talking to a drunk person...Just sanitary I guess.")
-        }
-    },]
+    }]
 }
-
 let currentLocation = cemetary;
-
-
 // // // // // INVENTORY STUFF // // // // // 
-
-
+	// // // // // // CURRENT DROPS START // // // // //
 let currentDrops = currentLocation.drops;
-
+	// // // // // // CURRENT DROPS END // // // // //
 const dropRateInterval = 1000; // Interval in milliseconds
-
 function addToInventory(item) {
     inventory.addItem(new Item(item.name, item.type, item.quantity, Math.floor(Math.random() * 100), item.phase, item.use));
 }
@@ -1155,7 +657,6 @@ function startDropInterval() {
             if (dropRoll < item.dropRate && phase === item.phase) {
                 // Add item to inventory
                 addToInventory(item);
-
                 setTimeout((itemName) => {
                     // Find the index of the item by name
                     let itemIndex = inventory.items.findIndex(invItem => invItem.name === itemName);
@@ -1170,8 +671,7 @@ function startDropInterval() {
     }, dropRateInterval);
 }
 startDropInterval(); // default start with on
-
-class Item { // // // // // NAME - QUANTITY - RARITY - PHASE - USE // // // // //
+class Item {
     constructor(name, type, quantity = 1, rarity = Math.floor(Math.random() * 100), phase, use) {
         this.name = name;
         this.type = type;
@@ -1181,17 +681,14 @@ class Item { // // // // // NAME - QUANTITY - RARITY - PHASE - USE // // // // /
 		this.use = use;
     }
 }
-
 class Inventory {
     constructor() {
         this.items = [];
     }
-
     addItem(newItem) {
         const existingItemIndex = this.items.findIndex(item => 
             item.name === newItem.name && item.type === newItem.type
         );
-
         if (existingItemIndex > -1) {
             this.items[existingItemIndex].quantity += newItem.quantity;
             this.items[existingItemIndex].rarity = Math.floor(((this.items[existingItemIndex].rarity * this.items[existingItemIndex].quantity) + newItem.rarity) / (this.items[existingItemIndex].quantity + 1));
@@ -1200,7 +697,6 @@ class Inventory {
         }
         this.listItems();
     }
-
     removeItem(index, quantity = 1) {
         if (index >= 0 && index < this.items.length) {
             if (this.items[index].quantity > quantity) {
@@ -1213,17 +709,14 @@ class Inventory {
         }
         this.listItems();
     }
-
     listItems() {
         const InvUI = document.getElementById("InvUI");
         InvUI.innerHTML = '';
         for (let i = 0; i < this.items.length; i++) {
             InvUI.innerHTML += "<br><span onclick='inventory.useItem(" + i + ")'>Name : " + this.items[i].name + " / Type : " + this.items[i].type + " /  Amt  : " + this.items[i].quantity + " / Rarity : " + this.items[i].rarity + "</span><br>";
         }
-
         InvUI.innerHTML += ' <h6 style="color: red; bottom: 5px;"> *WARNING:* Items here will NOT BE SAVED if you close the browser. </h6><br>';
     }
-
     useItem(index) {
         const item = this.items[index];
         item.use();
@@ -1231,60 +724,33 @@ class Inventory {
         this.removeItem(index);
     }
 }
-
-let inventory = new Inventory(); //Local Inventory
+let inventory = new Inventory();
 inventory.listItems();
-
 
 // // // // // END OF INVENTORY // // // // //
 
 // // // // // CARDS // // // // //
 
+// Array of card names
+const cards = [
+  "ACE SPADES", "2 SPADES", "3 SPADES", "4 SPADES", "5 SPADES", "6 SPADES", "7 SPADES", "8 SPADES", "9 SPADES", "10 SPADES", "JACK SPADES", "QUEEN SPADES", "KING SPADES",
+  "ACE HEARTS", "2 HEARTS", "3 HEARTS", "4 HEARTS", "5 HEARTS", "6 HEARTS", "7 HEARTS", "8 HEARTS", "9 HEARTS", "10 HEARTS", "JACK HEARTS", "QUEEN HEARTS", "KING HEARTS",
+  "ACE DIAMONDS", "2 DIAMONDS", "3 DIAMONDS", "4 DIAMONDS", "5 DIAMONDS", "6 DIAMONDS", "7 DIAMONDS", "8 DIAMONDS", "9 DIAMONDS", "10 DIAMONDS", "JACK DIAMONDS", "QUEEN DIAMONDS", "KING DIAMONDS",
+  "ACE CLUBS", "2 CLUBS", "3 CLUBS", "4 CLUBS", "5 CLUBS", "6 CLUBS", "7 CLUBS", "8 CLUBS", "9 CLUBS", "10 CLUBS", "JACK CLUBS", "QUEEN CLUBS", "KING CLUBS"
+];
+
 // Function to generate the URL
 const pathTo = (card) => {
   const baseUrl = "https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/";
-  return baseUrl + encodeURIComponent(card.value.toUpperCase() + ' ' + card.suit.toUpperCase()) + ".PNG";
+  return baseUrl + encodeURIComponent(card) + ".PNG";
 };
 
-// Build a deck of cards
-const suits = ["Spades", "Hearts", "Clubs", "Diamonds"]; // Suits
-const values = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]; // Values
-
-class Card { // Class that holds card values
-  constructor(suit, value) {
-    this.suit = suit;
-    this.value = value;
-    this.path = pathTo(this);
-  }
-}
-
-const deck = []; // Array to hold the cards
-
-for (let i = 0; i < suits.length; i++) { // Suits for loop
-  for (let j = 0; j < values.length; j++) { // Values for loop
-    deck.push(new Card(suits[i], values[j])); // For every suit, push a card for every value (4 suits * 13 values)
-  }
-}
-
-// Function to get a random card from the deck
-const getRandomCard = () => deck[Math.floor(Math.random() * deck.length)];
-var cardOne = getRandomCard();
-var cardTwo = getRandomCard();
-
-if(cardOne == cardTwo){
-	var cardTwo = getRandomCard();
-}
-
-// Example usage to assign random card images to elements
-document.getElementById("cardOneElement").src = 'https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/back.png';
-document.getElementById("cardOneElement").onclick = () => {
-	document.getElementById("cardOneElement").src = cardOne.path;
-}
-
-document.getElementById("cardTwoElement").src = 'https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/back.png';
-document.getElementById("cardTwoElement").onclick = () => {
-	document.getElementById("cardTwoElement").src = cardTwo.path;
-}
+<!-- // Example usage -->
+<!-- cards.forEach(card => { -->
+  <!-- console.log(pathTo(card)); -->
+<!-- }); -->
+document.getElementById("cardOneElement").src = pathTo(cards[ Math.floor(Math.random() * 100) % 52 ]);
+document.getElementById("cardTwoElement").src = pathTo(cards[ Math.floor(Math.random() * 100) % 52 ]);
 
 // // // // // END OF CARDS // // // // //
 
@@ -1298,8 +764,8 @@ function save(){
 						SavedUngaCoin: ungaCoin,
 						SavedVampireTeeth: vampireTeethUsed,
 						SavedAutosaveSetting: autosaveEnabled}; //ALL STUFF SAVED DURING SAVE
-						
-						
+
+
 	var stringed = JSON.stringify(currentSave);
 	localStorage.setItem("currentSaveStringed", stringed)
 	console.log("Saved. " + stringed)
@@ -1310,7 +776,6 @@ function save(){
                 saveButton.style.border = '1px solid black';
             }, 500);
 }
-
 function load() {
     // Check if 'currentSaveStringed' exists in localStorage
     if (localStorage.getItem('currentSaveStringed')) {
@@ -1329,9 +794,8 @@ function load() {
 				if(currentSave.SavedVampireTeeth){
 				vampireTeethUsed = currentSave.SavedVampireTeeth;
 				}
-			
-			
-				
+
+
 			//Check to see what the autosave settings were
 			autosaveEnabled = currentSave.SavedAutosaveSetting;	
         console.log('currentSave set to:', currentSave);
@@ -1340,10 +804,7 @@ function load() {
     }
 }
 load(); //we are talking, MEGA BRAIN 
-
 //Should I do autosaving? Hmmmmm...Well I don't think it'll do any harm. Not personally, at least. What's disk space? /s 
-
-
 let autosaveInterval = setInterval(() => {
             if (autosaveEnabled) {
                 save();
@@ -1355,12 +816,9 @@ let autosaveInterval = setInterval(() => {
 			}
             console.log(autosaveEnabled ? "Autosave Enabled : True" : "Autosave Enabled : False");
         }, 5000); // Autosave every 5 seconds
-
-
 //Lets get fancy and make the button change color depending on the value
 const toggleAutosaveButton = document.getElementById("toggleAutosaveButton");
 autosaveEnabled ? toggleAutosaveButton.style.border = "2px solid green" : toggleAutosaveButton.style.border = "2px solid red";
-
 function toggleAutosave(){
 	autosaveEnabled ? autosaveEnabled = false : autosaveEnabled = true; //Flip-a-da variables as the great Mario used to say
 	autosaveEnabled ? toggleAutosaveButton.style.border = "2px solid green" : toggleAutosaveButton.style.border = "2px solid red";
@@ -1371,15 +829,10 @@ function deleteSave(){
 	localStorage.clear();
 	location.reload();
 }
-
 // // // // // END OF SAVING AND LOADING // // // // //
-
 // // // // // POEM STUFF // // // // //
-
 //So I really want to be able to have the poem Bonedog (from I'm Thinking of Ending Things) as a secret little compartment. Hidden, so if you are reading this, SHHHHH!
-
 const poemContainer = document.getElementById("poemContainer");
-
 	//Container that holds all seperate verses
 const poemVerse = [document.getElementById("poem1"), document.getElementById("poem2"), document.getElementById("poem3"),
 					document.getElementById("poem4"), document.getElementById("poem5"), document.getElementById("poem6"), document.getElementById("poem7"),
@@ -1472,27 +925,30 @@ poemVerse[0].style.display = "block";
 					
 					
 					//CHANGE TABS
-						//CAN ONLY BE DONE AFTER INPUTTING A NAME. MUST FIRST CLICK THE TIME EASTER EGG
-						if(event.key === "[" && name != null){
-							toggleDisplay('content');
+						if(event.key === "["){
+							document.getElementById("content").style.display = "block";
+							document.getElementById("poemContainer").style.display = "none";
+							document.getElementById("InvUI").style.display = "none";
 						}
-						if(event.key === "]" && name != null){
-							toggleDisplay('poem');
+						if(event.key === "]"){
+							document.getElementById("content").style.display = "none";
+							document.getElementById("poemContainer").style.display = "block";
+							document.getElementById("InvUI").style.display = "none";
 						}
-						if(event.key === "i" && name != null){
-							toggleDisplay('inventory');
+						if(event.key === "i"){
+							document.getElementById("content").style.display = "none";
+							document.getElementById("poemContainer").style.display = "none";
+							document.getElementById("InvUI").style.display = "block";
 						}
-						if(event.key === "c" && name != null){
-							toggleDisplay('card');
+						if(event.key === "c"){
+							if(document.getElementById("cardsDiv").style.display === "block"){
+								document.getElementById("cardsDiv").style.display = "none";
+							}else{
+								document.getElementById("cardsDiv").style.display = "block";
+							}
 						}
-						if(event.key === "t" && name != null){
-							toggleDisplay('time');
-						}
-						
-					//Quality of life	
-						//Submit name with Enter button
-						if(event.key === "Enter"){
-							submitName();
+						if(event.key === "t"){
+							toggleDisplay();
 						}
 					
 			});
