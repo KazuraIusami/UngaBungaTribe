@@ -1,1101 +1,187 @@
+<!DOCTYPE html>
 <html>
-	<!-- Current project is a time based day/night cycle with day phase implimentation-->
-<head>
-	<title>UNGA - Powered by Aztech</title>
 
-		<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/UNGA.ico">
-		
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Lugrasimo&display=swap" rel="stylesheet">
-	<style>
-	
-body {
-font-family: "Lugrasimo", cursive;
-font-size: 24px;
-padding-top: 100px;
-}
+  <head>
 
-#timeDiv{
-text-align: center;
-display: none;
-overflow: auto;
-}
+    <title>UNGA - Powered by Aztech</title>
+	  <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/UNGA.ico">
 
-#content {
-
-}
-.animate-fade {
-  opacity: 1;
-  transition: 0.1s;
-  float:left;
-  top:15%;
-  left: 5%;
-  position: absolute; 
-  color: green
-}
-
-.content {
-text-align: center;
-width: 90%;
-height: 80%;
-margin: auto;
-background-color:black;
-color: white;
-padding:20px;
-}
-
-.easterEgg {
-	color: black;
-}	
-
-#InvUI {
-border: 1px solid white;
-display: none;
-}
-#vampireTeethCounter {
-	top:30%;
-}
-#deckCounter {
-	top:20%;
-}
-
-#poemContainer {
-display: none;
-}
-#cardsDiv {
-	inline: block;
-	display: none;
-}
-.hoverable:hover {
-	transition: color 2s;
-	color: #C10633;
-}
+  </head>
+  <body>
 
 
-</style>
-</head>
-<body>
-	
-<div id="timeDiv">	
-		<div style="float:left; position: absolute" id="ungaCoin"></div> <div class="animate-fade" id="addedCoins"></div>
-		<div style="float:left; position: absolute" id="deckCounter" class="hoverable"></div>
-		<div style="float:left; position: absolute" id="vampireTeethCounter"></div>
-		<div id="locationSelector" style="position: absolute; right: 5%;">
-			<p onclick="changeLocation(cemetary)" class="hoverable" id="cemetaryButton">Cemetary</p>
-			<p onclick="changeLocation(casino); toggleDisplay('card')" class="hoverable" id="casinoButton">Casino</p>									
-		</div>
-	  
-		<input type="text" id="nameInput" placeholder="Enter a Name" style="text-align:center"><p id="name"></p> <button onclick="submitName()" id="submitButton">Submit</button>
-		<div id="locationUI"></div>
-		<div id="dayDisplay">Day : 0 </div>
-		<div id="timeDisplay">Time: 00:00</div>
-		<div id="phaseDisplay">Phase : Midnight</div>
-	  
-		
-		<button onclick="toggleInterval()" id="timeButton">Pause/Resume</button>
-		<button onclick="save()" id="saveButton">Save!</button>
-		<button onclick="load()">Load!</button>
-		<button onclick="toggleAutosave();" id="toggleAutosaveButton">Toggle Autosave!</button>
-		<button onclick="deleteSave()">Delete Save (ALL progress will be lost)</button>
-		<button onclick="changeTickTime(20)">Fast Speed</button>
-		<button onclick="changeTickTime(100)">Slow Speed</button>
-		<button onclick="changeTickTime(5000)">FRENCH DELAY Speed</button>
-		
-		<br>
-</div>	  
-	
-<div id="content" class="content">
-	<h2 style="float: left">U N G A </h2> <br><br><br>
-		<div id="navBar" style="text-align: right"> [ <span onclick="toggleDisplay('welcome')">Welcome!</span> ][ <span onclick="toggleDisplay('ant')">Ant in a Computer</span> ][ <span onclick="toggleDisplay('cave')">Cave Allegory</span> ]
-		</div>
-		<div id="welcomeTab" class="tabContent">
-			<p style="text-align:left">Welcome! As the official site of the <span id="easterEggU" class='easterEgg'>(U)nited</span> <span id="easterEggN" class='easterEgg'>(N)ations of</span> <span id="easterEggG" class='easterEgg'>(G)reat</span> <span id="easterEggA" class='easterEgg'>(A)merica</span> </p>
-			<br>
-			<p style="text-align:left">Expect consistent updates in due <span id="UNGA" onclick="toggleDisplay('time')">time</span> so please be sure to visit often. And who knows, maybe there are already some <span onclick="toggleDisplay('inventory')"> hidden goodies here ;) </span></p>
-		</div>
-		
-		<div id="antTab" class="tabContent" style="display: none; float: left; text-align: left"> 
-			<a href="https://www.tumblr.com/bogleech/657082822630211584/themunofprovidence-bogleech-bramblesand">Ant in a Computer</a> <br><!-- START OF ANT IN A COMPUTER -->
-				<span>"People, especially games, get eldritch madness wrong a lot and it’s really such a shame. <br> <!-- END OF ANT IN A COMPUTER -->
-				An ant doesn’t start babbling when they see a circuit board. They find it strange, to them it is a landscape of strange angles and humming monoliths. They may be scared, but that is not madness. <br>
-				Madness comes when the ant, for a moment, can see as a human does. <br>
-				It understands those markings are words, symbols with meaning, like a pheromone but infinitely more complex. It can travel unimaginable distances, to lands unlike anything it has seen before. It knows of mirth, embarrassment, love, concepts unimaginable before this moment, and then…
-				It’s an ant again. <br>
-				Echoes of things it cannot comprehend swirl around its mind. It cannot make use of this knowledge, but it still remembers. How is it supposed to return to its life? The more the ant saw the harder it is for it to forget. It needs to see it again, understand again.
-				It will do anything to show others, to show itself, nothing else in this tiny world matters. This is madness."</span>
-		</div>			
+    <script src="contextWindow.js"></script>
+    <script src="realTime.js"></script>
+    <script src="ASCII.js"></script>
 
-		<div id="caveTab" class="tabContent" style="display: none; float: left; text-align: left">
-			<a href="https://en.wikipedia.org/wiki/Allegory_of_the_cave">Allegory of the Cave</a> <br>
-			<span> Plato's Allegory of the Cave, found in "The Republic." Prisoners are chained in a cave, facing a wall, only able to see shadows cast by objects behind them, believing these shadows are the entirety of reality. 
-			One prisoner escapes, experiencing the outside world and realizing the shadows are mere illusions, only a fraction of the truth. He returns to enlighten the others, but they resist, as the shadows are all they have known.
-			The allegory highlights the journey from ignorance to enlightenment, the challenges of intellectual awakening, and the philosopher's role in society. It emphasizes that true knowledge comes from understanding deeper realities beyond mere appearances. </span>
-		</div>
-</div>
+    <script>
 
-<div id="poemContainer" class="content"> <!-- START OF BONEDOG POEM -->
-<h2 style="float: left">B O N E D O G</h2> <br><br><br>
-		<div id="poem1">Coming home is terrible
-		whether the dogs lick your face or not;
-		whether you have a wife
-		or just a wife-shaped loneliness waiting for you.
-		Coming home is terribly lonely,
-		so that you think
-		of the oppressive barometric pressure
-		back where you have just come from
-		with fondness,
-		because everything’s worse
-		once you’re home.<br>(1/9)</div>
-		<div id="poem2">You think of the vermin
-		clinging to the grass stalks,
-		long hours on the road,
-		roadside assistance and ice creams,
-		and the peculiar shapes of
-		certain clouds and silences
-		with longing because you did not want to return.
-		Coming home is
-		just awful.<br>(2/9)</div>
-		<div id="poem3">And the home-style silences and clouds
-		contribute to nothing
-		but the general malaise.
-		Clouds, such as they are,
-		are in fact suspect,
-		and made from a different material
-		than those you left behind.
-		You yourself were cut
-		from a different cloudy cloth,
-		returned,
-		remaindered,
-		ill-met by moonlight,
-		unhappy to be back,
-		slack in all the wrong spots,
-		seamy suit of clothes
-		dishrag-ratty, worn.<br>(3/9)</div>
-		<div id="poem4">You return home
-		moon-landed, foreign;
-		the Earth’s gravitational pull
-		an effort now redoubled,
-		dragging your shoelaces loose
-		and your shoulders
-		etching deeper the stanza
-		of worry on your forehead.
-		You return home deepened,
-		a parched well linked to tomorrow
-		by a frail strand of…<br>(4/9)</div>
-		<div id="poem5">Anyway… (5/9)</div>
-		<div id="poem6">You sigh into the onslaught of identical days.
-		One might as well, at a time…<br>(6/9)</div>
-		<div id="poem7">Well…
-		Anyway…
-		You’re back.<br>(7/9)</div>
-		<div id="poem8">The sun goes up and down
-		like a tired whore,
-		the weather immobile
-		like a broken limb
-		while you just keep getting older.
-		Nothing moves but
-		the shifting tides of salt in your body.
-		Your vision blears.
-		You carry your weather with you,
-		the big blue whale,
-		a skeletal darkness.<br>(8/9)</div>
-		<div id="poem9">You come back
-		with X-ray vision.
-		Your eyes have become a hunger.
-		You come home with your mutant gifts
-		to a house of bone.
-		Everything you see now,
-		all of it: bone.<br>(9/9)</div>
-</div>
-										<!-- END OF BONEDOG POEM -->
-  
-<div id="InvUI" class="content"></div>  
-
-<div id="cardsDiv" class="content"> <img id="cardOneElement" src="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/ACE%20SPADES.PNG" style="width: 400px; height: 600px">
-									<img id="cardTwoElement" src="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/ACE%20SPADES.PNG" style="width: 400px; height: 600px">
-</div>
-  <script>
-	let name;
-	
-	let autosaveEnabled = false;
-	
-	let ungaCoin = 0;
-	
+      //TIME WINDOW AND FUNCTION
 	let day = 0;
-	let time = 720; // Set initial time to 12:00 (720 minutes)
-	const brightestTime = 840; // Set the brightest time to 14:00 (840 minutes)
-	
+	let InGametime = 720; // Set initial time to 12:00 (720 minutes)
+	let brightestTime = 840; // Set the brightest time to 14:00 (840 minutes)
+
 	let phase = 'Midnight';
-	let hours = Math.floor(time / 60);
-    let minutes = time % 60;
+	let hours = Math.floor(InGametime / 60);
+    let minutes = InGametime % 60;
     let formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-	
-	
-	
-function updateTime() {			//THIS IS THE SINGLE TICK FUNCTION
-    time += 1;
-	
-    
-	hours = Math.floor(time / 60);
-	minutes = time % 60;
-	formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-	
-	if(currentLocation.name){
-	document.getElementById('locationUI').textContent = `Location : ${currentLocation.name}`;
-	}
-	
-    document.getElementById('timeDisplay').textContent = `Time: ${formattedTime}`;
-	document.getElementById('dayDisplay').textContent = `Day: ${day}`;
-	document.getElementById('ungaCoin').textContent = `UngaCoin(TM): ${ungaCoin}`;
-		if(cardStates){
-			document.getElementById("deckCounter").textContent = `♠ ${cardStates[0]} / ♥ ${cardStates[1]} / ♣ ${cardStates[2]} / ♦ ${cardStates[3]}`;
+
+  let inverseColor;
+  let backgroundColor;
+	function updateTime() {			//THIS IS THE SINGLE TICK TIME FUNCTION
+		InGametime += 1;
+
+		hours = Math.floor(InGametime / 60);
+		minutes = InGametime % 60;
+		formattedTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+
+
+		let brightness;
+		if (InGametime < brightestTime) {
+			brightness = InGametime / brightestTime; // Brightness increases until the brightest time
+		} else {
+			brightness = 1 - (InGametime - brightestTime) / (1440 - brightestTime); // Brightness decreases after the brightest time
 		}
-		if(vampireTeethUsed){
-			document.getElementById("vampireTeethCounter").textContent = `Vampire Teeth used: ${vampireTeethUsed}`;
+
+		backgroundColor = `rgb(${brightness * 255 - 40}, ${brightness * 255 - 40}, ${brightness * 255 - 20})`;
+		document.body.style.backgroundColor = backgroundColor;
+
+		 // Calculate inverse color for text
+		inverseColor = `rgb(${255 - (brightness * 255 - 40)}, ${255 - (brightness * 255 - 40)}, ${255 - (brightness * 255 - 20)})`;
+
+
+		if (InGametime > 1440) {
+			let diff = InGametime - 1440;
+			console.log(diff);
+			InGametime = 0;
+			day++;
+			console.log("New Day! Day : " + day );
+
 		}
-		
-	
-    let brightness;
-    if (time < brightestTime) {
-        brightness = time / brightestTime; // Brightness increases until the brightest time
-    } else {
-        brightness = 1 - (time - brightestTime) / (1440 - brightestTime); // Brightness decreases after the brightest time
-    }
-    
-    const backgroundColor = `rgb(${brightness * 255 - 40}, ${brightness * 255 - 40}, ${brightness * 255 - 20})`;
-    document.body.style.backgroundColor = backgroundColor;
-	
-	 // Calculate inverse color for text
-    const inverseColor = `rgb(${255 - (brightness * 255 - 40)}, ${255 - (brightness * 255 - 40)}, ${255 - (brightness * 255 - 20)})`;
-    document.getElementById("timeDiv").style.color = inverseColor;
-    
-    if (time > 1440) {
-        time = 0;
-		day++;
-		console.log("New Day! Day : " + day );
-		document.getElementById('dayDisplay').textContent = `Day: ${day}`;
-    }
-	
-									if(time < 119){							//00:00 -> 02:00
-										phase = "Midnight";
-									}else if(time > 119 && time < 359){		//02:00 -> 06:00
-										phase = "Early Morning";	
-									}else if(time > 359 && time < 539){		//06:00 -> 09:00
-										phase = "Morning";
-									}else if(time > 539 && time < 719){		//09:00 -> 12:00
-										phase = "Late Morning";
-									}else if(time > 719 && time < 779){		//12:00 -> 13:00
-										phase = "High Noon";
-									}else if(time > 779 && time < 960){		//13:00 -> 16:00
-										phase = "Afternoon";
-									}else if(time > 960 && time < 1080){	//16:00 -> 18:00
-										phase = "Late Afternoon";
-									}else if(time > 1080 && time < 1320){ 	//18:00 -> 22:00
-										phase = "Evening";
-									}else if(time > 1320){					//22:00 -> 24:00
-										phase = "Night";
-									}
-											
-	document.getElementById("phaseDisplay").textContent = `Phase : ${phase}`;
-	
-	
-}
 
-let tickTime = 100;
-//Function to start and stop the interval
-let tickInterval = setInterval(updateTime, tickTime); //tickTime = ms
+										if(InGametime < 119){							//00:00 -> 02:00
+											phase = "Midnight";
+										}else if(InGametime > 119 && InGametime < 359){		//02:00 -> 06:00
+											phase = "Early Morning";
+										}else if(InGametime > 359 && InGametime < 539){		//06:00 -> 09:00
+											phase = "Morning";
+										}else if(InGametime > 539 && InGametime < 719){		//09:00 -> 12:00
+											phase = "Late Morning";
+										}else if(InGametime > 719 && InGametime < 779){		//12:00 -> 13:00
+											phase = "High Noon";
+										}else if(InGametime > 779 && InGametime < 960){		//13:00 -> 16:00
+											phase = "Afternoon";
+										}else if(InGametime > 960 && InGametime < 1080){	//16:00 -> 18:00
+											phase = "Late Afternoon";
+										}else if(InGametime > 1080 && InGametime < 1320){ 	//18:00 -> 22:00
+											phase = "Evening";
+										}else if(InGametime > 1320){					//22:00 -> 24:00
+											phase = "Night";
+										}
 
-function changeTickTime(newTickTime){
-	clearInterval(tickInterval);
-	tickTime = newTickTime;
-	tickInterval = setInterval(updateTime, tickTime); //tickTime = ms
-}
-
-function toggleInterval(){ //TOGGLE TIME INTERVAL
-	const timeButton = document.getElementById("timeButton");
-	if(!tickInterval){
-		tickInterval = setInterval(updateTime, 100);
-		startDropInterval();
-		timeButton.style.border = "2px solid green";
-	}else {
-		clearInterval(tickInterval);
-		if(dropInterval){ clearInterval(dropInterval) };
-		timeButton.style.border = "2px solid red";
-		tickInterval = null;
 	}
-}
 
 
-function toggleDisplay(SelDisplay) { //Toggles the TIME DISPLAY (the thing that happens when you click time)
-var timeDiv = document.getElementById("timeDiv");
-var contentDiv = document.getElementById("content");
-var poemDiv = document.getElementById("poemContainer");
-var inventoryDiv = document.getElementById("InvUI");
-var cardDiv = document.getElementById("cardsDiv");
-var welcomeTab = document.getElementById("welcomeTab");
-var antTab = document.getElementById("antTab");
-var caveTab = document.getElementById("caveTab")
-	switch(SelDisplay){
-		case 'time':
-			timeDiv.style.display == 'none' || timeDiv.style.display == '' ? timeDiv.style.display = 'block' : timeDiv.style.display = 'none';
-			break;
-		case 'content':
-			contentDiv.style.display == 'none' || contentDiv.style.display == '' ? contentDiv.style.display = 'block' : contentDiv.style.display = 'none';
-			poemDiv.style.display = 'none';
-			inventoryDiv.style.display = 'none';
-			break;
-		
-		case 'poem':
-			poemDiv.style.display == 'none' || poemDiv.style.display == '' ? poemDiv.style.display = 'block' : poemDiv.style.display = 'none';
-			contentDiv.style.display = 'none';
-			inventoryDiv.style.display = 'none';
-			break;
-			
-		case 'inventory':
-			inventoryDiv.style.display == 'none' || inventoryDiv.style.display == '' ? inventoryDiv.style.display = 'block' : inventoryDiv.style.display = 'none';
-			contentDiv.style.display = 'none';
-			poemDiv.style.display = 'none';
-			break;
-			
-		case 'card':
-			cardDiv.style.display == 'none' || cardDiv.style.display == '' ? cardDiv.style.display = 'block' : cardDiv.style.display = 'none';
-			break;
-			
-		case 'welcome':
-			welcomeTab.style.display = "block";
-			antTab.style.display = "none";
-			caveTab.style.display = "none";
-			break;
-			
-		case 'ant':
-			antTab.style.display = "block";
-			welcomeTab.style.display = "none";
-			caveTab.style.display = "none";
-			break;
-			
-		case 'cave':
-			caveTab.style.display = "block";
-			antTab.style.display = "none";
-			welcomeTab.style.display = "none";
-		
-	}
-    
-	
-}
 
-function submitName(){ //Name submit
-	name = document.getElementById("nameInput").value;
-	document.getElementById("name").textContent = `${name}`;
-	document.getElementById("nameInput").style.display = "none";
-	document.getElementById("submitButton").style.display = "none";
-}
+	let tickTime = 100;
 
-// // // // // LOCATION STUFF // // // // //
+	let tickInterval = setInterval(updateTime, tickTime); //tickTime = ms
 
-function changeLocation(newLocation){
-currentLocation = newLocation;
-currentDrops = currentLocation.drops;
+      let timeWindow = new ContextWindow("Time And Date", 0, 0, 1);
+      timeWindow.setText("Current Real Time : " + currentFormattedText);
 
-}
+      timeWindow.addButton("Clean Window", () => {timeWindow.changeBackgroundColor("#00000001"); timeWindow.setButtonVisibility(1, false)}, 1);
+
+      let timeWindowInterval = setInterval(() => {timeWindow.setText(`Current Time : ${currentFormattedText} <br> ${sessionTimeText} <br> <hr> <br>`+
+                                                                      `In Game Time: ${formattedTime}`); timeWindow.changeFontColor(inverseColor)}, 16);
+//Big Man Message
+        let BigManMessage = new ContextWindow("Message from the Big Man", window.innerWidth/2.5, 0);
+        BigManMessage.setText("hai so dont eat the forbidden fruit ok gotta go thx bye");
+        setTimeout( () => {BigManMessage.toggleVisibility("hidden")}, 500 );
+
+//SNAKE WINDOW
+      let SnakeWindow = new ContextWindow("Snake", window.innerWidth/2.5, window.innerHeight/5, 6);
+      SnakeWindow.setText(sleepingSnake);
+
+      SnakeWindow.changeFontSize("12px");
+      let snakeAwake = false;
+
+      let snakeLine1Array = ["", "Are you sure you don't want some fruit?", "No please, you MUSSSST try the fruit", "Come on I INSSSISSSST on trying the fruit",
+                             "The...fruit.?.Itsss right over there...Cmon I know you see it.", "...", "...Fruit...Right over there.", ". .- - / - .... . / ..-. .-. ..- .. -"];
+      let currentSnakeNode = 0;
 
 
-	//Vampire easter egg//
-		let vampireTeethUsed = 0;
-		
-	//Card states
-		let cardStates = [false, false, false, false]
-let cemetary = {
-	name: "Cemetary",
-	drops:  [	{name: "(L)Unga Coin", 
-        type: "Coin Supply", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "High Noon",
-        use: function() {
-            let addedValue = Math.floor(Math.random() * 200) + 50;
-            ungaCoin += addedValue + this.rarity;
-            console.log("Coin added : " + addedValue + " ( +" +  this.rarity + ")");
-            document.getElementById("addedCoins").innerHTML = "+" + addedValue + "(+ " + this.rarity + ")";
-            document.getElementById("addedCoins").style.transition = "opacity 0.5s";
-            document.getElementById("addedCoins").style.opacity = 1;
-            setTimeout(() => {
-                document.getElementById("addedCoins").style.opacity = 0;
-            }, 2000);
-        }
-    },
-    { 	name: "(S)Unga Coin", 
-        type: "Coin Supply", 
-        quantity: 1, 
-        dropRate: 0.07, 
-        phase: "Afternoon",
-        use: function() {
-            let addedValue = Math.floor(Math.random() * 200) + 15;
-            ungaCoin += addedValue + this.rarity;
-            console.log("Coin added : " + addedValue + " ( +" +  this.rarity + ")");
-            document.getElementById("addedCoins").innerHTML = "+" + addedValue + "(+ " + this.rarity + ")";
-            document.getElementById("addedCoins").style.transition = "opacity 0.5s";
-            document.getElementById("addedCoins").style.opacity = 1;
-            setTimeout(() => {
-                document.getElementById("addedCoins").style.opacity = 0;
-            }, 2000);
-        }
-    },
-	{ 	name: "Cemetary Dew", //EARLY MORNING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Early Morning",
-        use: function() {
-			
-			console.log("Used Cemetary Dew");
-        }
-    },
-	{ 	name: "Cemetary Dew", //MORNING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.0045, 
-        phase: "Morning",
-        use: function() {
-			
-			console.log("Used Cemetary Dew");
-        }
-    },
-	
-	{ 	name: "Cemetary Fog", //MORNING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Morning",
-        use: function() {
-			
-			console.log("Used Cemetary Fog");
-        }
-    },
-	{ 	name: "Cemetary Fog", //EVENING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Evening",
-        use: function() {
-			
-			console.log("Used Cemetary Fog");
-        }
-    },
-	
-	{ 	name: "Cemetary Dirt", //LATE MORNING
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Early Morning",
-        use: function() {
-			
-			console.log("Used Cemetary Dirt");
-        }
-    },
-	{ 	name: "Cemetary Dirt", //AFTERNOON
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Afternoon",
-        use: function() {
-			
-			console.log("Used Cemetary Dirt");
-        }
-    },
-	{ 	name: "Cemetary Dirt", //LATE AFTERNOON
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.08, 
-        phase: "Late Afternoon",
-        use: function() {
-			
-			console.log("Used Cemetary Dirt");
-        }
-    },
-	
-	{ 	name: "Ghastly Wisps", //MIDNIGHT
-        type: "Environmental Item", 
-        quantity: 1, 
-        dropRate: 0.04, 
-        phase: "Midnight",
-        use: function() {
-			
-			console.log("Used Ghastly Wisps");
-        }
-    },
-	
-	{ 	name: "Sabotnik Blood", //MIDNIGHT 
-        type: "Cryptid Item", 
-        quantity: 1, 
-        dropRate: 0.25, 
-        phase: "Midnight",
-        use: function() {
-			if(phase === "Midnight"){
-				let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
-				
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("A vampire tooth materializes from the blood...");
-			}
-            console.log("The blood sizzles, leaving a taste of iron in your lungs.")
-        }
-    },
-	{ 	name: "Sabotnik Blood", //NIGHT
-        type: "Cryptid Item", 
-        quantity: 1, 
-        dropRate: 0.15, 
-        phase: "Night",
-        use: function() {
-			if(phase === "Midnight"){
-				let index = currentDrops.findIndex(item => item.name === "Vampiric Tooth");
-				
-				inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-				console.log("A vampire tooth materializes from the blood...");
-			}
-            console.log("The blood sizzles, leaving a taste of iron in your lungs.")
-        }
-    },
-	{ 	name: "Vampiric Tooth", 
-        type: "Cryptid Item", 
-        quantity: 1, 
-        dropRate: 0.025, 
-        phase: "Midnight",
-        use: function() {
-			
-			vampireTeethUsed++;
-			console.log("You must combine 8 Vampire teeth. Total used so far: " + vampireTeethUsed);
-			
-				if(vampireTeethUsed > 7){
-					let index = currentDrops.findIndex(item => item.name === "Vampiric Doll");
-					inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-					vampireTeethUsed = 0;
-				}
-			
-        }
-    },
-	{ 	name: "Vampiric Doll", 
-        type: "Crafted Cryptid Item", 
-        quantity: 1, 
-        dropRate: 0.0, 
-        phase: "Midnight",
-        use: function() {
-			
-			console.log("Vampiric Doll Used");
-			
-        }
-    },
-	]
-}
+      let snakeLine1 = 'Hello there';
+      let snakeLine2= '';
 
-let casino = { 
-	name: "Evade Casino",
-	drops:  [{ 	name: "Spades set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.09, 
-        phase: "Late Morning",
-        use: function() {
-            cardStates[0] = true;
-			console.log("Added a spades set to your deck");
-			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Hearts set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.045, 
-        phase: "Late Morning",
-        use: function() {
-            cardStates[1] = true;
-			console.log("Added a hearts set to your deck");
-				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Clubs set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Late Morning",
-        use: function() {
-            cardStates[2] = true;
-			console.log("Added a clubs set to your deck");
-			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Diamonds set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.045, 
-        phase: "Late Morning",
-        use: function() {
-            cardStates[3] = true;
-			console.log("Added a diamonds set to your deck");
-			if(cardStates[3] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Spades set", //EVENING
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.09, 
-        phase: "Evening",
-        use: function() {
-            cardStates[0] = true;
-			console.log("Added a spades set to your deck");
-			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Hearts set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.045, 
-        phase: "Evening",
-        use: function() {
-            cardStates[1] = true;
-			console.log("Added a hearts set to your deck");
-				if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Clubs set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.06, 
-        phase: "Evening",
-        use: function() {
-            cardStates[2] = true;
-			console.log("Added a clubs set to your deck");
-			if(cardStates[0] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Diamonds set", 
-        type: "Card set", 
-        quantity: 1, 
-        dropRate: 0.045, 
-        phase: "Evening",
-        use: function() {
-            cardStates[3] = true;
-			console.log("Added a diamonds set to your deck");
-			if(cardStates[3] && cardStates[1] && cardStates[2] && cardStates[3]){
-						let index = currentDrops.findIndex(item => item.name === "Full Deck of Cards");
-						inventory.addItem( new Item( currentDrops[index].name, currentDrops[index].type, 1, Math.floor(Math.random() * 100), currentDrops[index].phase, currentDrops[index].use) );
-						cardStates = [false, false, false, false];
-				}
-        }
-    },
-	{ 	name: "Full Deck of Cards", 
-        type: "Card set (Complete)", 
-        quantity: 1, 
-        dropRate: 0, 
-        phase: "Evening",
-        use: function() {
-           playerInventory.addItem(new Item( "Full Deck of Cards", "Card set (Complete)", 1, 99, "Any Phase", function(){ console.log("Full Deck of Cards used")}));
-        }
-    }]
-}
-
-let currentLocation = cemetary;
+      SnakeWindow.addButton("Interact", () => {   if (!snakeAwake) {
+                                                      SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
+                                                      snakeAwake = true;
+                                                      console.log("Snake has woken up");
+                                                  } else if (snakeAwake && currentSnakeNode === 0) {
+                                                      ForbiddenFruitWindow.toggleVisibility("visible");
+                                                      snakeLine1 = "Would you like some...fruit?";
+                                                      snakeLine2 = "hisss....Hiss...";
+                                                      SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
+                                                      console.log("Snake is asking about fruits");
+                                                      currentSnakeNode++;
+                                                  } else if (currentSnakeNode >= 1 && currentSnakeNode < 8) {
+                                                      snakeLine1 = snakeLine1Array[currentSnakeNode];
+                                                      SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
+                                                      currentSnakeNode++;
+                                                      console.log("Snake insists");
+                                                  } else if (currentSnakeNode >= 8) {
+                                                      snakeLine1 = "JUST EAT THE";
+                                                      snakeLine2 = "FUCKING FRUIT";
+                                                      SnakeWindow.changeFontColor("#350000");
+                                                      SnakeWindow.changeBackgroundColor("#b5b5b580");
+                                                      SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
+                                                      console.log("Snake is angry");
+                                                      SnakeWindow.setButtonVisibility(1, false);
+                                                      setInterval(flickTongue, 800);
+                                                }
+                                                 flickTongue()
+                                              }, 1);
 
 
-// // // // // INVENTORY STUFF // // // // // 
 
+      function flickTongue(){
+        setTimeout( () => {SnakeWindow.setText(snakeLine1 + "<br>"+ snakeLine2 + FlickedTongue)}, 16);
+        setTimeout( () => {SnakeWindow.setText(snakeLine1 + "<br>"+ snakeLine2 + Snake)}, 300);
+      };
 
-	// // // // // // CURRENT DROPS START // // // // //
-let currentDrops = currentLocation.drops;
-	// // // // // // CURRENT DROPS END // // // // //
+//FORBIDDEN FRUIT
+  let ForbiddenFruitWindow = new ContextWindow("The Forbidden Fruit", window.innerWidth/5.5, window.innerHeight/1.75);
+      ForbiddenFruitWindow.toggleVisibility("hidden");
+      ForbiddenFruitWindow.setText(ForbiddenFruit);
+      ForbiddenFruitWindow.changeFontSize("9px");
 
-const dropRateInterval = 1000; // Interval in milliseconds
+    ForbiddenFruitWindow.addButton("Inspect the forbidden fruit", () => {BirdWindow.toggleVisibility("visible"); birdFlies(); setTimeout( () => { BirdWindow.setButtonVisibility(1, true)}, 1500)})
 
-function addToInventory(item) {
-    inventory.addItem(new Item(item.name, item.type, item.quantity, Math.floor(Math.random() * 100), item.phase, item.use));
-}
-let dropInterval;
-function startDropInterval() {
-    dropInterval = setInterval(() => {
-        for (let index = 0; index < currentDrops.length; index++) {
-            const item = currentDrops[index];
-            // Logic to determine if the item should be dropped
-            const dropRoll = Math.random();
-            if (dropRoll < item.dropRate && phase === item.phase) {
-                // Add item to inventory
-                addToInventory(item);
+//Bird
 
-                setTimeout((itemName) => {
-                    // Find the index of the item by name
-                    let itemIndex = inventory.items.findIndex(invItem => invItem.name === itemName);
-                    // Check if the item exists in the inventory
-                    if (itemIndex !== -1) {
-                        // Remove the item from the inventory
-                        inventory.removeItem(itemIndex);
-                    }
-                }, 5000, item.name);
-            }
-        }
-    }, dropRateInterval);
-}
-startDropInterval(); // default start with on
+    BirdLine1 = 'SQUAWK';
+    BirdLine2 = 'You sure?';
+  let BirdWindow = new ContextWindow("The Bird", window.innerWidth/5.5, window.innerHeight/7);
+      BirdWindow.setText(birdFlyingDown);
+      BirdWindow.changeFontSize("4px");
+      BirdWindow.toggleVisibility("hidden");
 
-class Item { // // // // // NAME - QUANTITY - RARITY - PHASE - USE // // // // //
-    constructor(name, type, quantity = 1, rarity = Math.floor(Math.random() * 100), phase, use) {
-        this.name = name;
-        this.type = type;
-        this.quantity = quantity;
-		this.rarity = rarity;
-		this.phase = phase;
-		this.use = use;
-    }
-}
+  BirdWindow.addButton("Well...What else am I going to eat?", () => {BirdWindow.setButtonVisibility(1, false); BirdLine2 = "Hang on for a moment";BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird)
+                                                                      setTimeout( () => {BirdLine2 = "I brought you something"; birdFlies()}, 500 )},1);
+  BirdWindow.setButtonVisibility(1, false);
 
-class Inventory {
-    constructor() {
-        this.items = [];
-    }
-
-    addItem(newItem) {
-        const existingItemIndex = this.items.findIndex(item => 
-            item.name === newItem.name && item.type === newItem.type
-        );
-
-        if (existingItemIndex > -1) {
-            this.items[existingItemIndex].quantity += newItem.quantity;
-            this.items[existingItemIndex].rarity = Math.floor(((this.items[existingItemIndex].rarity * this.items[existingItemIndex].quantity) + newItem.rarity) / (this.items[existingItemIndex].quantity + 1));
-        } else {
-            this.items.push(newItem);
-        }
-        this.listItems();
-    }
-
-    removeItem(index, quantity = 1) {
-        if (index >= 0 && index < this.items.length) {
-            if (this.items[index].quantity > quantity) {
-                this.items[index].quantity -= quantity;
-            } else {
-                this.items.splice(index, 1);
-            }
-        } else {
-            console.log(`Invalid index: ${index}`);
-        }
-        this.listItems();
-    }
-
-    listItems() {
-        const InvUI = document.getElementById("InvUI");
-        InvUI.innerHTML = '';
-        for (let i = 0; i < this.items.length; i++) {
-            InvUI.innerHTML += "<br><span onclick='inventory.useItem(" + i + ")'>Name : " + this.items[i].name + " / Type : " + this.items[i].type + " /  Amt  : " + this.items[i].quantity + " / Rarity : " + this.items[i].rarity + "</span><br>";
-        }
-
-        InvUI.innerHTML += ' <h6 style="color: red; bottom: 5px;"> *WARNING:* Items here will NOT BE SAVED if you close the browser. </h6><br>';
-    }
-
-    useItem(index) {
-        const item = this.items[index];
-        item.use();
-		console.log("Using " + item.name);
-        this.removeItem(index);
-    }
-}
-
-let inventory = new Inventory(); //Local Inventory
-inventory.listItems();
-
-
-// // // // // END OF INVENTORY // // // // //
-
-// // // // // CARDS // // // // //
-
-// Function to generate the URL
-const pathTo = (card) => {
-  const baseUrl = "https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/Cards/";
-  return baseUrl + encodeURIComponent(card.value.toUpperCase() + ' ' + card.suit.toUpperCase()) + ".PNG";
-};
-
-// Build a deck of cards
-const suits = ["Spades", "Hearts", "Clubs", "Diamonds"]; // Suits
-const values = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]; // Values
-
-class Card { // Class that holds card values
-  constructor(suit, value) {
-    this.suit = suit;
-    this.value = value;
-    this.path = pathTo(this);
+  function birdFlies(){
+     setTimeout( () => {BirdWindow.setText(birdFlyingDown)},16);
+     setTimeout( () => {BirdWindow.setText(birdFlyingUp)},300);
+     setTimeout( () => {BirdWindow.setText(birdFlyingDown)},500);
+     setTimeout( () => {BirdWindow.setText(birdFlyingUp)},800);
+     setTimeout( () => {BirdWindow.setText(birdFlyingDown)},1100);
+     setTimeout( () => {BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird);},1500);
   }
-}
 
-const deck = []; // Array to hold the cards
+    </script>
 
-for (let i = 0; i < suits.length; i++) { // Suits for loop
-  for (let j = 0; j < values.length; j++) { // Values for loop
-    deck.push(new Card(suits[i], values[j])); // For every suit, push a card for every value (4 suits * 13 values)
-  }
-}
+  </body>
 
-// Function to get a random card from the deck
-const getRandomCard = () => deck[Math.floor(Math.random() * deck.length)];
-var cardOne = getRandomCard();
-var cardTwo = getRandomCard();
-
-if(cardOne == cardTwo){
-	var cardTwo = getRandomCard();
-}
-
-// Example usage to assign random card images to elements
-document.getElementById("cardOneElement").src = 'https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/back.png';
-document.getElementById("cardOneElement").onclick = () => {
-	document.getElementById("cardOneElement").src = cardOne.path;
-}
-
-document.getElementById("cardTwoElement").src = 'https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/back.png';
-document.getElementById("cardTwoElement").onclick = () => {
-	document.getElementById("cardTwoElement").src = cardTwo.path;
-}
-
-// // // // // END OF CARDS // // // // //
-
-// // // // // SAVING AND LOADING // // // // //
-function save(){
-	var currentSave = 	{SavedDay: day, 
-						SavedHour: hours,
-						SavedMinute: minutes,
-						SavedTime: time,
-						SavedName: name,
-						SavedUngaCoin: ungaCoin,
-						SavedVampireTeeth: vampireTeethUsed,
-						SavedAutosaveSetting: autosaveEnabled}; //ALL STUFF SAVED DURING SAVE
-						
-						
-	var stringed = JSON.stringify(currentSave);
-	localStorage.setItem("currentSaveStringed", stringed)
-	console.log("Saved. " + stringed)
-	
-	const saveButton = document.getElementById("saveButton");
-	saveButton.style.border = "2px solid green";
-	setTimeout(() => {
-                saveButton.style.border = '1px solid black';
-            }, 500);
-}
-
-function load() {
-    // Check if 'currentSaveStringed' exists in localStorage
-    if (localStorage.getItem('currentSaveStringed')) {
-        // Retrieve the value and set it to currentSave
-        var currentSave = JSON.parse(localStorage.getItem('currentSaveStringed'));
-		
-			day = currentSave.SavedDay;
-			hours = currentSave.SavedHour;
-			minutes = currentSave.SavedMinute;
-			time = currentSave.SavedTime;
-			name = currentSave.SavedName;
-				document.getElementById("name").textContent = `${name}`; //Change html 
-				if(currentSave.SavedUngaCoin){
-				ungaCoin = currentSave.SavedUngaCoin;
-				};
-				if(currentSave.SavedVampireTeeth){
-				vampireTeethUsed = currentSave.SavedVampireTeeth;
-				}
-			
-			
-				
-			//Check to see what the autosave settings were
-			autosaveEnabled = currentSave.SavedAutosaveSetting;	
-        console.log('currentSave set to:', currentSave);
-    } else {
-        console.log('No current save found in localStorage.');
-    }
-}
-load(); //we are talking, MEGA BRAIN 
-
-//Should I do autosaving? Hmmmmm...Well I don't think it'll do any harm. Not personally, at least. What's disk space? /s 
-
-
-let autosaveInterval = setInterval(() => {
-            if (autosaveEnabled) {
-                save();
-            }else{
-				saveButton.style.border = '2px dotted red';
-				setTimeout(() => {
-					saveButton.style.border = '1px solid black';
-				}, 500);
-			}
-            console.log(autosaveEnabled ? "Autosave Enabled : True" : "Autosave Enabled : False");
-        }, 5000); // Autosave every 5 seconds
-
-
-//Lets get fancy and make the button change color depending on the value
-const toggleAutosaveButton = document.getElementById("toggleAutosaveButton");
-autosaveEnabled ? toggleAutosaveButton.style.border = "2px solid green" : toggleAutosaveButton.style.border = "2px solid red";
-
-function toggleAutosave(){
-	autosaveEnabled ? autosaveEnabled = false : autosaveEnabled = true; //Flip-a-da variables as the great Mario used to say
-	autosaveEnabled ? toggleAutosaveButton.style.border = "2px solid green" : toggleAutosaveButton.style.border = "2px solid red";
-	
-	console.log(autosaveEnabled ? "Autosave Enabled : True" : "Autosave Enabled : False");
-}
-function deleteSave(){
-	localStorage.clear();
-	location.reload();
-}
-
-// // // // // END OF SAVING AND LOADING // // // // //
-
-// // // // // POEM STUFF // // // // //
-
-//So I really want to be able to have the poem Bonedog (from I'm Thinking of Ending Things) as a secret little compartment. Hidden, so if you are reading this, SHHHHH!
-
-const poemContainer = document.getElementById("poemContainer");
-
-	//Container that holds all seperate verses
-const poemVerse = [document.getElementById("poem1"), document.getElementById("poem2"), document.getElementById("poem3"),
-					document.getElementById("poem4"), document.getElementById("poem5"), document.getElementById("poem6"), document.getElementById("poem7"),
-					document.getElementById("poem8"), document.getElementById("poem9"),]
-					
-for(let i = 0; i < poemVerse.length; i++){ 
-	poemVerse[i].style.display = "none";
-}
-poemVerse[0].style.display = "block";
-	
-//Add a keylog listener
-			
-			document.body.addEventListener("keydown", (event) => {
-				console.log(event.key);
-					if(event.key === "u" || event.key === "U"){
-						document.getElementById("easterEggU").style.color = "Gold";
-					}
-					if(event.key === "n" || event.key === "N"){
-						document.getElementById("easterEggN").style.color = "Gold";
-					}
-					if(event.key === "g" || event.key === "G"){
-						document.getElementById("easterEggG").style.color = "Gold";
-					}
-					if(event.key === "a" || event.key === "A"){
-						document.getElementById("easterEggA").style.color = "Gold";
-					}
-					if(document.getElementById("easterEggU").style.color === "gold" && document.getElementById("easterEggN").style.color === "gold" && document.getElementById("easterEggG").style.color === "gold" && document.getElementById("easterEggA").style.color === "gold"){
-						if(document.getElementById("UNGA").style.color != "gold"){
-							document.getElementById("UNGA").style.color = "Gold";
-							//TO DO: Add an item to the inventory when the player types UNGA. Previously was a large supply of ungacoin
-						}
-						
-					}
-					
-					//Changing the slide of the poem (IN THE MOST UNGA WAY POSSBLE FFS)
-						if(event.key === "1"){
-							for(let i = 0; i < poemVerse.length; i++){ 
-								poemVerse[i].style.display = "none";
-							}
-							poemVerse[0].style.display = "block";
-						}
-						if(event.key === "2"){
-							for(let i = 0; i < poemVerse.length; i++){ 
-								poemVerse[i].style.display = "none";
-							}
-							poemVerse[1].style.display = "block";
-						}
-						if(event.key === "3"){
-							for(let i = 0; i < poemVerse.length; i++){ 
-								poemVerse[i].style.display = "none";
-							}
-							poemVerse[2].style.display = "block";
-						}
-						if(event.key === "4"){
-							for(let i = 0; i < poemVerse.length; i++){ 
-								poemVerse[i].style.display = "none";
-							}
-							poemVerse[3].style.display = "block";
-						}
-						if(event.key === "5"){
-							for(let i = 0; i < poemVerse.length; i++){ 
-								poemVerse[i].style.display = "none";
-							}
-							poemVerse[4].style.display = "block";
-						}
-						if(event.key === "6"){
-							for(let i = 0; i < poemVerse.length; i++){ 
-								poemVerse[i].style.display = "none";
-							}
-							poemVerse[5].style.display = "block";
-						}
-						if(event.key === "7"){
-							for(let i = 0; i < poemVerse.length; i++){ 
-								poemVerse[i].style.display = "none";
-							}
-							poemVerse[6].style.display = "block";
-						}
-						if(event.key === "8"){
-							for(let i = 0; i < poemVerse.length; i++){ 
-								poemVerse[i].style.display = "none";
-							}
-							poemVerse[7].style.display = "block";
-						}
-						if(event.key === "9"){
-							for(let i = 0; i < poemVerse.length; i++){ 
-								poemVerse[i].style.display = "none";
-							}
-							poemVerse[8].style.display = "block";
-						}
-					
-					
-					//CHANGE TABS
-						//CAN ONLY BE DONE AFTER INPUTTING A NAME. MUST FIRST CLICK THE TIME EASTER EGG
-						if(event.key === "[" && name != null){
-							toggleDisplay('content');
-						}
-						if(event.key === "]" && name != null){
-							toggleDisplay('poem');
-						}
-						if(event.key === "i" && name != null){
-							toggleDisplay('inventory');
-						}
-						if(event.key === "c" && name != null){
-							toggleDisplay('card');
-						}
-						if(event.key === "t" && name != null){
-							toggleDisplay('time');
-						}
-					
-			});
-			
-			
-			let pressedKeys = [];
-			
-			document.body.addEventListener("keydown", (event) => {
-				
-				pressedKeys[event.key.toUpperCase()] = true;
-				pressedKeys[event.key.toLowerCase()] = true;
-			});
-			
-			document.body.addEventListener("keyup", (event) => {
-			
-				pressedKeys[event.key.toUpperCase()] = false;
-				pressedKeys[event.key.toLowerCase()] = false;
-				
-			})
-  </script>
-</body>
 </html>
