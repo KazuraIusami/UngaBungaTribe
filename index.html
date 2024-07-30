@@ -16,7 +16,7 @@
 
     <script>
 
-      //TIME WINDOW AND FUNCTION
+      //IN GAME TIME WINDOW AND FUNCTION
 	let day = 0;
 	let InGametime = 720; // Set initial time to 12:00 (720 minutes)
 	let brightestTime = 840; // Set the brightest time to 14:00 (840 minutes)
@@ -106,8 +106,8 @@
       SnakeWindow.changeFontSize("12px");
       let snakeAwake = false;
 
-      let snakeLine1Array = ["", "Are you sure you don't want some fruit?", "No please, you MUSSSST try the fruit", "Come on I INSSSISSSST on trying the fruit",
-                             "The...fruit.?.Itsss right over there...Cmon I know you see it.", "...", "...Fruit...Right over there.", ". .- - / - .... . / ..-. .-. ..- .. -"];
+      let snakeLine1Array = ["", "Are you sure you don't want some fruit?", "Come on, you are bound to grow hungry sooner or later!", "No please, you MUSSSST try the fruit", "Come on I INSSSISSSST on trying the fruit",
+                             "The...fruit.?.Itsss right over there...Cmon I know you see it.", "...", "You sure you aren't hungry yet?", "...Fruit...Right over there.", ". .- - / - .... . / ..-. .-. ..- .. -"];
       let currentSnakeNode = 0;
 
 
@@ -125,12 +125,12 @@
                                                       SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
                                                       console.log("Snake is asking about fruits");
                                                       currentSnakeNode++;
-                                                  } else if (currentSnakeNode >= 1 && currentSnakeNode < 8) {
+                                                  } else if (currentSnakeNode >= 1 && currentSnakeNode < 10) {
                                                       snakeLine1 = snakeLine1Array[currentSnakeNode];
                                                       SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
                                                       currentSnakeNode++;
                                                       console.log("Snake insists");
-                                                  } else if (currentSnakeNode >= 8) {
+                                                  } else if (currentSnakeNode >= 10) {
                                                       snakeLine1 = "JUST EAT THE";
                                                       snakeLine2 = "FUCKING FRUIT";
                                                       SnakeWindow.changeFontColor("#350000");
@@ -150,25 +150,45 @@
         setTimeout( () => {SnakeWindow.setText(snakeLine1 + "<br>"+ snakeLine2 + Snake)}, 300);
       };
 
+      let birdArrived = false;
+
 //FORBIDDEN FRUIT
   let ForbiddenFruitWindow = new ContextWindow("The Forbidden Fruit", window.innerWidth/5.5, window.innerHeight/1.75);
       ForbiddenFruitWindow.toggleVisibility("hidden");
       ForbiddenFruitWindow.setText(ForbiddenFruit);
       ForbiddenFruitWindow.changeFontSize("9px");
 
-    ForbiddenFruitWindow.addButton("Inspect the forbidden fruit", () => {BirdWindow.toggleVisibility("visible"); birdFlies(); setTimeout( () => { BirdWindow.setButtonVisibility(1, true)}, 1500)})
+
+    ForbiddenFruitWindow.addButton("Inspect the forbidden fruit", () => {
+                                      if(!birdArrived){
+                                          BirdWindow.toggleVisibility("visible"); birdFlies();BirdWindow.bringToFront();
+                                          setTimeout( () => { BirdWindow.setButtonVisibility(1, true)}, 1500);
+                                          birdArrived = true;
+
+                                      }else {
+                                         console.log("Bird is watching")
+                                      }
+                                      }, 1);
 
 //Bird
 
-    BirdLine1 = 'SQUAWK';
-    BirdLine2 = 'You sure?';
+    let BirdLine1 = 'SQUAWK';
+    let BirdLine2 = 'You sure?';
+
+    let hasBroughtBIRD = false;
+
   let BirdWindow = new ContextWindow("The Bird", window.innerWidth/5.5, window.innerHeight/7);
       BirdWindow.setText(birdFlyingDown);
       BirdWindow.changeFontSize("4px");
       BirdWindow.toggleVisibility("hidden");
 
-  BirdWindow.addButton("Well...What else am I going to eat?", () => {BirdWindow.setButtonVisibility(1, false); BirdLine2 = "Hang on for a moment";BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird)
-                                                                      setTimeout( () => {BirdLine2 = "I brought you something"; birdFlies()}, 500 )},1);
+  BirdWindow.addButton("Well...What else am I going to do?", () => {BirdWindow.setButtonVisibility(1, false); BirdLine2 = "Hang on for a moment";BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird)
+                                                                      setTimeout( () => {BirdLine2 = "Here, I brought you something"; birdFlies();}, 500 )
+                                                                      setTimeout( () => {BIRD.toggleVisibility("visible")},2000)
+                                                                      setTimeout( () => {BirdLine2 = "This way, you won't have to worry about looking at the window. You can close the window and come back later.";
+                                                                                          BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird);
+                                                                                        },5000)
+                                                                    },1);
   BirdWindow.setButtonVisibility(1, false);
 
   function birdFlies(){
@@ -179,6 +199,38 @@
      setTimeout( () => {BirdWindow.setText(birdFlyingDown)},1100);
      setTimeout( () => {BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird);},1500);
   }
+//B.I.R.D.
+
+      let BIRD = new ContextWindow("B.I.R.D. Device", 0, window.innerHeight/5);
+      BIRD.toggleVisibility("hidden");
+      BIRD.setText("Body Imaging and Resource Distribution device (B.I.R.D.)");
+
+        BIRD.addButton("The EDEN preset", () => {  SnakeWindow.toggleVisibility("visible");
+                                                  ForbiddenFruitWindow.toggleVisibility("visible");
+                                                  BirdWindow.toggleVisibility("visible")}, 1);
+
+        BIRD.addButton("[Close] The EDEN preset", () => {  SnakeWindow.toggleVisibility("hidden");
+                                                  ForbiddenFruitWindow.toggleVisibility("hidden");
+                                                  BirdWindow.toggleVisibility("hidden")}, 1);
+
+        BIRD.addButton("Snake Window", () => {SnakeWindow.toggleVisibility("visible")},2);
+        BIRD.addButton("Fruit Window", () => {ForbiddenFruitWindow.toggleVisibility("visible")}, 2);
+        BIRD.addButton("The Bird", () => {BirdWindow.toggleVisibility("visible")}, 2);
+
+        BIRD.addButtonBreak(3);
+
+        BIRD.addButton("The Cat", () => {catWindow.toggleVisibility("visible")}, 4);
+
+//CAT
+      //I REALLY had to stop myself from calling this variable "catcall", you are welcome fuck you
+      let catLineArray = ["Get out of here! I'm trying to ambush the bird...you are going to give up my cover!", "...Get out! Get out of here!"];
+      let catNode = 0;
+      let catWindow = new ContextWindow("The Cat", window.innerWidth/1.5, window.innerHeight/5);
+      catWindow.setText("<span style='font-size:12px'>" + catLineArray[catNode] + "</span><br>"+ cat);
+      catWindow.changeFontSize("9px");
+      catWindow.toggleVisibility("hidden");
+
+      catWindow.addButton("Interact", () => {catNode++; catWindow.setText("<span style='font-size:12px'>" + catLineArray[catNode] + "</span><br>"+ cat);}, 1);
 
     </script>
 
