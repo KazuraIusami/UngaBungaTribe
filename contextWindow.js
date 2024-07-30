@@ -97,7 +97,17 @@ class ContextWindow {
             console.log("level out of range...");
         }
     }
+    addButtonBreak(level = 1) {
+    // Create a break element
+    const breakElement = document.createElement('br');
 
+    // Append the break element to the appropriate level container
+    if (level >= 1 && level <= this.amountOfButtonLevels) {
+        this.buttonLevels[level - 1].appendChild(breakElement);
+    } else {
+        console.log("level out of range...");
+    }
+}
 
     initDrag() {
         this.titleBar.onmousedown = this.onMouseDown.bind(this);
