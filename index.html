@@ -232,6 +232,42 @@
 
       catWindow.addButton("Interact", () => {catNode++; catWindow.setText("<span style='font-size:12px'>" + catLineArray[catNode] + "</span><br>"+ cat);}, 1);
 
+
+//WEAPON STUFF
+
+         let currentSword = [swordBlade1, hilt1];
+
+        let WeaponWindow = new ContextWindow("Weapon", window.innerWidth/3.25, window.innerHeight/3.25, 10);
+      WeaponWindow.changeFontSize("8px");
+
+    function updateWeaponWindow(){
+      WeaponWindow.setText(currentSword[0] + currentSword[1]);
+    };
+      updateWeaponWindow();
+      WeaponWindow.addButton("Hand", () => {WeaponWindow.setText(hand);}, 1);
+
+      WeaponWindow.addButton("Sword Blade 1", () => {currentSword[0] = swordBlade1; updateWeaponWindow();}, 2);
+      WeaponWindow.addButton("Sword Blade 2", () => {currentSword[0] = swordBlade2; updateWeaponWindow();}, 2);
+      WeaponWindow.addButton("Sword Blade 3", () => {currentSword[0] = swordBlade3; updateWeaponWindow();}, 2);
+
+      WeaponWindow.addButtonBreak(3);
+      WeaponWindow.addButton("Wretch Blade 1", () => {currentSword[0] = swordBlade4; updateWeaponWindow();}, 4);
+      WeaponWindow.addButton("Wretch Blade 2", () => {currentSword[0] = swordBlade5; updateWeaponWindow();}, 4);
+      WeaponWindow.addButton("Wretch Blade 3", () => {currentSword[0] = swordBlade6; updateWeaponWindow();}, 4);
+
+      WeaponWindow.addButton("Sword Hilt 1", () => {currentSword[1] = hilt1; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Sword Hilt 2", () => {currentSword[1] = hilt2; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Sword Hilt 3", () => {currentSword[1] = hilt3; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Sword Hilt 4", () => {currentSword[1] = hilt4; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Sword Hilt 5", () => {currentSword[1] = hilt5; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Sword Hilt 6", () => {currentSword[1] = hilt6; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Closed Hilt", () => {currentSword[1] = hilt8; updateWeaponWindow();}, 5);
+
+      WeaponWindow.addButtonBreak(6);
+
+      WeaponWindow.addButton("Katana Blade", () => {currentSword[0] = swordBlade7; updateWeaponWindow();}, 7);
+      WeaponWindow.addButton("Katana Hilt", () => {currentSword[1] = hilt7; updateWeaponWindow();}, 7);
+
     </script>
 
   </body>
