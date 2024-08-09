@@ -13,7 +13,8 @@
     <script src="contextWindow.js"></script>
     <script src="realTime.js"></script>
     <script src="ASCII.js"></script>
-	<script src="ASCII2.js"></script>
+    <!--<script src="ASCII2.js"></script>-->
+    <script src="Weapons.js"></script>
 
     <script>
 
@@ -143,6 +144,16 @@
                                                 }
                                                  flickTongue()
                                               }, 1);
+      SnakeWindow.addButton("Attack!", () => {
+                                     if(!snakeAwake){
+                                        snakeLine1 = "Hey! What the fuck dude?! I was jussst chilling, doin my own thing! Not fucking cool! SSsssoooo not fucking cool!";
+                                        snakeLine2 = "HISSSSSSSS";
+                                        snakeAttacks();
+                                        SnakeWindow.setButtonVisibility(1, false);
+                                     }else{
+                                        snakeAttacks();
+                                     }
+      }, 1);
 
 
 
@@ -150,6 +161,11 @@
         setTimeout( () => {SnakeWindow.setText(snakeLine1 + "<br>"+ snakeLine2 + FlickedTongue)}, 16);
         setTimeout( () => {SnakeWindow.setText(snakeLine1 + "<br>"+ snakeLine2 + Snake)}, 300);
       };
+
+      function snakeAttacks(){
+         setTimeout( () => {SnakeWindow.setText(Attacking)}, 16);
+         setTimeout( () => {SnakeWindow.setText(snakeLine1 + "<br>"+ snakeLine2 + Snake)}, 200);
+      }
 
       let birdArrived = false;
 
@@ -167,7 +183,10 @@
                                           birdArrived = true;
 
                                       }else {
-                                         console.log("Bird is watching")
+                                         BirdLine1 = "I'm just sayin...you probably shouldn't eat that..";
+                                         BirdLine2 = "SQUAK no judgement tho";
+                                         BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird);
+                                         BirdWindow.setButtonVisibility(2, true);
                                       }
                                       }, 1);
 
@@ -189,8 +208,23 @@
                                                                       setTimeout( () => {BirdLine2 = "This way, you won't have to worry about looking at the window. You can close the window and come back later.";
                                                                                           BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird);
                                                                                         },5000)
+
+
                                                                     },1);
   BirdWindow.setButtonVisibility(1, false);
+
+  BirdWindow.addButton("Why shouldn't I eat the fruit?", () => {
+    BirdLine1 = "Did you not see the message? SQUAWK!";
+    BirdLine2 = "SQUAWK! SQUAWK!";
+    BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird)
+      setTimeout( () => {
+        BirdLine1 = "A message was at the top of your screen when you first loaded in! SQUAWK!";
+        BirdLine2 = "You'll have to reload to see it! Or you could just....trust me. SQUAWK!";
+        BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird)
+      }, 1500);
+    BirdWindow.setButtonVisibility(2, false);
+  }, 2)
+  BirdWindow.setButtonVisibility(2, false);
 
   function birdFlies(){
      setTimeout( () => {BirdWindow.setText(birdFlyingDown)},16);
@@ -202,25 +236,46 @@
   }
 //B.I.R.D.
 
-      let BIRD = new ContextWindow("B.I.R.D. Device", 0, window.innerHeight/5);
+      let BIRD = new ContextWindow("B.I.R.D. Device", 0, window.innerHeight/5, 10);
       BIRD.toggleVisibility("hidden");
       BIRD.setText("Body Imaging and Resource Distribution device (B.I.R.D.)");
 
+        BIRD.addButton("Weapon Window", () => {WeaponWindow.toggleVisibility("visible"); WeaponWindow.bringToFront()});
+
         BIRD.addButton("The EDEN preset", () => {  SnakeWindow.toggleVisibility("visible");
                                                   ForbiddenFruitWindow.toggleVisibility("visible");
-                                                  BirdWindow.toggleVisibility("visible")}, 1);
+                                                  BirdWindow.toggleVisibility("visible")}, 2);
 
         BIRD.addButton("[Close] The EDEN preset", () => {  SnakeWindow.toggleVisibility("hidden");
                                                   ForbiddenFruitWindow.toggleVisibility("hidden");
-                                                  BirdWindow.toggleVisibility("hidden")}, 1);
+                                                  BirdWindow.toggleVisibility("hidden")}, 2);
 
-        BIRD.addButton("Snake Window", () => {SnakeWindow.toggleVisibility("visible")},2);
-        BIRD.addButton("Fruit Window", () => {ForbiddenFruitWindow.toggleVisibility("visible")}, 2);
-        BIRD.addButton("The Bird", () => {BirdWindow.toggleVisibility("visible")}, 2);
+        BIRD.addButton("Snake Window", () => {SnakeWindow.toggleVisibility("visible")},3);
+        BIRD.addButton("Fruit Window", () => {ForbiddenFruitWindow.toggleVisibility("visible")}, 3);
+        BIRD.addButton("The Bird", () => {BirdWindow.toggleVisibility("visible")}, 3);
 
-        BIRD.addButtonBreak(3);
+        BIRD.addButtonBreak(4);
 
-        BIRD.addButton("The Cat", () => {catWindow.toggleVisibility("visible")}, 4);
+        BIRD.addButton("The Cat", () => {catWindow.toggleVisibility("visible")}, 5);
+        BIRD.addButton("Cheap Coin", () => {gambaCoinWindow.toggleVisibility("visible")}, 5);
+
+    let BIRDInterval = setInterval( () => {
+      if(BIRD.div.style.display === "block"){
+        clearInterval(BIRDInterval);
+         let BIRDInterval2 = setInterval( () => {
+              if(BIRD.div.style.display === "none"){
+              BirdLine1 = "Well....You can't close THAT window...Please don't do that again";
+              BirdLine2 = "SQUAWK!";
+              BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird)
+              BirdWindow.toggleVisibility("visible");
+              BIRD.toggleVisibility("visible");
+                clearInterval(BIRDInterval2);
+             }
+        }, 16)
+      }
+    }, 16)
+
+
 
 //CAT
       //I REALLY had to stop myself from calling this variable "catcall", you are welcome fuck you
@@ -234,40 +289,224 @@
       catWindow.addButton("Interact", () => {catNode++; catWindow.setText("<span style='font-size:12px'>" + catLineArray[catNode] + "</span><br>"+ cat);}, 1);
 
 
+
+
 //WEAPON STUFF
+          const itemAttributes = [
 
-         let currentSword = [swordBlade1, hilt1];
+      { name: "Training Sword Blade", slashDamage: 1, stabDamage: 0, structure: 2, speed: 500 },
+      { name: "Shabby Blade", slashDamage: 4, stabDamage: 2, structure: 8, speed: 500 },
+      { name: "Knotched Blade", slashDamage: 6, stabDamage: 4, structure: 12, speed: 500 },
+      { name: "Sharp Blade", slashDamage: 5, stabDamage: 8, structure: 15, speed: 500 },
 
+      { name: "Wretched Blade", slashDamage: 14, stabDamage: 12, structure: 16, speed: 500 },
+      { name: "Wretched Blade 2", slashDamage: 12, stabDamage: 9, structure: 16, speed: 500 },
+
+      { name: "Training Hilt", speed: 5, weight: 5  },
+      { name: "Shabby Hilt", speed: 4, weight: 4 },
+      { name: "Curved Hilt", speed: 6, weight: 2 },
+      { name: "Combat Hilt", speed: 7, weight: 3 },
+      { name: "Right Hilt", speed: 5, weight: 3 },
+      { name: "Left Hilt", speed: 5, weight: 3 },
+      { name: "Closed Hilt", speed: 9, weight: 6 },
+
+      { name: "Katana Blade", slashDamage: 19, stabDamage: 16, structure: 20, speed: 100 },
+      { name: "Katana Hilt", speed: 8, weight: 2 },
+      ];
+
+      let currentSword = [TrainingBlade, TrainingHilt];
+
+
+    // Function to find attributes by name
+    function findAttributes(name) {
+      return itemAttributes.find(item => item.name === name);
+    }
+
+    // Example usage
+    let bladeAttributes = findAttributes(currentSword[0].name);
+    let hiltAttributes = findAttributes(currentSword[1].name);
+
+
+//WEAPON WINDOW WHERE THE ASCII IS ASSEMBLED
         let WeaponWindow = new ContextWindow("Weapon", window.innerWidth/3.25, window.innerHeight/3.25, 10);
+      WeaponWindow.toggleVisibility("hidden");
       WeaponWindow.changeFontSize("8px");
 
     function updateWeaponWindow(){
-      WeaponWindow.setText(currentSword[0] + currentSword[1]);
+      bladeAttributes = findAttributes(currentSword[0].name);
+      hiltAttributes = findAttributes(currentSword[1].name);
+      WeaponWindow.setText(currentSword[0].sprite + currentSword[1].sprite +
+                          "<br><span style='font-size:18px'> " + bladeAttributes.name + " <br> ( Slash Damage : " + bladeAttributes.slashDamage + " / Stab Damage : " + bladeAttributes.stabDamage + " / Structure Level : " + bladeAttributes.structure + " / Speed : " + bladeAttributes.speed + ")"+
+                          "<br> "+ hiltAttributes.name + " <br> ( Speed : " + hiltAttributes.speed + " / Weight : " + hiltAttributes.weight + ")</span>");
+
+        //Also update the inspectWeaponWindow
+          inspectWeaponWindow.setText("BLADE <br> Slash Damage <br><progress value='" + bladeAttributes.slashDamage + "' max = 20></progress><br>"+
+                                  "Stab Damage <br><progress value='" + bladeAttributes.stabDamage + "' max = 20></progress><br>"+
+                                  "Structure <br><progress value='" + bladeAttributes.structure + "' max = 20></progress><br>"+
+                                  "Speed <br><progress id='progressBar' value='" + bladeAttributes.speed + "' max = 1000></progress><br>"+
+                                  "<br> HILT <br>"+
+                                  "Speed <br><progress value='" + hiltAttributes.speed + "' max = 20></progress><br>"+
+                                  "Weight <br><progress value='" + hiltAttributes.weight + "' max = 20></progress><br>");
     };
-      updateWeaponWindow();
-      WeaponWindow.addButton("Hand", () => {WeaponWindow.setText(hand);}, 1);
+      WeaponWindow.setText(hand.sprite);
 
-      WeaponWindow.addButton("Sword Blade 1", () => {currentSword[0] = swordBlade1; updateWeaponWindow();}, 2);
-      WeaponWindow.addButton("Sword Blade 2", () => {currentSword[0] = swordBlade2; updateWeaponWindow();}, 2);
-      WeaponWindow.addButton("Sword Blade 3", () => {currentSword[0] = swordBlade3; updateWeaponWindow();}, 2);
+    //WeaponWindow.setText(hand.sprite);
+    WeaponWindow.addButton("Hand", () => {WeaponWindow.setText(hand.sprite); updateWeaponWindow()}, 1);
+    WeaponWindow.addButton("Inspect Weapon", () => {inspectWeaponWindow.toggleVisibility("visible")});
 
-      WeaponWindow.addButtonBreak(3);
-      WeaponWindow.addButton("Wretch Blade 1", () => {currentSword[0] = swordBlade4; updateWeaponWindow();}, 4);
-      WeaponWindow.addButton("Wretch Blade 2", () => {currentSword[0] = swordBlade5; updateWeaponWindow();}, 4);
-      WeaponWindow.addButton("Wretch Blade 3", () => {currentSword[0] = swordBlade6; updateWeaponWindow();}, 4);
+      WeaponWindow.addButton("Training Sword", () => {currentSword[0] = TrainingBlade; updateWeaponWindow();}, 2);
+      WeaponWindow.addButton("Shabby Blade", () => {currentSword[0] = ShabbyBlade; updateWeaponWindow();}, 2);
+      WeaponWindow.addButton("Knotched Blade", () => {currentSword[0] = KnotchedBlade; updateWeaponWindow();}, 2);
+      WeaponWindow.addButton("Sharp Blade", () => {currentSword[0] = SharpBlade; updateWeaponWindow();}, 2);
 
-      WeaponWindow.addButton("Sword Hilt 1", () => {currentSword[1] = hilt1; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Sword Hilt 2", () => {currentSword[1] = hilt2; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Sword Hilt 3", () => {currentSword[1] = hilt3; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Sword Hilt 4", () => {currentSword[1] = hilt4; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Sword Hilt 5", () => {currentSword[1] = hilt5; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Sword Hilt 6", () => {currentSword[1] = hilt6; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Closed Hilt", () => {currentSword[1] = hilt8; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Wretch Blade 1", () => {currentSword[0] = WretchBlade1; updateWeaponWindow();}, 3);
+      WeaponWindow.addButton("Wretch Blade 2", () => {currentSword[0] = WretchBlade2; updateWeaponWindow();}, 3);
+
+      WeaponWindow.addButtonBreak(4);
+
+      WeaponWindow.addButton("Training Hilt", () => {currentSword[1] = TrainingHilt; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Shabby Hilt", () => {currentSword[1] = ShabbyHilt; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Curved Hilt", () => {currentSword[1] = CurvedHilt; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Combat Hilt", () => {currentSword[1] = CombatHilt; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Right Hilt", () => {currentSword[1] = RightHilt; updateWeaponWindow();}, 5);
+      WeaponWindow.addButton("Left Hilt", () => {currentSword[1] = LeftHilt; updateWeaponWindow();}, 5);
+
+      WeaponWindow.addButton("Closed Hilt", () => {currentSword[1] = ClosedHilt; updateWeaponWindow();}, 5);
 
       WeaponWindow.addButtonBreak(6);
 
-      WeaponWindow.addButton("Katana Blade", () => {currentSword[0] = swordBlade7; updateWeaponWindow();}, 7);
-      WeaponWindow.addButton("Katana Hilt", () => {currentSword[1] = hilt7; updateWeaponWindow();}, 7);
+      WeaponWindow.addButton("Katana Blade", () => {currentSword[0] = KatanaBlade; updateWeaponWindow();}, 7);
+      WeaponWindow.addButton("Katana Hilt", () => {currentSword[1] = KatanaHilt; updateWeaponWindow();}, 7);
+
+//INSPECT WEAPON WINDOW
+
+      let inspectWeaponWindow = new ContextWindow("Weapon Inspection", window.innerWidth/1.25, window.innerHeight/6.25);
+      inspectWeaponWindow.toggleVisibility("hidden");
+
+
+
+
+
+let progressBar = new ContextWindow("Countdown", window.innerWidth/2.5, window.innerHeight/1.25);
+progressBar.toggleVisibility("hidden");
+
+
+
+      countdown = 100;
+      countdownStart = 100;
+      countdownTimer = false;
+      function startAction(length, result, windowToUpdate){
+         progressBar.toggleVisibility("visible")
+         countdownStart = length; countdown = countdownStart;
+
+         countdownTimer = setInterval( () => {countdown--; windowToUpdate.setText(`<progress value = ${countdown} max = ${countdownStart}></progress><br> ${countdown} / ${countdownStart}`);
+                                               if(countdown < 0){
+                                                clearInterval(countdownTimer);
+                                                countdownTimer = false;
+                                                 result();
+                                                 progressBar.toggleVisibility("hidden");
+                                              }
+                                            }, 1)
+      }
+
+      let coin = 0;
+let gambaCoinWindow = new ContextWindow("Get Rich Quick!", window.innerWidth / 2.5, window.innerHeight/6.75);
+      gambaCoinWindow.setText("Coin : " + coin + "<br> (Hold P to build up a coin countdown)");
+      gambaCoinWindow.toggleVisibility("hidden");
+//KEYLOGGER
+      	document.body.addEventListener("keydown", (event) => {
+          //console.log(event.key);
+
+
+            if(event.key === 'q'){
+
+              if(countdownTimer){
+                 console.log("Counting Down");
+              }else{
+                startAction(50, () => {console.log("Attacked with Q")}, progressBar);
+              }
+
+            }
+
+            if(event.key === 'w'){
+               if(countdownTimer){
+                 console.log("Counting Down");
+              }else{
+                startAction(100, () => {console.log("Attacked with W")}, progressBar);
+              }
+           }
+
+           if(event.key === 'e'){
+               if(countdownTimer){
+                 console.log("Counting Down");
+              }else{
+                startAction(300, () => {console.log("Attacked with E")}, progressBar);
+              }
+           }
+
+
+
+
+			  });
+
+
+			let pressedKeys = [];
+
+      let chargeAttack = 0;
+      let chargeInterval = false;
+
+      let coinAddition = 0;
+      let coinInterval = false;
+
+			document.body.addEventListener("keydown", (event) => {
+            if(event.key === '='){
+               BIRD.toggleVisibility("visible");
+            }
+        if(event.key === " "){
+          if(chargeInterval){ clearInterval(chargeInterval); chargeInterval = false};
+          chargeInterval = setInterval( () => {chargeAttack++; console.log("Powering... ")}, 1)
+
+        };
+
+
+        if(event.key === "p"){
+          if(coinInterval){ clearInterval(coinInterval); coinInterval = false};
+          coinInterval = setInterval( () => {coinAddition++; console.log("Making that bread... "); gambaCoinWindow.setText("Coin : " + coin + "(+)");}, 1)
+
+        }
+
+				pressedKeys[event.key.toUpperCase()] = true;
+				pressedKeys[event.key.toLowerCase()] = true;
+			});
+
+			document.body.addEventListener("keyup", (event) => {
+
+        if(event.key === " "){
+
+          clearInterval(chargeInterval);
+          chargeInterval = false;
+          if(!countdownTimer){
+              startAction(chargeAttack, () => {console.log("Damage Dealt : " + chargeAttack); chargeAttack = 0}, progressBar);
+          }
+
+
+        }
+        if(event.key === "p"){
+
+          clearInterval(coinInterval);
+          coinInterval = false;
+          gambaCoinWindow.setText("Coin : " + coin);
+          if(!countdownTimer){
+              startAction(coinAddition, () => {console.log("Coins Added : " + coinAddition); coin += coinAddition; coinAddition = 0; gambaCoinWindow.setText("Coin : " + coin);}, progressBar);
+          }
+
+
+        }
+
+				pressedKeys[event.key.toUpperCase()] = false;
+				pressedKeys[event.key.toLowerCase()] = false;
+
+			})
 
     </script>
 
