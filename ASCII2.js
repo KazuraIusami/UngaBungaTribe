@@ -19,9 +19,10 @@ let hand = "<pre>"+
 "                       =---=+++=.:=             <br>"+
 "                       ==------:..+             <br>"+
 "                       -=======---=             <br>"+
-"</pre>"
+"</pre>";
 
-let swordBlade1 = "<pre>"+
+
+let ShabbyBlade = "<pre>"+
 "                                                *++# <br>"+
 "                                               +-.-+* <br>"+
 "                                              *=..:-+# <br>"+
@@ -49,7 +50,7 @@ let swordBlade1 = "<pre>"+
 "                                             #=...:-=*%<br>"+
 "                                             #=...:-=*%"+
 "</pre>";
-let hilt1 = "<pre>"+
+let ShabbyHilt = "<pre>"+
 "                                        %#%  #=...:-=*#  %#%  <br>"+
 "                                        %#*% #=::====*% %*#%  <br>"+
 "                                         %#*#%%#*==#%%%#*#%   <br>"+
@@ -64,7 +65,7 @@ let hilt1 = "<pre>"+
 "                                              %#****#%        "+
 "</pre>";
 
-let swordBlade2 = "<pre>"+
+let KnotchedBlade = "<pre>"+
 "                                                     #%%%%   <br>"+
 "                                                   %#+=*#    <br>"+
 "                                                  %+=-=#@    <br>"+
@@ -90,7 +91,7 @@ let swordBlade2 = "<pre>"+
 "                                              *-:-:-+@       "+
 "</pre>";
 
-let hilt2 = "<pre>"+
+let CurvedHilt = "<pre>"+
 "                                              *=.-::+%       <br>"+
 "                                              #+.-::+%   %%  <br>"+
 "                                         @##%%##+****+++=:*# <br>"+
@@ -105,7 +106,7 @@ let hilt2 = "<pre>"+
 "                                              @#=--+#@       <br>"+
 "</pre>";
 
-let swordBlade3 = "<pre>"+
+let SharpBlade = "<pre>"+
 "                                                  ##         <br>"+
 "                                                 %%#*        <br>"+
 "                                                 ###%        <br>"+
@@ -135,7 +136,7 @@ let swordBlade3 = "<pre>"+
 "                                               ##*+**+       <br>"+
 "                                               ##****-       "+
 "</pre>";
-let hilt3 = "<pre>"+
+let CombatHilt = "<pre>"+
 "                                          *%#**##**##*%#%#   <br>"+
 "                                          #*+++++++++++++##  <br>"+
 "                                           =   +#%%%#   *    <br>"+
@@ -148,7 +149,7 @@ let hilt3 = "<pre>"+
 "                                               +####*        <br>"+
 "</pre>";
 
-let swordBlade4 = "<pre>"+
+let WretchedBlade1 = "<pre>"+
 "                                               %##           <br>"+
 "                                                ###          <br>"+
 "                                                %##%         <br>"+
@@ -183,7 +184,7 @@ let swordBlade4 = "<pre>"+
 "                                             *##%%%%%#       <br>"+
 "                                             **%@%%%%%      "+
 "</pre>";
-let hilt4 = "<pre>"+
+let RightHilt = "<pre>"+
 "                                             %##%#%%#%       <br>"+
 "                                                 ##%%        <br>"+
 "                                                ##%%#        <br>"+
@@ -196,7 +197,7 @@ let hilt4 = "<pre>"+
 "                                                 ##%         <br>"+
 "</pre>";
 
-let swordBlade5 = "<pre>"+
+let WretchedBlade2 = "<pre>"+
 "                                               @@@           <br>"+
 "                                                @@@          <br>"+
 "                                                @@@@         <br>"+
@@ -233,7 +234,7 @@ let swordBlade5 = "<pre>"+
 "                                             @@              "+
 "</pre>";
 
-let hilt5 = "<pre>"+
+let LeftHilt = "<pre>"+
 "                                             @@@@##@@        <br>"+
 "                                              @@@@#          <br>"+
 "                                              @@@@           <br>"+
@@ -246,7 +247,7 @@ let hilt5 = "<pre>"+
 "                                              @@@@           <br>"+
 "</pre>";
 
-let swordBlade6 = "<pre>"+
+let TrainingBlade = "<pre>"+
 "                                                @@@@          <br>"+
 "                                                 @@           <br>"+
 "                                                 @@           <br>"+
@@ -282,7 +283,7 @@ let swordBlade6 = "<pre>"+
 "                                                @@@@          "+
 "</pre>";
 
-let hilt6 = "<pre>"+
+let TrainingHilt = "<pre>"+
 "                                                @@@@          <br>"+
 "                                               @@@@@@         <br>"+
 "                                              @@@@@@@@        <br>"+
@@ -295,7 +296,7 @@ let hilt6 = "<pre>"+
 "                                               @@@@@@         <br>"+
 "</pre>";
 
-let swordBlade7 = "<pre>"+
+let KatanaBlade = "<pre>"+
 "                                                            **   <br>"+
 "                                                          ****   <br>"+
 "                                                         **#%    <br>"+
@@ -336,7 +337,7 @@ let swordBlade7 = "<pre>"+
 "</pre>";
 
 
-let hilt7 = "<pre>"+
+const KatanaHilt = "<pre>"+
 "                                             %%@@@@@@%%@         <br>"+
 "                                               %@@%@%            <br>"+
 "                                               #@@#@%            <br>"+
@@ -353,7 +354,7 @@ let hilt7 = "<pre>"+
 "                                                @@@@%            <br>"+
 "</pre>";
 
-let hilt8 = "<pre>"+
+let ClosedHilt = "<pre>"+
 "                                             *##@@%#             <br>"+
 "                                           #@@@@@@@%@@*          <br>"+
 "                                           @@@+=%%%+ @@#         <br>"+
