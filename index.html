@@ -15,6 +15,8 @@
     <script src="ASCII.js"></script>
     <!--<script src="ASCII2.js"></script>-->
     <script src="Weapons.js"></script>
+    <script src="moon.js"></script>
+    <script src="heart.js"></script>
 
     <script>
 
@@ -85,7 +87,7 @@
 
 
 
-	let tickTime = 100;
+	let tickTime = 100
 
 	let tickInterval = setInterval(updateTime, tickTime); //tickTime = ms
 
@@ -96,63 +98,106 @@
 
       let timeWindowInterval = setInterval(() => {timeWindow.setText(`Current Time : ${currentFormattedText} <br> ${sessionTimeText} <br> <hr> <br>`+
                                                                       `In Game Time: ${formattedTime}`); timeWindow.changeFontColor(inverseColor)}, 16);
+
+
+//MOON
+let moonPhases = [newMoon, waxingCrescent, firstQuarter, waxingGibbous, fullMoon, waningGibbous, lastQuarter, waningCrescent]
+
+let moonWindow = new ContextWindow("Moon", window.innerWidth/1.25, window.innerHeight/7.75);
+moonWindow.toggleVisibility("hidden");
+moonWindow.setText(newMoon);
+moonWindow.changeFontSize("18px");
+moonWindow.changeBackgroundColor("#00000001");
+let bloodMoon = false;
+
+let randomMoonOffset = Math.floor(Math.random() * 8);
+
+      let moonInterval = setInterval( () => {
+
+            moonWindow.setText(moonPhases[(day + randomMoonOffset)%8]);
+
+
+        if(bloodMoon){
+             moonWindow.changeFontColor("#7e0000");
+          }else if(!bloodMoon){
+            moonWindow.changeFontColor("white");
+          }
+        if(phase === "Late Afternoon" || phase === "Evening" || phase === "Night" || phase === "Midnight" || phase === "Early Morning"){
+          moonWindow.toggleVisibility("visible");
+        }else {
+           moonWindow.toggleVisibility("hidden");
+        }
+      }, 16);
+
 //Big Man Message
-        let BigManMessage = new ContextWindow("Message from the Big Man", window.innerWidth/2.5, 0);
-        BigManMessage.setText("hai so dont eat the forbidden fruit ok gotta go thx bye");
-        setTimeout( () => {BigManMessage.toggleVisibility("hidden")}, 500 );
+let BigManMessage = new ContextWindow("Message from the Big Man", window.innerWidth/2.5, 0);
+BigManMessage.setText("hai so dont eat the forbidden fruit ok gotta go thx bye");
+setTimeout( () => {BigManMessage.toggleVisibility("hidden")}, 500 );
 
 //SNAKE WINDOW
-      let SnakeWindow = new ContextWindow("Snake", window.innerWidth/2.5, window.innerHeight/5, 6);
-      SnakeWindow.setText(sleepingSnake);
+let SnakeWindow = new ContextWindow("Snake", window.innerWidth/2.5, window.innerHeight/5, 6);
+SnakeWindow.setText(sleepingSnake);
 
-      SnakeWindow.changeFontSize("12px");
-      let snakeAwake = false;
+SnakeWindow.changeFontSize("12px");
+//SnakeWindow.div.style.width = "420px";
+let snakeAwake = false;
 
-      let snakeLine1Array = ["", "Are you sure you don't want some fruit?", "Come on, you are bound to grow hungry sooner or later!", "No please, you MUSSSST try the fruit", "Come on I INSSSISSSST on trying the fruit",
-                             "The...fruit.?.Itsss right over there...Cmon I know you see it.", "...", "You sure you aren't hungry yet?", "...Fruit...Right over there.", ". .- - / - .... . / ..-. .-. ..- .. -"];
-      let currentSnakeNode = 0;
+let snakeLine1Array = ["", "Are you sure you don't want some fruit?", "Come on, you are bound to grow hungry sooner or later!", "No please, you MUSSSST try the fruit", "Come on I INSSSISSSST on trying the fruit",
+                       "The...fruit.?.Itsss right over there...Cmon I know you see it.", "...", "You sure you aren't hungry yet?", "...Fruit...Right over there.", ". .- - / - .... . / ..-. .-. ..- .. -"];
+let currentSnakeNode = 0;
 
 
-      let snakeLine1 = 'Hello there';
-      let snakeLine2= '';
+let snakeLine1 = 'Hello there';
+let snakeLine2= '';
+SnakeWindow.addButton("Interact", () => {if (!snakeAwake) {
+                                          SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
+                                          snakeAwake = true;
+                                          console.log("Snake has woken up");
+                                         } else if (snakeAwake && currentSnakeNode === 0) {
+                                          ForbiddenFruitWindow.toggleVisibility("visible");
+                                          snakeLine1 = "Would you like some...fruit?";
+                                          snakeLine2 = "hisss....Hiss...";
+                                          SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
+                                          console.log("Snake is asking if you would like fruits");
+                                          currentSnakeNode++;
+                                         } else if (currentSnakeNode >= 1 && currentSnakeNode < 10) {
+                                          snakeLine1 = snakeLine1Array[currentSnakeNode];
+                                          SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
+                                          currentSnakeNode++;
+                                          console.log("Snake insists");
+                                         } else if (currentSnakeNode >= 10) {
+                                          snakeLine1 = "JUST EAT THE";
+                                          snakeLine2 = "FUCKING FRUIT";
+                                          SnakeWindow.changeFontColor("#350000");
+                                          SnakeWindow.changeBackgroundColor("#b5b5b580");
+                                          SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
+                                          console.log("Snake is angry");
+                                          SnakeWindow.setButtonVisibility(1, false);
+                                          setInterval(flickTongue, 800);
+                                          setInterval(snakeAttacks, 1200);
 
-      SnakeWindow.addButton("Interact", () => {   if (!snakeAwake) {
-                                                      SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
-                                                      snakeAwake = true;
-                                                      console.log("Snake has woken up");
-                                                  } else if (snakeAwake && currentSnakeNode === 0) {
-                                                      ForbiddenFruitWindow.toggleVisibility("visible");
-                                                      snakeLine1 = "Would you like some...fruit?";
-                                                      snakeLine2 = "hisss....Hiss...";
-                                                      SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
-                                                      console.log("Snake is asking about fruits");
-                                                      currentSnakeNode++;
-                                                  } else if (currentSnakeNode >= 1 && currentSnakeNode < 10) {
-                                                      snakeLine1 = snakeLine1Array[currentSnakeNode];
-                                                      SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
-                                                      currentSnakeNode++;
-                                                      console.log("Snake insists");
-                                                  } else if (currentSnakeNode >= 10) {
-                                                      snakeLine1 = "JUST EAT THE";
-                                                      snakeLine2 = "FUCKING FRUIT";
-                                                      SnakeWindow.changeFontColor("#350000");
-                                                      SnakeWindow.changeBackgroundColor("#b5b5b580");
-                                                      SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
-                                                      console.log("Snake is angry");
-                                                      SnakeWindow.setButtonVisibility(1, false);
-                                                      setInterval(flickTongue, 800);
-                                                }
+                                         }
                                                  flickTongue()
-                                              }, 1);
+                            }, 1);
+
       SnakeWindow.addButton("Attack!", () => {
                                      if(!snakeAwake){
-                                        snakeLine1 = "Hey! What the fuck dude?! I was jussst chilling, doin my own thing! Not fucking cool! SSsssoooo not fucking cool!";
+                                        snakeLine1 = "Hey! What the fuck dude?! I was jussst chilling, doin my own thing! Not fucking cool!" +
+                                          " SSsssoooo not fucking cool!";
+
                                         snakeLine2 = "HISSSSSSSS";
                                         snakeAttacks();
                                         SnakeWindow.setButtonVisibility(1, false);
-                                     }else{
+                                     }else if(currentSword[0].name != "Katana Blade"){
+                                        snakeLine1 = "No ya don't!";
+                                        snakeLine2 = "That " + currentSword[0].name + " won't work.";
                                         snakeAttacks();
+                                     }else if(currentSword[0].name === "Katana Blade"){
+                                        console.log("The Blade has been used against the serpent");
+                                        snakeDies();
                                      }
+
+
       }, 1);
 
 
@@ -163,8 +208,30 @@
       };
 
       function snakeAttacks(){
-         setTimeout( () => {SnakeWindow.setText(Attacking)}, 16);
+         setTimeout( () => {SnakeWindow.setText(Attacking);
+                             let damageInterval = setInterval( () => {bloodVolume -= 1;}, 5);
+                             setTimeout( () => {clearInterval(damageInterval)}, Math.floor( (Math.random() * 1000) + 100));
+                           }, 16);
          setTimeout( () => {SnakeWindow.setText(snakeLine1 + "<br>"+ snakeLine2 + Snake)}, 200);
+      };
+
+      function snakeDies(){
+         SnakeWindow.setButtonVisibility(1, false);
+         setTimeout( () => {SnakeWindow.setText(deadSnake)}, 1);
+         setTimeout( () => {SnakeWindow.setText(deadSnakeWingsDown)}, 500);
+         setTimeout( () => {SnakeWindow.setText(deadSnakeWingsUp)}, 800);
+         setTimeout( () => {SnakeWindow.setText(deadSnakeWingsDown)}, 1000);
+         setTimeout( () => {SnakeWindow.setText(deadSnakeWingsUp)}, 1300);
+         setTimeout( () => {SnakeWindow.setText(deadSnakeWingsDown)}, 1600);
+         setTimeout( () => {SnakeWindow.setText(birdOnSnake)}, 2000);
+         setTimeout( () => { setInterval(birdEats, 6000)}, 2700);
+      };
+
+      function birdEats(){
+         setTimeout( () => {SnakeWindow.setText(birdEatsSnake)}, 1);
+         setTimeout( () => {SnakeWindow.setText(birdOnSnake)}, 100);
+         setTimeout( () => {SnakeWindow.setText(birdEatsSnake)}, 1000);
+         setTimeout( () => {SnakeWindow.setText(birdOnSnake)}, 1450);
       }
 
       let birdArrived = false;
@@ -189,6 +256,34 @@
                                          BirdWindow.setButtonVisibility(2, true);
                                       }
                                       }, 1);
+      ForbiddenFruitWindow.addButton("Eat The Fruit", () => {
+        bloodMoon = true;
+          BirdLine1 = "my SQUAWK...what have you done....";
+          BirdLine2 = "You have SQUAWKED US ALL!";
+          BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird);
+          BirdWindow.toggleVisibility("visible");
+            setTimeout( () => {
+              birdFlies();
+              setTimeout(() => {BirdWindow.toggleVisibility("hidden")}, 1100);
+            }, 1500)
+          ForbiddenFruitWindow.changeBackgroundColor("#b5b5b580");
+          ForbiddenFruitWindow.setButtonVisibility(1, false);
+          ForbiddenFruitWindow.setButtonVisibility(2, false);
+
+        snakeLine1 = "I'D RATHER REIGN IN HELL";
+        snakeLine2 = "THAN SERVE IN THE KINGDOM OF HISSSSSSSSSS";
+        SnakeWindow.changeFontColor("#350000");
+        SnakeWindow.changeBackgroundColor("#b5b5b580");
+        SnakeWindow.setText(snakeLine1 + "<br>" + snakeLine2 + Snake);
+
+        changeBPM(215);
+
+        SnakeWindow.setButtonVisibility(1, false);
+        setInterval(flickTongue, 800);
+        coin += 900000;
+        gambaCoinWindow.setText("Coin : " + coin);
+        console.log("You have eaten the fruit... Abandon All Hope, Ye Who Enter");
+      }, 2)
 
 //Bird
 
@@ -196,6 +291,7 @@
     let BirdLine2 = 'You sure?';
 
     let hasBroughtBIRD = false;
+    let birdWeaponTalk = false;
 
   let BirdWindow = new ContextWindow("The Bird", window.innerWidth/5.5, window.innerHeight/7);
       BirdWindow.setText(birdFlyingDown);
@@ -205,7 +301,7 @@
   BirdWindow.addButton("Well...What else am I going to do?", () => {BirdWindow.setButtonVisibility(1, false); BirdLine2 = "Hang on for a moment";BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird)
                                                                       setTimeout( () => {BirdLine2 = "Here, I brought you something"; birdFlies();}, 500 )
                                                                       setTimeout( () => {BIRD.toggleVisibility("visible")},2000)
-                                                                      setTimeout( () => {BirdLine2 = "This way, you won't have to worry about looking at the window. You can close the window and come back later.";
+                                                                      setTimeout( () => {BirdLine2 = "This way, you won't have to worry about looking at the window. You can close the window and come back later.<br> (You can also press = to open it at any time)";
                                                                                           BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird);
                                                                                         },5000)
 
@@ -236,35 +332,59 @@
   }
 //B.I.R.D.
 
-      let BIRD = new ContextWindow("B.I.R.D. Device", 0, window.innerHeight/5, 10);
+      let BIRD = new ContextWindow("B.I.R.D. Device", window.innerWidth/4, 0, 10);
       BIRD.toggleVisibility("hidden");
       BIRD.setText("Body Imaging and Resource Distribution device (B.I.R.D.)");
 
-        BIRD.addButton("Weapon Window", () => {WeaponWindow.toggleVisibility("visible"); WeaponWindow.bringToFront()});
 
         BIRD.addButton("The EDEN preset", () => {  SnakeWindow.toggleVisibility("visible");
                                                   ForbiddenFruitWindow.toggleVisibility("visible");
-                                                  BirdWindow.toggleVisibility("visible")}, 2);
+                                                  BirdWindow.toggleVisibility("visible")}, 1);
 
         BIRD.addButton("[Close] The EDEN preset", () => {  SnakeWindow.toggleVisibility("hidden");
                                                   ForbiddenFruitWindow.toggleVisibility("hidden");
-                                                  BirdWindow.toggleVisibility("hidden")}, 2);
+                                                  BirdWindow.toggleVisibility("hidden")}, 1);
 
-        BIRD.addButton("Snake Window", () => {SnakeWindow.toggleVisibility("visible")},3);
-        BIRD.addButton("Fruit Window", () => {ForbiddenFruitWindow.toggleVisibility("visible")}, 3);
-        BIRD.addButton("The Bird", () => {BirdWindow.toggleVisibility("visible")}, 3);
+        BIRD.addButton("The Snake", () => {SnakeWindow.toggleVisibility("visible"); SnakeWindow.bringToFront();},3);
+        BIRD.addButton("The Fruit", () => {ForbiddenFruitWindow.toggleVisibility("visible"); ForbiddenFruitWindow.bringToFront();}, 3);
+        BIRD.addButton("The Bird", () => {BirdWindow.toggleVisibility("visible"); BirdWindow.bringToFront();}, 3);
+        BIRD.addButton("The Cat", () => {catWindow.toggleVisibility("visible"); catWindow.bringToFront();}, 3);
 
         BIRD.addButtonBreak(4);
 
-        BIRD.addButton("The Cat", () => {catWindow.toggleVisibility("visible")}, 5);
-        BIRD.addButton("Cheap Coin", () => {gambaCoinWindow.toggleVisibility("visible")}, 5);
+        BIRD.addButton("Weapon Menu", () => {
+                                      WeaponWindow.toggleVisibility("visible"); WeaponWindow.bringToFront();
+                                      if(!birdWeaponTalk){
+                                        birdWeaponTalk = true;
+                                        BirdWindow.addButton("Weapons?", () => {
+                                             BirdWindow.setButtonVisibility(5, false);
+                                             BirdLine1 = "Oh...you innocent summer child...";
+                                             BirdLine2 = "SQUAWK ...yes, weapons.";
+                                             BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird);
+                                               setTimeout( () => {
+                                                  BirdLine1 = "SQUAWK";
+                                                  BirdLine2 = "You might have to use it out here...to protect yourself...or find a bite to eat. SQUAWK!";
+                                                  BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird);
+                                                  },3000);
+                                        }, 5);
+                                      }
+                                            }, 5);
+        BIRD.addButton("Heart", () => {heartWindow.toggleVisibility("visible"); heartWindow.bringToFront()}, 5);
+        BIRD.addButton("Armageddon Hospital", () => {ArmageddonWindow.toggleVisibility("visible"); ArmageddonWindow.bringToFront()}, 5)
+
+        BIRD.addButtonBreak(6);
+
+
+        BIRD.addButton("Cheap Coin", () => {gambaCoinWindow.toggleVisibility("visible"); gambaCoinWindow.bringToFront();}, 7);
+        BIRD.addButton("Shop", () => {shopWindow.toggleVisibility("visible"); shopWindow.bringToFront();}, 7);
+        BIRD.addButton("Number Game", () => {numberGameWindow.toggleVisibility("visible"); numberGameWindow.bringToFront()}, 7);
 
     let BIRDInterval = setInterval( () => {
       if(BIRD.div.style.display === "block"){
         clearInterval(BIRDInterval);
          let BIRDInterval2 = setInterval( () => {
               if(BIRD.div.style.display === "none"){
-              BirdLine1 = "Well....You can't close THAT window...Please don't do that again";
+              BirdLine1 = "Well....You shouldn't close THAT window...Please don't do that again";
               BirdLine2 = "SQUAWK!";
               BirdWindow.setText("<span style='font-size:12px'>" + BirdLine1 + "<br>" + BirdLine2 + "</span> <br>"+ bird)
               BirdWindow.toggleVisibility("visible");
@@ -273,13 +393,104 @@
              }
         }, 16)
       }
-    }, 16)
+    }, 16);
 
 
+//HEART BEAT
+
+let heartWindow = new ContextWindow("Heart", window.innerWidth/12, window.innerHeight/5.25);
+heartWindow.setText(heart);
+heartWindow.toggleVisibility("hidden");
+heartWindow.changeFontSize("4px");
+heartWindow.changeBackgroundColor("#b5b5b500");
+heartWindow.changeFontColor("#420000");
+heartWindow.div.style.height = "36px";
+heartWindow.div.style.width = "400pxpx";
+
+let Heartbeat;
+let bpm = 80;
+let bloodVolume = 5700;
+let BAC = 0; //Blood Alcohol Content
+
+  //Blood Types
+        const bloodTypes = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
+    const compatibility = {
+      "A+": ["A+", "A-", "O+", "O-"],
+      "A-": ["A-", "O-"],
+      "B+": ["B+", "B-", "O+", "O-"],
+      "B-": ["B-", "O-"],
+      "AB+": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+      "AB-": ["A-", "B-", "AB-", "O-"],
+      "O+": ["O+", "O-"],
+      "O-": ["O-"]
+    };
+
+    const userBloodType = bloodTypes[Math.floor(Math.random() * bloodTypes.length)];
+
+
+
+function changeBPM(newBPM) {
+  clearInterval(Heartbeat);
+
+  // Convert BPM to milliseconds per beat
+  let interval = 60000 / newBPM;
+  bpm = newBPM;
+  heartWindow.setText("<span style='font-size: 18px'>" + bpm + " BPM / Blood Type : " + userBloodType + " / BAC : " + BAC + "<br> Blood Volume: " + bloodVolume + " mL / 5700 mL</span><br>" + heart);
+
+  Heartbeat = setInterval(() => {
+    bloodVolume = Math.min(bloodVolume, 5700);
+    bloodVolume = Math.max(0, bloodVolume);
+    if(bpm > 220){
+       clearInterval(Heartbeat);
+       heartWindow.changeFontColor("#000000");
+       bpm = 0;
+       updateHeart();
+       console.log("Cardiac Arrest");
+    };
+    if(bloodVolume > 3500 && bloodVolume < 4500){
+       console.log("between 3500 and 4500 mL");
+       changeBPM( Math.min(bpm, 52));
+    }
+    if(bloodVolume < 1000){
+       changeBPM(1);
+    }
+    setTimeout(() => { heartWindow.changeFontSize("4px");}, 1);
+    setTimeout(() => { heartWindow.changeFontSize("3px");}, 100);
+  }, interval);
+};
+
+function updateHeart() {
+
+  heartWindow.setText("<span style='font-size: 18px'>" + bpm + " BPM / Blood Type : " + userBloodType + " / BAC : " + BAC + "<br> Blood Volume: " + bloodVolume + " mL / 5700 mL</span><br>" + heart);
+};
+let heartInterval = setInterval( updateHeart, 16);
+
+changeBPM(80);
+
+//ARMAGEDDON
+
+const ArmageddonWindow = new ContextWindow("Armageddon Hospital", window.innerWidth/2 + 50, 0);
+ArmageddonWindow.changeFontSize("8px");
+ArmageddonWindow.setText( Hospital + " <br><span style='font-size: 18px'>Welcome to the Armageddon Hospital! Make sure you grab the right type! </span>");
+ArmageddonWindow.toggleVisibility("hidden");
+
+
+bloodTypes.forEach(type => {
+  ArmageddonWindow.addButton(`Type ${type}`, () => {
+    if (compatibility[userBloodType].includes(type)) {
+      bloodVolume += 500;
+      console.log(`ADDED 500 mL OF BLOOD`);
+    } else {
+      bloodVolume -= 500;
+      console.log(`Failure! Incompatible blood type.`);
+    }
+  });
+});
 
 //CAT
       //I REALLY had to stop myself from calling this variable "catcall", you are welcome fuck you
-      let catLineArray = ["Get out of here! I'm trying to ambush the bird...you are going to give up my cover!", "...Get out! Get out of here!"];
+      let catLineArray = ["Get out of here! I'm trying to ambush the bird...you are going to give up my cover!", "...Get out! Get out of here!",
+                           "*Sigghhhh* Please get out of here. You standin there lookin at me like that is bound to give my cover..."];
       let catNode = 0;
       let catWindow = new ContextWindow("The Cat", window.innerWidth/1.5, window.innerHeight/5);
       catWindow.setText("<span style='font-size:12px'>" + catLineArray[catNode] + "</span><br>"+ cat);
@@ -294,10 +505,10 @@
 //WEAPON STUFF
           const itemAttributes = [
 
-      { name: "Training Sword Blade", slashDamage: 1, stabDamage: 0, structure: 2, speed: 500 },
-      { name: "Shabby Blade", slashDamage: 4, stabDamage: 2, structure: 8, speed: 500 },
-      { name: "Knotched Blade", slashDamage: 6, stabDamage: 4, structure: 12, speed: 500 },
-      { name: "Sharp Blade", slashDamage: 5, stabDamage: 8, structure: 15, speed: 500 },
+      { name: "Training Sword Blade", slashDamage: 1, stabDamage: 0, structure: 2, speed: 175 },
+      { name: "Shabby Blade", slashDamage: 4, stabDamage: 2, structure: 8, speed: 300 },
+      { name: "Knotched Blade", slashDamage: 6, stabDamage: 4, structure: 12, speed: 300 },
+      { name: "Sharp Blade", slashDamage: 5, stabDamage: 8, structure: 15, speed: 250 },
 
       { name: "Wretched Blade", slashDamage: 14, stabDamage: 12, structure: 16, speed: 500 },
       { name: "Wretched Blade 2", slashDamage: 12, stabDamage: 9, structure: 16, speed: 500 },
@@ -351,32 +562,16 @@
       WeaponWindow.setText(hand.sprite);
 
     //WeaponWindow.setText(hand.sprite);
-    WeaponWindow.addButton("Hand", () => {WeaponWindow.setText(hand.sprite); updateWeaponWindow()}, 1);
+    WeaponWindow.addButton("Hand", () => {WeaponWindow.setText(hand.sprite);}, 1);
     WeaponWindow.addButton("Inspect Weapon", () => {inspectWeaponWindow.toggleVisibility("visible")});
 
-      WeaponWindow.addButton("Training Sword", () => {currentSword[0] = TrainingBlade; updateWeaponWindow();}, 2);
-      WeaponWindow.addButton("Shabby Blade", () => {currentSword[0] = ShabbyBlade; updateWeaponWindow();}, 2);
-      WeaponWindow.addButton("Knotched Blade", () => {currentSword[0] = KnotchedBlade; updateWeaponWindow();}, 2);
-      WeaponWindow.addButton("Sharp Blade", () => {currentSword[0] = SharpBlade; updateWeaponWindow();}, 2);
-
-      WeaponWindow.addButton("Wretch Blade 1", () => {currentSword[0] = WretchBlade1; updateWeaponWindow();}, 3);
-      WeaponWindow.addButton("Wretch Blade 2", () => {currentSword[0] = WretchBlade2; updateWeaponWindow();}, 3);
+      WeaponWindow.addButton("Training Blade", () => {currentSword[0] = TrainingBlade; updateWeaponWindow();}, 2);
 
       WeaponWindow.addButtonBreak(4);
 
       WeaponWindow.addButton("Training Hilt", () => {currentSword[1] = TrainingHilt; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Shabby Hilt", () => {currentSword[1] = ShabbyHilt; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Curved Hilt", () => {currentSword[1] = CurvedHilt; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Combat Hilt", () => {currentSword[1] = CombatHilt; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Right Hilt", () => {currentSword[1] = RightHilt; updateWeaponWindow();}, 5);
-      WeaponWindow.addButton("Left Hilt", () => {currentSword[1] = LeftHilt; updateWeaponWindow();}, 5);
-
-      WeaponWindow.addButton("Closed Hilt", () => {currentSword[1] = ClosedHilt; updateWeaponWindow();}, 5);
 
       WeaponWindow.addButtonBreak(6);
-
-      WeaponWindow.addButton("Katana Blade", () => {currentSword[0] = KatanaBlade; updateWeaponWindow();}, 7);
-      WeaponWindow.addButton("Katana Hilt", () => {currentSword[1] = KatanaHilt; updateWeaponWindow();}, 7);
 
 //INSPECT WEAPON WINDOW
 
@@ -384,22 +579,21 @@
       inspectWeaponWindow.toggleVisibility("hidden");
 
 
-
-
+//ACTION STUFF
 
 let progressBar = new ContextWindow("Countdown", window.innerWidth/2.5, window.innerHeight/1.25);
 progressBar.toggleVisibility("hidden");
 
-
-
       countdown = 100;
       countdownStart = 100;
       countdownTimer = false;
-      function startAction(length, result, windowToUpdate){
-         progressBar.toggleVisibility("visible")
+      actionName = "loading";
+      function startAction(length, result, windowToUpdate, actionName){
+         windowToUpdate.bringToFront();
+         windowToUpdate.toggleVisibility("visible")
          countdownStart = length; countdown = countdownStart;
 
-         countdownTimer = setInterval( () => {countdown--; windowToUpdate.setText(`<progress value = ${countdown} max = ${countdownStart}></progress><br> ${countdown} / ${countdownStart}`);
+         countdownTimer = setInterval( () => {countdown--; windowToUpdate.setText(`${actionName} <br> <progress value = ${countdown} max = ${countdownStart}></progress><br> ${countdown} / ${countdownStart}`);
                                                if(countdown < 0){
                                                 clearInterval(countdownTimer);
                                                 countdownTimer = false;
@@ -407,12 +601,137 @@ progressBar.toggleVisibility("hidden");
                                                  progressBar.toggleVisibility("hidden");
                                               }
                                             }, 1)
-      }
+      };
+
 
       let coin = 0;
 let gambaCoinWindow = new ContextWindow("Get Rich Quick!", window.innerWidth / 2.5, window.innerHeight/6.75);
-      gambaCoinWindow.setText("Coin : " + coin + "<br> (Hold P to build up a coin countdown)");
+      gambaCoinWindow.setText("UngaCoin : " + coin + "<br> (Hold P to build up a coin countdown)");
       gambaCoinWindow.toggleVisibility("hidden");
+
+//NUMBER GAME
+
+const gameBoard = Array(20).fill("Empty");
+let currentNumber = null;
+
+function generateNumber() {
+    currentNumber = Math.floor(Math.random() * 1001);
+    return currentNumber;
+}
+
+function placeNumber(index) {
+    if (index < 0 || index >= gameBoard.length || gameBoard[index] !== "Empty") {
+        return "Invalid move.";
+    }
+
+    const left = gameBoard.slice(0, index).reverse().find(n => n !== "Empty");
+    const right = gameBoard.slice(index + 1).find(n => n !== "Empty");
+
+    if ((left === undefined || left <= currentNumber) && (right === undefined || right >= currentNumber)) {
+        gameBoard[index] = currentNumber;
+        currentNumber = "Empty";
+        return "Number placed.";
+    } else {
+        return "Cannot place number here.";
+    }
+}
+
+
+let numberGameWindow = new ContextWindow("Number game", window.innerWidth/2.5, window.innerHeight/2.5, 6);
+numberGameWindow.toggleVisibility("hidden");
+function updateNumberGame(){
+        numberGameWindow.setText(
+          "<pre style='color:white'>     <progress value = '" + currentNumber + "' max = '1000'></progress> "  + currentNumber + "<br>" +
+          "1:   <progress value = '"  + gameBoard[0] + "' max = '1000'></progress> "  + gameBoard[0] + "<br>" +
+          "2:   <progress value = '"  + gameBoard[1] + "' max = '1000'></progress> "  + gameBoard[1] + "<br>" +
+          "3:   <progress value = '"  + gameBoard[2] + "' max = '1000'></progress> "  + gameBoard[2] + "<br>" +
+          "4:   <progress value = '"  + gameBoard[3] + "' max = '1000'></progress> "  + gameBoard[3] + "<br>" +
+          "5:   <progress value = '"  + gameBoard[4] + "' max = '1000'></progress> "  + gameBoard[4] + "<br>" +
+          "6:   <progress value = '"  + gameBoard[5] + "' max = '1000'></progress> "  + gameBoard[5] + "<br>" +
+          "7:   <progress value = '"  + gameBoard[6] + "' max = '1000'></progress> "  + gameBoard[6] + "<br>" +
+          "8:   <progress value = '"  + gameBoard[7] + "' max = '1000'></progress> "  + gameBoard[7] + "<br>" +
+          "9:   <progress value = '"  + gameBoard[8] + "' max = '1000'></progress> "  + gameBoard[8] + "<br>" +
+          "10:  <progress value = '"  + gameBoard[9] + "' max = '1000'></progress> "  + gameBoard[9] + "<br>" +
+          "11:  <progress value = '"  + gameBoard[10] + "' max = '1000'></progress> "  + gameBoard[10] + "<br>" +
+          "12:  <progress value = '"  + gameBoard[11] + "' max = '1000'></progress> "  + gameBoard[11] + "<br>" +
+          "13:  <progress value = '"  + gameBoard[12] + "' max = '1000'></progress> "  + gameBoard[12] + "<br>" +
+          "14:  <progress value = '"  + gameBoard[13] + "' max = '1000'></progress> "  + gameBoard[13] + "<br>" +
+          "15:  <progress value = '"  + gameBoard[14] + "' max = '1000'></progress> "  + gameBoard[14] + "<br>" +
+          "16:  <progress value = '"  + gameBoard[15] + "' max = '1000'></progress> "  + gameBoard[15] + "<br>" +
+          "17:  <progress value = '"  + gameBoard[16] + "' max = '1000'></progress> "  + gameBoard[16] + "<br>" +
+          "18:  <progress value = '"  + gameBoard[17] + "' max = '1000'></progress> "  + gameBoard[17] + "<br>" +
+          "19:  <progress value = '"  + gameBoard[18] + "' max = '1000'></progress> "  + gameBoard[18] + "<br>" +
+         "20:  <progress value = '"  + gameBoard[19] + "' max = '1000'></progress> "  + gameBoard[19] + "<br></pre>"
+        )
+}updateNumberGame();
+
+      numberGameWindow.addButton("Generate", () => {generateNumber(); updateNumberGame()}, 1);
+
+      for(let i = 0; i < 20; i++){
+         numberGameWindow.addButton(i+1, () => {placeNumber(i); updateNumberGame()}, 2);
+      }
+      numberGameWindow.changeBackgroundColor("#00000050");
+
+
+//SHOP
+
+      let shopWindow = new ContextWindow("Shop", window.innerWidth/8, window.innerHeight/2.25);
+      shopWindow.toggleVisibility("hidden");
+      shopWindow.setText("Please select the item you would like to purchase.");
+
+      shopWindow.addButton("Hilt Set 1 (15,000)", () => {
+        if(coin > 15000){
+            coin -= 15000;
+            gambaCoinWindow.setText("Coin : " + coin);
+          WeaponWindow.addButton("Shabby Hilt", () => {currentSword[1] = ShabbyHilt; updateWeaponWindow();}, 5);
+          WeaponWindow.addButton("Curved Hilt", () => {currentSword[1] = CurvedHilt; updateWeaponWindow();}, 5);
+          WeaponWindow.addButton("Combat Hilt", () => {currentSword[1] = CombatHilt; updateWeaponWindow();}, 5);
+          shopWindow.setButtonVisibility(1, false);
+        }
+      }, 1);
+
+      shopWindow.addButton("Hilt Set 2 (30,000)", () => {
+         if(coin > 30000){
+            coin -= 30000;
+            gambaCoinWindow.setText("Coin : " + coin);
+          WeaponWindow.addButton("Right Hilt", () => {currentSword[1] = RightHilt; updateWeaponWindow();}, 5);
+          WeaponWindow.addButton("Left Hilt", () => {currentSword[1] = LeftHilt; updateWeaponWindow();}, 5);
+          WeaponWindow.addButton("Closed Hilt", () => {currentSword[1] = ClosedHilt; updateWeaponWindow();}, 5);
+          shopWindow.setButtonVisibility(2, false);
+         }
+      }, 2)
+
+      shopWindow.addButton("Basic Sword Blade Set (18,000)", () => {
+          if(coin > 18000){
+            coin -= 18000;
+            gambaCoinWindow.setText("Coin : " + coin);
+           WeaponWindow.addButton("Shabby Blade", () => {currentSword[0] = ShabbyBlade; updateWeaponWindow();}, 2);
+           WeaponWindow.addButton("Knotched Blade", () => {currentSword[0] = KnotchedBlade; updateWeaponWindow();}, 2);
+           WeaponWindow.addButton("Sharp Blade", () => {currentSword[0] = SharpBlade; updateWeaponWindow();}, 2);
+           shopWindow.setButtonVisibility(3, false);
+          }
+      }, 3)
+
+      shopWindow.addButton("Wretch Sword Blade Set (900,000)", () => {
+         if(coin > 900000){
+            coin -= 900000;
+            gambaCoinWindow.setText("Coin : " + coin);
+           WeaponWindow.addButton("Wretch Blade 1", () => {currentSword[0] = WretchBlade1; updateWeaponWindow();}, 3);
+           WeaponWindow.addButton("Wretch Blade 2", () => {currentSword[0] = WretchBlade2; updateWeaponWindow();}, 3);
+           shopWindow.setButtonVisibility(4, false);
+         }
+      }, 4)
+
+      shopWindow.addButton("Full Katana Set (1,000,000)", () => {
+         if(coin > 1000000){
+            coin -= 1000000;
+            gambaCoinWindow.setText("Coin : " + coin);
+          WeaponWindow.addButton("Katana Blade", () => {currentSword[0] = KatanaBlade; updateWeaponWindow();}, 7);
+          WeaponWindow.addButton("Katana Hilt", () => {currentSword[1] = KatanaHilt; updateWeaponWindow();}, 7);
+          shopWindow.setButtonVisibility(5, false);
+         }
+      }, 5)
+
 //KEYLOGGER
       	document.body.addEventListener("keydown", (event) => {
           //console.log(event.key);
@@ -423,7 +742,7 @@ let gambaCoinWindow = new ContextWindow("Get Rich Quick!", window.innerWidth / 2
               if(countdownTimer){
                  console.log("Counting Down");
               }else{
-                startAction(50, () => {console.log("Attacked with Q")}, progressBar);
+                startAction(bladeAttributes.speed, () => {console.log("Decreased Heart Rate by 25"); changeBPM( bpm - 25 )}, progressBar, "Decreasing Heart Rate");
               }
 
             }
@@ -432,7 +751,7 @@ let gambaCoinWindow = new ContextWindow("Get Rich Quick!", window.innerWidth / 2
                if(countdownTimer){
                  console.log("Counting Down");
               }else{
-                startAction(100, () => {console.log("Attacked with W")}, progressBar);
+                startAction(bladeAttributes.speed, () => {console.log("Attacked with W")}, progressBar);
               }
            }
 
@@ -440,7 +759,7 @@ let gambaCoinWindow = new ContextWindow("Get Rich Quick!", window.innerWidth / 2
                if(countdownTimer){
                  console.log("Counting Down");
               }else{
-                startAction(300, () => {console.log("Attacked with E")}, progressBar);
+                startAction(bladeAttributes.speed, () => {console.log("Increased Heart Rate by 25"); changeBPM( bpm + 25 )}, progressBar, "Increasing Heart Rate");
               }
            }
 
@@ -462,6 +781,9 @@ let gambaCoinWindow = new ContextWindow("Get Rich Quick!", window.innerWidth / 2
             if(event.key === '='){
                BIRD.toggleVisibility("visible");
             }
+            if(event.key === 'h'){
+               heartWindow.toggleVisibility("visible");
+            }
         if(event.key === " "){
           if(chargeInterval){ clearInterval(chargeInterval); chargeInterval = false};
           chargeInterval = setInterval( () => {chargeAttack++; console.log("Powering... ")}, 1)
@@ -471,7 +793,7 @@ let gambaCoinWindow = new ContextWindow("Get Rich Quick!", window.innerWidth / 2
 
         if(event.key === "p"){
           if(coinInterval){ clearInterval(coinInterval); coinInterval = false};
-          coinInterval = setInterval( () => {coinAddition++; console.log("Making that bread... "); gambaCoinWindow.setText("Coin : " + coin + "(+)");}, 1)
+          coinInterval = setInterval( () => {coinAddition++; console.log("Making that bread... "); gambaCoinWindow.setText("UngaCoin : " + coin + "(+ " + coinAddition + ")");}, 1)
 
         }
 
@@ -495,9 +817,9 @@ let gambaCoinWindow = new ContextWindow("Get Rich Quick!", window.innerWidth / 2
 
           clearInterval(coinInterval);
           coinInterval = false;
-          gambaCoinWindow.setText("Coin : " + coin);
+          gambaCoinWindow.setText("UngaCoin : " + coin);
           if(!countdownTimer){
-              startAction(coinAddition, () => {console.log("Coins Added : " + coinAddition); coin += coinAddition; coinAddition = 0; gambaCoinWindow.setText("Coin : " + coin);}, progressBar);
+              startAction(coinAddition, () => {console.log("UngaCoin Added : " + coinAddition); coin += coinAddition; coinAddition = 0; gambaCoinWindow.setText("UngaCoin : " + coin);}, progressBar,"Collecting UngaCoin(Tm)");
           }
 
 
