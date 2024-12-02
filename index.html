@@ -1,51 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Three.js Spinning Cube</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-    }
-    canvas {
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>UNGA - Powered by Aztech</title>
+	  <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/main/UNGA.ico">
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
 </head>
 <body>
-	<!-- 12/1/24 COMPLETE REDO OF THE SITE. We are going 3d mother FUCKER -->
+<script type="module">
+    // Import Three.js
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.module.js';
 
-  <script type="module">
-    // Import Three.js from a CDN
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
-
-    // Scene, Camera, and Renderer
+    // Scene, Camera, Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Create a Cube
+ // Load an image texture
+    const textureLoader = new THREE.TextureLoader();
+    const beertexture = textureLoader.load('https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/refs/heads/main/Beer/Front.gif'); // Replace with your image URL
+
+
+    // A Cube (from A1)
     const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
+    const beermaterial = new THREE.MeshBasicMaterial({
+    map: beertexture,
+    transparent: true,  // Allow transparency
+    opacity: 1.0       // You can adjust opacity if needed
+    });
+    const cube = new THREE.Mesh(geometry, beermaterial);
     scene.add(cube);
+
+    // Load an image texture for whiskey
+    const whiskeyTexture = textureLoader.load('https://raw.githubusercontent.com/KazuraIusami/UngaBungaTribe/refs/heads/main/Whisky/Front.gif'); // Replace with your whiskey image URL
+
+    // Whiskey Cube (positioned above the beer cube)
+    const whiskeyMaterial = new THREE.MeshBasicMaterial({
+      map: whiskeyTexture,
+      transparent: true,  // Allow transparency
+      opacity: 1.0       // Adjust opacity if needed
+    });
+    const whiskeyCube = new THREE.Mesh(geometry, whiskeyMaterial);
+
+      // Position the whiskey cube above the beer cube (e.g., offset in the y-direction)
+      whiskeyCube.position.y = 2; // Adjust this value to set the height above the beer cube
+      scene.add(whiskeyCube);
 
     // Camera Position
     camera.position.z = 5;
 
     // Animation Loop
     function animate() {
-      requestAnimationFrame(animate);
-      cube.rotation.x += 0.01; // Spin on X-axis
-      cube.rotation.y += 0.01; // Spin on Y-axis
-      renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+        cube.rotation.y += 0.01;
+        whiskeyCube.rotation.x -= 0.01;
+        renderer.render(scene, camera);
     }
-
     animate();
-  </script>
+</script>
 </body>
 </html>
